@@ -107,7 +107,37 @@ footer {
     color: white;
 }
 
-/* Projects Page */
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+}
+
+/* Navigation */
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    background: white;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+/* Project Grid */
 .projects {
     text-align: center;
     padding: 50px;
@@ -138,7 +168,7 @@ footer {
     transform: scale(1.05);
 }
 
-/* Modal Styling */
+/* Modal Overlay */
 .modal {
     position: fixed;
     top: 10%;
@@ -194,4 +224,3 @@ footer {
     background: #1e1e1e;
     color: white;
 }
-
