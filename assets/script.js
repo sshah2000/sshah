@@ -87,8 +87,21 @@ function downloadPDF(projectId) {
     const pdfFile = projects[projectId].pdfFile;
     window.open(pdfFile, "_blank");
 }
-
-// Dark Mode Toggle
+// Function to toggle Dark Mode
 function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
+
+    // Save user preference in localStorage
+    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("darkMode", "enabled");
+    } else {
+        localStorage.setItem("darkMode", "disabled");
+    }
 }
+
+// Apply Dark Mode on page load if the user enabled it
+window.onload = function() {
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+    }
+};
