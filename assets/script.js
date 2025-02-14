@@ -20,22 +20,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Project Data
 const projects = {
-    "projectA": {
-        title: "Project A - IMDB Movie Dataset",
-        description: "Exploratory Data Analysis of IMDB movies.",
-        image: "assets/images/projectA.jpg",
-        methods: "Python, Pandas, Matplotlib",
+    "customerChurn": {
+        title: "Customer Churn Analysis",
+        description: "Using machine learning to predict customer churn.",
+        image: "assets/images/churn.jpg",
+        methods: "Python, Scikit-Learn, Logistic Regression",
         code: `import pandas as pd
-df = pd.read_csv('imdb.csv')
-df.head()`
-    },
-    "projectB": {
-        title: "Project B - NBA Shot Analysis",
-        description: "Analyzing NBA shot logs using machine learning.",
-        image: "assets/images/projectB.jpg",
-        methods: "Python, SQL, Seaborn",
-        code: `import seaborn as sns
-sns.scatterplot(x='distance', y='shot_made', data=df)`
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+
+# Load sample dataset
+df = pd.read_csv('customer_data.csv')
+X = df[['tenure', 'monthly_charges']]
+y = df['churn']
+
+# Split into train/test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Train Logistic Regression Model
+model = LogisticRegression()
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+print("Model Training Complete")`
     }
 };
 
@@ -70,8 +77,6 @@ function downloadPDF(project) {
     let pdfPath = "";
     if (project === "customerChurn") {
         pdfPath = "assets/pdf/customer_churn.pdf";
-    } else if (project === "nbaAnalysis") {
-        pdfPath = "assets/pdf/nba_analysis.pdf";
     }
     window.open(pdfPath, "_blank");
 }
