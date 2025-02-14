@@ -1,36 +1,63 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="assets/style.css">
+  <meta charset="UTF-8"/>
+  <title>My Dynamic Portfolio | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="assets/style.css"/>
 </head>
 <body>
-    <header>
-        <button onclick="toggleDarkMode()" class="tab-btn">🌙 Dark Mode</button>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section class="hero">
-        <h1>Welcome to My Portfolio</h1>
-        <p>This site or github site is here to showcase my skills. More updates are on the way! Completion Time 2/16/2025 </p>
-        <a href="projects.html" class="cta-button">View Projects</a>
-    </section>
+  <!-- Glassmorphic Navbar -->
+  <header class="navbar">
+    <div class="nav-content">
+      <div class="logo">MyPortfolio</div>
+      <nav class="menu">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <!-- Dark Mode Toggle -->
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle"/>
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </header>
 
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <h1>Welcome to My Modern, Apple-Inspired Portfolio</h1>
+      <p>
+        A sleek, minimalistic website that dynamically showcases my projects.<br/>
+        Explore the comprehensive features—from Dark Mode to real-time GitHub code fetching.
+      </p>
+      <button onclick="window.location.href='projects.html'">Explore Projects</button>
+    </div>
+  </section>
 
-    <footer>
-        <p>© 2025 My Portfolio. All rights reserved.</p>
-    </footer>
+  <!-- Executive Summary -->
+  <section class="page-section">
+    <h2>Comprehensive Portfolio Website Vision</h2>
+    <p>
+      This portfolio is designed as a modern, Apple-inspired platform with a 
+      sleek, minimalistic interface. It dynamically showcases projects 
+      without requiring manual updates. Sorting, filtering, and GitHub 
+      integrations are all part of the experience.
+    </p>
+    <p>
+      By integrating Dark Mode, tabbed modals, and real-time code hosting, 
+      this portfolio ensures a premium user experience on any device.
+    </p>
+  </section>
 
-    <script src="assets/script.js"></script>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
+  </footer>
+
+  <script src="assets/script.js"></script>
 </body>
 </html>
