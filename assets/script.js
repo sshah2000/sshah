@@ -65,9 +65,15 @@ function showTab(tab) {
     document.getElementById(tab + "Tab").classList.remove("hidden");
 }
 
-// Download PDF (Replace with actual file paths)
-function downloadPDF() {
-    window.open("assets/pdf/sample-report.pdf", "_blank");
+// Download PDF
+function downloadPDF(project) {
+    let pdfPath = "";
+    if (project === "customerChurn") {
+        pdfPath = "assets/pdf/customer_churn.pdf";
+    } else if (project === "nbaAnalysis") {
+        pdfPath = "assets/pdf/nba_analysis.pdf";
+    }
+    window.open(pdfPath, "_blank");
 }
 
 // Dark Mode Toggle
