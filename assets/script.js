@@ -30,58 +30,92 @@ const projects = {
     }
 };
 
-// Open Project Modal and Fetch Code
+// Open Project Modal and Load Data
 function openProject(projectId) {
     const project = projects[projectId];
 
+    // Update modal content dynamically
     document.getElementById("projectTitle").innerText = project.title;
     document.getElementById("projectDescription").innerText = project.description;
     document.getElementById("projectImage").src = project.image;
     document.getElementById("projectMethods").innerText = project.methods;
 
-    // Dynamically load PDF inside the Report tab
+    // Load Report inside the Report Tab
     document.getElementById("reportTab").innerHTML = `
         <h2>Report</h2>
-        <iframe src="${project.pdfFile}" width="100%" height="500px"></iframe>
+        <iframe src="${project.pdfFile}" width="100%" height="500px" style="border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"></iframe>
         <a href="${project.pdfFile}" class="download-btn" target="_blank">📥 Download Full Report</a>
     `;
 
-    // Fetch and highlight Python code
+    // Fetch Python Code and Apply Syntax Highlighting
     fetch(project.codeFile)
         .then(response => response.text())
         .then(code => {
             document.getElementById("projectCode").innerHTML = `<pre><code class="language-python">${code}</code></pre>`;
-            Prism.highlightAll();
+            Prism.highlightAll();  // Apply syntax highlighting
         })
         .catch(error => console.error("Error loading code:", error));
 
-    document.getElementById("projectModal").style.display = "block";
+    // Show modal with animation
+    const modal = document.getElementById("projectModal");
+    modal.style.opacity = "0";  // Start hidden
+    modal.style.transform = "translateY(-20px)";
+    modal.style.display = "block";  // Show modal
+
+    // Smooth fade-in effect
+    setTimeout(() => {
+        modal.style.opacity = "1";
+        modal.style.transform = "translateY(0)";
+    }, 50);
+
+    // Default: Show Report Tab first
+    showTab('report');
 }
 
 // Switch Tabs & Highlight Active
 function showTab(tab) {
-    document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
-    document.getElementById(tab + "Tab").classList.add("active");
+    // Hide all tabs
+    document.getElementById("reportTab").classList.add("hidden");
+    document.getElementById("codeTab").classList.add("hidden");
 
+    // Remove active state from buttons
     document.querySelectorAll(".tab-btn").forEach(button => button.classList.remove("active"));
+
+    // Show the selected tab
+    document.getElementById(tab + "Tab").classList.remove("hidden");
+
+    // Highlight the active tab button
     document.querySelector(`button[onclick="showTab('${tab}')"]`).classList.add("active");
 }
 
-// Close Modal
+// Close Modal with Smooth Animation
 function closeProject() {
-    document.getElementById("projectModal").style.display = "none";
+    const modal = document.getElementById("projectModal");
+
+    // Fade out effect before hiding
+    modal.style.opacity = "0";
+    modal.style.transform = "translateY(-20px)";
+
+    setTimeout(() => {
+        modal.style.display = "none";
+    }, 300);
 }
 
-// Dark Mode Toggle
+// Dark Mode Toggle with Persistent Storage
 function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
-    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
+
+    // Save preference in localStorage
+    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("darkMode", "enabled");
+    } else {
+        localStorage.setItem("darkMode", "disabled");
+    }
 }
 
-// Apply Dark Mode if it was enabled before
-window.onload = function() {
+// Apply Dark Mode if enabled before
+window.onload = function () {
     if (localStorage.getItem("darkMode") === "enabled") {
         document.body.classList.add("dark-mode");
     }
 };
-
