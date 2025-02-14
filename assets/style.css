@@ -177,3 +177,55 @@ footer {
     display: none;
 }
 
+// Project Data
+const projects = {
+    "projectA": {
+        title: "Project A - IMDB Movie Dataset",
+        description: "Exploratory Data Analysis of IMDB movies.",
+        image: "assets/images/projectA.jpg",
+        methods: "Python, Pandas, Matplotlib",
+        code: `import pandas as pd
+df = pd.read_csv('imdb.csv')
+df.head()`
+    },
+    "projectB": {
+        title: "Project B - NBA Shot Analysis",
+        description: "Analyzing NBA shot logs using machine learning.",
+        image: "assets/images/projectB.jpg",
+        methods: "Python, SQL, Seaborn",
+        code: `import seaborn as sns
+sns.scatterplot(x='distance', y='shot_made', data=df)`
+    }
+};
+
+// Open Project Function
+function openProject(projectId) {
+    const project = projects[projectId];
+
+    document.getElementById("projectTitle").innerText = project.title;
+    document.getElementById("projectDescription").innerText = project.description;
+    document.getElementById("projectImage").src = project.image;
+    document.getElementById("projectMethods").innerText = project.methods;
+    document.getElementById("projectCode").innerText = project.code;
+
+    document.getElementById("fullProjectView").classList.remove("hidden");
+}
+
+// Close Project View
+function closeProject() {
+    document.getElementById("fullProjectView").classList.add("hidden");
+}
+
+// Tab Switching
+function showTab(tab) {
+    document.getElementById("reportTab").classList.add("hidden");
+    document.getElementById("codeTab").classList.add("hidden");
+
+    document.getElementById(tab + "Tab").classList.remove("hidden");
+}
+
+// Download PDF (Replace with actual file paths)
+function downloadPDF() {
+    window.open("assets/pdf/sample-report.pdf", "_blank");
+}
+
