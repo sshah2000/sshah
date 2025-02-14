@@ -46,7 +46,7 @@ const projects = {
     }
 };
 
-// Open Project Modal and Fetch Code File
+// Fetch and display project details in the modal
 function openProject(projectId) {
     const project = projects[projectId];
 
@@ -55,13 +55,20 @@ function openProject(projectId) {
     document.getElementById("projectImage").src = project.image;
     document.getElementById("projectMethods").innerText = project.methods;
 
-    // Fetch the Python code dynamically
+    // Fetch Python code and apply syntax highlighting
     fetch(project.codeFile)
         .then(response => response.text())
         .then(code => {
-            document.getElementById("projectCode").innerText = code;
+            const codeBlock = document.getElementById("projectCode");
+            codeBlock.innerHTML = `<pre><code class="language-python">${code}</code></pre>`;
+            Prism.highlightAll(); // Apply syntax highlighting
         })
         .catch(error => console.error("Error loading code:", error));
+
+    // Display modal
+    document.getElementById("projectModal").style.display = "block";
+}
+
 
     // Update the download button for PDF
     document.querySelector(".download-btn").setAttribute("onclick", `downloadPDF('${projectId}')`);
