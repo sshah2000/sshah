@@ -94,8 +94,12 @@ input:checked + .slider:before {
   text-align: center;
   padding-top: 3rem; /* offset for navbar */
   background: url('assets/images/hero-bg.jpg') center/cover no-repeat;
-  color: #fff;
+  color: #333;
 }
+
+.dark .hero-section {
+  color: #fff;
+  
 .hero-container {
   max-width: 800px;
 }
