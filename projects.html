@@ -40,27 +40,32 @@
         </div>
     </section>
 
-    <!-- Full Project View (Hidden by Default) -->
-    <section id="fullProjectView" class="hidden">
-        <div class="project-details">
-            <button class="close-btn" onclick="closeProject()">✖</button>
+    <!-- Modal Pop-up for Project Details -->
+    <div id="projectModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeProject()">&times;</span>
             <h1 id="projectTitle"></h1>
+            
+            <!-- Tabs for Report and Code -->
             <div class="tabs">
                 <button class="tab-btn" onclick="showTab('report')">Report</button>
                 <button class="tab-btn" onclick="showTab('code')">Code</button>
-                <button class="tab-btn" onclick="downloadPDF()">Download PDF</button>
+                <button class="tab-btn" onclick="toggleDarkMode()">Dark Mode</button>
             </div>
+
             <div id="reportTab" class="tab-content">
                 <p id="projectDescription"></p>
                 <img id="projectImage" src="" alt="">
                 <h3>Methodology</h3>
                 <p id="projectMethods"></p>
             </div>
+
             <div id="codeTab" class="tab-content hidden">
                 <pre id="projectCode"></pre>
             </div>
-        </div>
-    </section>
 
+            <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
+        </div>
+    </div>
 </body>
 </html>
