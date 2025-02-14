@@ -27,26 +27,10 @@ const projects = {
         methods: "Python, Scikit-Learn, Logistic Regression",
         codeFile: "assets/code/customer_churn.py",
         pdfFile: "assets/pdf/customer_churn.pdf"
-    },
-    "stockPrediction": {
-        title: "Stock Price Prediction",
-        description: "Forecasting stock prices using deep learning models.",
-        image: "assets/images/stock.jpg",
-        methods: "Python, TensorFlow, LSTM",
-        codeFile: "assets/code/stock_prediction.py",
-        pdfFile: "assets/pdf/stock_prediction.pdf"
-    },
-    "salesForecasting": {
-        title: "Sales Forecasting",
-        description: "Predicting future sales using time series analysis.",
-        image: "assets/images/sales.jpg",
-        methods: "Python, ARIMA, Statsmodels",
-        codeFile: "assets/code/sales_forecasting.py",
-        pdfFile: "assets/pdf/sales_forecasting.pdf"
     }
 };
 
-// Fetch and display project details in the modal
+// Open Project Modal and Fetch Code
 function openProject(projectId) {
     const project = projects[projectId];
 
@@ -55,60 +39,49 @@ function openProject(projectId) {
     document.getElementById("projectImage").src = project.image;
     document.getElementById("projectMethods").innerText = project.methods;
 
-    // Fetch Python code and apply syntax highlighting
+    // Dynamically load PDF inside the Report tab
+    document.getElementById("reportTab").innerHTML = `
+        <h2>Report</h2>
+        <iframe src="${project.pdfFile}" width="100%" height="500px"></iframe>
+        <a href="${project.pdfFile}" class="download-btn" target="_blank">📥 Download Full Report</a>
+    `;
+
+    // Fetch and highlight Python code
     fetch(project.codeFile)
         .then(response => response.text())
         .then(code => {
-            const codeBlock = document.getElementById("projectCode");
-            codeBlock.innerHTML = `<pre><code class="language-python">${code}</code></pre>`;
-            Prism.highlightAll(); // Apply syntax highlighting
+            document.getElementById("projectCode").innerHTML = `<pre><code class="language-python">${code}</code></pre>`;
+            Prism.highlightAll();
         })
         .catch(error => console.error("Error loading code:", error));
 
-    // Display modal
     document.getElementById("projectModal").style.display = "block";
 }
 
+// Switch Tabs & Highlight Active
+function showTab(tab) {
+    document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
+    document.getElementById(tab + "Tab").classList.add("active");
 
-    // Update the download button for PDF
-    document.querySelector(".download-btn").setAttribute("onclick", `downloadPDF('${projectId}')`);
-
-    document.getElementById("projectModal").style.display = "block";
+    document.querySelectorAll(".tab-btn").forEach(button => button.classList.remove("active"));
+    document.querySelector(`button[onclick="showTab('${tab}')"]`).classList.add("active");
 }
 
-// Close Project Modal
+// Close Modal
 function closeProject() {
     document.getElementById("projectModal").style.display = "none";
 }
 
-// Tab Switching
-function showTab(tab) {
-    document.getElementById("reportTab").classList.add("hidden");
-    document.getElementById("codeTab").classList.add("hidden");
-
-    document.getElementById(tab + "Tab").classList.remove("hidden");
-}
-
-// Download PDF for selected project
-function downloadPDF(projectId) {
-    const pdfFile = projects[projectId].pdfFile;
-    window.open(pdfFile, "_blank");
-}
-// Function to toggle Dark Mode
+// Dark Mode Toggle
 function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
-
-    // Save the user's preference in localStorage
-    if (document.body.classList.contains("dark-mode")) {
-        localStorage.setItem("darkMode", "enabled");
-    } else {
-        localStorage.setItem("darkMode", "disabled");
-    }
+    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
 }
 
-// Apply Dark Mode on page load if the user enabled it
+// Apply Dark Mode if it was enabled before
 window.onload = function() {
     if (localStorage.getItem("darkMode") === "enabled") {
         document.body.classList.add("dark-mode");
     }
 };
+
