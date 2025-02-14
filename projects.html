@@ -22,30 +22,22 @@
     <section class="projects">
         <h1>My Data Analytics Projects</h1>
         <div class="projects-grid">
-            <!-- Project A -->
-            <div class="project-card" onclick="openProject('projectA')">
-                <img src="assets/images/projectA.jpg" alt="Project A">
-                <h2>Project A</h2>
-                <p>Exploring trends in the IMDB Movie Dataset.</p>
-                <p><strong>Methods:</strong> Python, Pandas, Matplotlib</p>
-            </div>
-
-            <!-- Project B -->
-            <div class="project-card" onclick="openProject('projectB')">
-                <img src="assets/images/projectB.jpg" alt="Project B">
-                <h2>Project B</h2>
-                <p>NBA Shot Analysis using Machine Learning.</p>
-                <p><strong>Methods:</strong> Python, SQL, Seaborn</p>
+            <!-- Customer Churn Project -->
+            <div class="project-card" onclick="openProject('customerChurn')">
+                <img src="assets/images/churn.jpg" alt="Customer Churn">
+                <h2>Customer Churn Analysis</h2>
+                <p>Predicting customer churn using machine learning.</p>
+                <p><strong>Methods:</strong> Python, Scikit-Learn, Logistic Regression</p>
             </div>
         </div>
     </section>
 
-    <!-- Modal Pop-up for Project Details -->
+    <!-- Modal for Project Overlay -->
     <div id="projectModal" class="modal hidden">
         <div class="modal-content">
             <span class="close-btn" onclick="closeProject()">&times;</span>
             <h1 id="projectTitle"></h1>
-            
+
             <!-- Tabs for Report and Code -->
             <div class="tabs">
                 <button class="tab-btn" onclick="showTab('report')">Report</button>
@@ -64,7 +56,7 @@
                 <pre id="projectCode"></pre>
             </div>
 
-            <button class="download-btn" onclick="downloadPDF()">Download PDF</button>
+            <button class="download-btn" onclick="downloadPDF('customerChurn')">Download Report</button>
         </div>
     </div>
 </body>
