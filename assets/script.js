@@ -25,28 +25,28 @@ const projects = {
         description: "Using machine learning to predict customer churn.",
         image: "assets/images/churn.jpg",
         methods: "Python, Scikit-Learn, Logistic Regression",
-        code: `import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-
-# Load sample dataset
-df = pd.read_csv('customer_data.csv')
-X = df[['tenure', 'monthly_charges']]
-y = df['churn']
-
-# Split into train/test
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-# Train Logistic Regression Model
-model = LogisticRegression()
-model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
-
-print("Model Training Complete")`
+        codeFile: "assets/code/customer_churn.py",
+        pdfFile: "assets/pdf/customer_churn.pdf"
+    },
+    "stockPrediction": {
+        title: "Stock Price Prediction",
+        description: "Forecasting stock prices using deep learning models.",
+        image: "assets/images/stock.jpg",
+        methods: "Python, TensorFlow, LSTM",
+        codeFile: "assets/code/stock_prediction.py",
+        pdfFile: "assets/pdf/stock_prediction.pdf"
+    },
+    "salesForecasting": {
+        title: "Sales Forecasting",
+        description: "Predicting future sales using time series analysis.",
+        image: "assets/images/sales.jpg",
+        methods: "Python, ARIMA, Statsmodels",
+        codeFile: "assets/code/sales_forecasting.py",
+        pdfFile: "assets/pdf/sales_forecasting.pdf"
     }
 };
 
-// Open Project Modal
+// Open Project Modal and Fetch Code File
 function openProject(projectId) {
     const project = projects[projectId];
 
@@ -54,7 +54,17 @@ function openProject(projectId) {
     document.getElementById("projectDescription").innerText = project.description;
     document.getElementById("projectImage").src = project.image;
     document.getElementById("projectMethods").innerText = project.methods;
-    document.getElementById("projectCode").innerText = project.code;
+
+    // Fetch the Python code dynamically
+    fetch(project.codeFile)
+        .then(response => response.text())
+        .then(code => {
+            document.getElementById("projectCode").innerText = code;
+        })
+        .catch(error => console.error("Error loading code:", error));
+
+    // Update the download button for PDF
+    document.querySelector(".download-btn").setAttribute("onclick", `downloadPDF('${projectId}')`);
 
     document.getElementById("projectModal").style.display = "block";
 }
@@ -72,13 +82,10 @@ function showTab(tab) {
     document.getElementById(tab + "Tab").classList.remove("hidden");
 }
 
-// Download PDF
-function downloadPDF(project) {
-    let pdfPath = "";
-    if (project === "customerChurn") {
-        pdfPath = "assets/pdf/customer_churn.pdf";
-    }
-    window.open(pdfPath, "_blank");
+// Download PDF for selected project
+function downloadPDF(projectId) {
+    const pdfFile = projects[projectId].pdfFile;
+    window.open(pdfFile, "_blank");
 }
 
 // Dark Mode Toggle
