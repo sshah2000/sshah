@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Awesome Project",
+    "description": "A modern, dynamic project featuring real-time data.",
+    "technologies": ["HTML", "CSS", "JavaScript"],
+    "thumbnail": "assets/images/sample-project.jpg",
+    "repoUrl": "https://github.com/YourUser/awesome-project",
+    "liveDemo": "https://YourUser.github.io/awesome-project",
+    "reportPdf": "assets/awesome-project-report.pdf",
+    "codeFiles": [
+      "https://raw.githubusercontent.com/YourUser/awesome-project/main/script.js"
+    ],
+    "date": "2025-01-10",
+    "tags": ["web", "demo"]
+  },
+  {
+    "title": "Machine Learning Demo",
+    "description": "Exploring data science and ML algorithms.",
+    "technologies": ["Python", "Pandas", "NumPy"],
+    "thumbnail": "assets/images/ml-project.jpg",
+    "repoUrl": "https://github.com/YourUser/ml-demo",
+    "liveDemo": "",
+    "reportPdf": "assets/ml-report.pdf",
+    "codeFiles": [
+      "https://raw.githubusercontent.com/YourUser/ml-demo/main/notebook.py"
+    ],
+    "date": "2025-02-01",
+    "tags": ["machine-learning", "python"]
+  }
+]
