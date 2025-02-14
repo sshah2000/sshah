@@ -164,25 +164,38 @@ footer {
     }
 }
 
-/* 🏗 Modal (Project Overlay) */
+/* 📝 Modal Styling */
 .modal {
     position: fixed;
-    top: 10%;
+    top: 5%;
     left: 50%;
     transform: translateX(-50%);
     background: white;
-    padding: 30px;
-    width: 80%;
-    max-width: 800px;
+    padding: 40px;
+    width: 85%;
+    max-width: 900px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    display: none;
     border-radius: 12px;
+    overflow-y: auto;
+    max-height: 85vh;
 }
 
+/* 📜 Code Block Styling */
+pre {
+    background: #2d2d2d; /* Dark gray for readability */
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    overflow-x: auto;
+}
+
+/* Ensure spacing inside modal */
 .modal-content {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
-
 /* ❌ Close Button */
 .close-btn {
     position: absolute;
