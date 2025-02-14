@@ -39,7 +39,7 @@ sns.scatterplot(x='distance', y='shot_made', data=df)`
     }
 };
 
-// Open Project Function
+// Open Project Modal
 function openProject(projectId) {
     const project = projects[projectId];
 
@@ -49,12 +49,12 @@ function openProject(projectId) {
     document.getElementById("projectMethods").innerText = project.methods;
     document.getElementById("projectCode").innerText = project.code;
 
-    document.getElementById("fullProjectView").classList.remove("hidden");
+    document.getElementById("projectModal").style.display = "block";
 }
 
-// Close Project View
+// Close Project Modal
 function closeProject() {
-    document.getElementById("fullProjectView").classList.add("hidden");
+    document.getElementById("projectModal").style.display = "none";
 }
 
 // Tab Switching
@@ -68,4 +68,9 @@ function showTab(tab) {
 // Download PDF (Replace with actual file paths)
 function downloadPDF() {
     window.open("assets/pdf/sample-report.pdf", "_blank");
+}
+
+// Dark Mode Toggle
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
 }
