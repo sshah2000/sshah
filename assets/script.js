@@ -91,7 +91,7 @@ function downloadPDF(projectId) {
 function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
 
-    // Save user preference in localStorage
+    // Save the user's preference in localStorage
     if (document.body.classList.contains("dark-mode")) {
         localStorage.setItem("darkMode", "enabled");
     } else {
