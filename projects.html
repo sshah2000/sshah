@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <script defer src="assets/script.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="projects">
+        <h1>My Data Analytics Projects</h1>
+        <div class="projects-grid">
+            <!-- Project A -->
+            <div class="project-card" onclick="openProject('projectA')">
+                <img src="assets/images/projectA.jpg" alt="Project A">
+                <h2>Project A</h2>
+                <p>Exploring trends in the IMDB Movie Dataset.</p>
+                <p><strong>Methods:</strong> Python, Pandas, Matplotlib</p>
+            </div>
+
+            <!-- Project B -->
+            <div class="project-card" onclick="openProject('projectB')">
+                <img src="assets/images/projectB.jpg" alt="Project B">
+                <h2>Project B</h2>
+                <p>NBA Shot Analysis using Machine Learning.</p>
+                <p><strong>Methods:</strong> Python, SQL, Seaborn</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Full Project View (Hidden by Default) -->
+    <section id="fullProjectView" class="hidden">
+        <div class="project-details">
+            <button class="close-btn" onclick="closeProject()">✖</button>
+            <h1 id="projectTitle"></h1>
+            <div class="tabs">
+                <button class="tab-btn" onclick="showTab('report')">Report</button>
+                <button class="tab-btn" onclick="showTab('code')">Code</button>
+                <button class="tab-btn" onclick="downloadPDF()">Download PDF</button>
+            </div>
+            <div id="reportTab" class="tab-content">
+                <p id="projectDescription"></p>
+                <img id="projectImage" src="" alt="">
+                <h3>Methodology</h3>
+                <p id="projectMethods"></p>
+            </div>
+            <div id="codeTab" class="tab-content hidden">
+                <pre id="projectCode"></pre>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
