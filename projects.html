@@ -45,22 +45,19 @@
     </div>
   </section>
 
-  <!-- Modal for Project Details -->
-  <div id="projectModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" id="modalCloseBtn">&times;</span>
-      <div class="modal-tabs">
-        <button class="tablinks active" data-tab="overviewTab">Overview</button>
-        <button class="tablinks" data-tab="liveDemoTab">Live Demo</button>
-        <button class="tablinks" data-tab="reportTab">Report</button>
-        <button class="tablinks" data-tab="codeTab">Code</button>
-      </div>
-      <div id="overviewTab" class="tabcontent active"></div>
-      <div id="liveDemoTab" class="tabcontent"></div>
-      <div id="reportTab" class="tabcontent"></div>
-      <div id="codeTab" class="tabcontent"></div>
+<!-- Modal for Project Details -->
+<div id="projectModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" id="modalCloseBtn">&times;</span>
+    <div class="modal-tabs">
+      <!-- Keep only two buttons: Overview & Code -->
+      <button class="tablinks active" data-tab="overviewTab">Overview</button>
+      <button class="tablinks" data-tab="codeTab">Code</button>
     </div>
+    <div id="overviewTab" class="tabcontent active"></div>
+    <div id="codeTab" class="tabcontent"></div>
   </div>
+</div>
 
   <!-- Footer -->
   <footer class="footer">
