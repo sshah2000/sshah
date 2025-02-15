@@ -1,0 +1,5 @@
+# .gitignore
+app.py
+templates/admin.html
+venv/
+__pycache__/
