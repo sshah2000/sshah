@@ -1,17 +1,17 @@
-/*******************************************************
+/************************************************
  * DARK MODE TOGGLE
- *******************************************************/
+ ************************************************/
 const darkModeToggle = document.getElementById('darkModeToggle');
 if (darkModeToggle) {
-  // On load, read local storage and set theme
   document.addEventListener('DOMContentLoaded', () => {
+    // Load theme from localStorage
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
       document.body.classList.add('dark');
       darkModeToggle.checked = true;
     }
   });
-  // Listen for toggle
+
   darkModeToggle.addEventListener('change', () => {
     document.body.classList.toggle('dark');
     if (document.body.classList.contains('dark')) {
@@ -22,14 +22,14 @@ if (darkModeToggle) {
   });
 }
 
-/*******************************************************
- * LOAD PROJECTS (only on projects.html)
- *******************************************************/
-let projectData = [];
+/************************************************
+ * PROJECTS LOADING
+ ************************************************/
 const projectCardsContainer = document.getElementById('projectCardsContainer');
+let projectData = [];
 
 if (projectCardsContainer) {
-  // Fetch the JSON data
+  // Fetch projects.json
   fetch('assets/projects.json')
     .then(response => response.json())
     .then(data => {
@@ -39,20 +39,19 @@ if (projectCardsContainer) {
     .catch(err => console.error('Error loading projects:', err));
 }
 
-/*******************************************************
- * RENDER PROJECT CARDS
- *******************************************************/
 function renderProjectCards(projects) {
   projectCardsContainer.innerHTML = '';
 
   projects.forEach((project, index) => {
+    // Create a card
     const card = document.createElement('div');
     card.classList.add('project-card');
     card.setAttribute('data-index', index);
 
-    // Thumbnail
+    // Thumbnail (fallback to default if not provided)
+    let imgSrc = project.thumbnail ? project.thumbnail : 'assets/images/default.png';
     const img = document.createElement('img');
-    img.src = project.thumbnail || 'assets/images/default.png';
+    img.src = imgSrc;
     card.appendChild(img);
 
     // Card content
@@ -68,14 +67,16 @@ function renderProjectCards(projects) {
     cardContent.appendChild(desc);
 
     card.appendChild(cardContent);
+
+    // On click -> open modal
     card.addEventListener('click', () => openModal(index));
     projectCardsContainer.appendChild(card);
   });
 }
 
-/*******************************************************
+/************************************************
  * MODAL LOGIC
- *******************************************************/
+ ************************************************/
 const modal = document.getElementById('projectModal');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
 const tabLinks = document.querySelectorAll('.tablinks');
@@ -90,18 +91,15 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// Open modal
+// Open modal with 2 tabs: Overview & Code
 function openModal(index) {
   if (!modal) return;
-
   const project = projectData[index];
   modal.style.display = 'flex';
 
   // Reset tabs
-  tabLinks.forEach(link => link.classList.remove('active'));
+  tabLinks.forEach(btn => btn.classList.remove('active'));
   tabContents.forEach(tc => tc.classList.remove('active'));
-
-  // Default tab => Overview
   tabLinks[0].classList.add('active');
   tabContents[0].classList.add('active');
 
@@ -109,43 +107,45 @@ function openModal(index) {
   const overviewTab = document.getElementById('overviewTab');
   overviewTab.innerHTML = `
     <h2>${project.title}</h2>
-    <p>${project.description}</p>
+    <p><strong>Date:</strong> ${project.date}</p>
+    <p><strong>Description:</strong> ${project.description}</p>
+    <p><strong>Methodology:</strong> ${project.methodology || 'N/A'}</p>
     <p><strong>Technologies:</strong> ${project.technologies.join(', ')}</p>
-    <p><a href="${project.repoUrl}" target="_blank">GitHub Repo</a></p>
+
+    <!-- Multi-subsection approach -->
+    <h3>Story / Background</h3>
+    <p>${project.overview?.story || 'No story provided.'}</p>
+
+    <h3>Collected Data</h3>
+    <p>${project.overview?.collectedData || 'No data info provided.'}</p>
+
+    <h3>Conclusions</h3>
+    <p>${project.overview?.conclusions || 'No conclusions provided.'}</p>
+
+    <!-- If there's a PDF or link you want to show: -->
+    ${
+      project.reportPdf 
+        ? `<p><strong>Report:</strong> <a href="${project.reportPdf}" target="_blank">View PDF</a></p>`
+        : ''
+    }
+
+    <p><strong>GitHub Repo:</strong> <a href="${project.repoUrl}" target="_blank">Link</a></p>
   `;
 
-  // Fill Live Demo
-  const liveDemoTab = document.getElementById('liveDemoTab');
-  if (project.liveDemo) {
-    liveDemoTab.innerHTML = `
-      <iframe src="${project.liveDemo}" width="100%" height="400"></iframe>
-    `;
-  } else {
-    liveDemoTab.innerHTML = `<p>No live demo available.</p>`;
-  }
-
-  // Fill Report
-  const reportTab = document.getElementById('reportTab');
-  if (project.reportPdf) {
-    reportTab.innerHTML = `
-      <embed src="${project.reportPdf}" type="application/pdf" width="100%" height="400" />
-    `;
-  } else {
-    reportTab.innerHTML = `<p>No report available.</p>`;
-  }
-
-  // Fill Code
+  // Fill Code Tab
   const codeTab = document.getElementById('codeTab');
   codeTab.innerHTML = '';
+
   if (project.codeFiles && project.codeFiles.length) {
     project.codeFiles.forEach(fileUrl => {
       fetch(fileUrl)
         .then(res => res.text())
         .then(codeContent => {
           const codeBlock = document.createElement('pre');
-          // If using Prism.js or highlight.js, wrap code in <code> and highlight
           codeBlock.textContent = codeContent;
           codeTab.appendChild(codeBlock);
+          // If using Prism.js or highlight.js, you can highlight here
+          // Prism.highlightAll();
         })
         .catch(error => {
           const errorMsg = document.createElement('p');
@@ -158,9 +158,7 @@ function openModal(index) {
   }
 }
 
-// Close modal
 function closeModal() {
-  if (!modal) return;
   modal.style.display = 'none';
 }
 
@@ -176,9 +174,9 @@ tabLinks.forEach(btn => {
   });
 });
 
-/*******************************************************
- * SORTING (OPTIONAL)
- *******************************************************/
+/************************************************
+ * OPTIONAL SORTING
+ ************************************************/
 function sortProjects() {
   const sortSelect = document.getElementById('sortSelect');
   const sortValue = sortSelect.value;
@@ -186,11 +184,11 @@ function sortProjects() {
   let sorted = [...projectData];
 
   if (sortValue === 'date') {
-    // Most recent first
+    // newest to oldest
     sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
   } else if (sortValue === 'title') {
     sorted.sort((a, b) => a.title.localeCompare(b.title));
   }
   renderProjectCards(sorted);
 }
-window.sortProjects = sortProjects; // Expose globally if needed
+window.sortProjects = sortProjects; // so it can be called from the HTML
