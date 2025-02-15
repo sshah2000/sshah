@@ -64,5 +64,25 @@
       "collectedData": "",
       "conclusions": ""
     }
+  },
+  {
+    "title": "Broken",
+    "date": "2001-09-11",
+    "description": "Its really stupid",
+    "methodology": "ALot of studying and alot of work and data",
+    "technologies": [
+      "Linear Regression",
+      "Logistic Regression"
+    ],
+    "thumbnail": "assets/images/default.png",
+    "liveDemo": "",
+    "repoUrl": "",
+    "codeFiles": [],
+    "reportPdf": "",
+    "overview": {
+      "story": "It was cool",
+      "collectedData": "Amazing info",
+      "conclusions": "Very boring"
+    }
   }
 ]
