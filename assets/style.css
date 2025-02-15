@@ -86,61 +86,49 @@ input:checked + .slider:before {
 }
 
 /* =======================
-   3. Hero Section
+   HERO SECTION
    ======================= */
 .hero-section {
   position: relative;
-  min-height: 100vh;
+  min-height: 100vh;    /* Full screen height */
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding-top: 4rem; /* offset for your navbar */
-  
+  padding-top: 4rem;    /* Offset for navbar */
+
   /* 
-     This uses a semi-transparent gradient on top of the image. 
-     The background-blend-mode merges them, giving you a tinted effect 
-     while still allowing the bright colors to show through.
+    1) The gradient for tint: linear-gradient(...)
+    2) The actual image: url(...)
+    3) background-blend-mode: 'overlay' merges them.
   */
-  background: 
-    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url("assets/images/IMG_0599_1000.jpeg") center/cover no-repeat;
-    
-  background-blend-mode: overlay; /* or "multiply", "screen", etc. */
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), 
+    url("assets/images/IMG_0599.png") center/cover no-repeat;
+  background-blend-mode: overlay;
 }
 
-/* Optional overlay for better text contrast */
-.hero-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.25);
-  z-index: 0;
-}
-
-/* The container that holds the text and button, placed above the overlay */
+/* 
+   .hero-container ensures text is on top, with white color for readability.
+*/
 .hero-container {
-  position: relative; 
-  z-index: 1;      /* ensures text is above the overlay */
-  color: #fff;     /* text color; can tweak as desired */
+  position: relative;
+  z-index: 1;      /* so it's above the background */
+  color: #fff;
   max-width: 800px;
   margin: 0 1rem;
 }
 
-/* If you have a Dark Mode class on <body>, you can override the overlay color */
-body.dark .hero-section::before {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-/* Additional styling for hero text & button */
 .hero-container h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
 }
+
 .hero-container p {
   font-size: 1.2rem;
   margin-bottom: 2rem;
 }
+
 .hero-container button {
   padding: 0.8rem 1.5rem;
   border: none;
@@ -149,8 +137,17 @@ body.dark .hero-section::before {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .hero-container button:hover {
   background-color: #005ec2;
+}
+
+/* Optional: Dark Mode - adjust the gradient if you want it darker in dark mode */
+body.dark .hero-section {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+    url("assets/images/IMG_0599.png") center/cover no-repeat;
+  background-blend-mode: overlay;
 }
 /* =======================
    4. Page Sections
