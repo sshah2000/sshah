@@ -90,49 +90,63 @@ input:checked + .slider:before {
    ======================= */
 .hero-section {
   position: relative;
-  min-height: 100vh;
-  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh;    /* ensures full vertical space */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding-top: 3rem; /* offset for navbar */
-  background: url('assets/images/hero-bg.jpg') center/cover no-repeat;
+  padding-top: 4rem;    /* offset for the navbar's height */
+  background: url("assets/images/IMG_0599.png") center/cover no-repeat;
+  /* 
+     The above line references your psychedelic image file. 
+     Make sure "psychedelic-hero.jpg" is actually in "assets/images/" 
+     or adjust the path accordingly.
+  */
 }
 
-/* Overlay for hero to improve contrast */
+/* Optional overlay for better text contrast */
 .hero-section::before {
   content: "";
-  position: absolute; inset: 0;
-  background-color: rgba(255,255,255,0.5); /* lighten the bg in Light Mode */
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.25);
   z-index: 0;
 }
-body.dark .hero-section::before {
-  background-color: rgba(0,0,0,0.5); /* darken the bg in Dark Mode */
-}
+
+/* The container that holds the text and button, placed above the overlay */
 .hero-container {
-  position: relative; /* on top of overlay */
-  z-index: 1;
-  color: #333;
-  max-width: 700px;
+  position: relative; 
+  z-index: 1;      /* ensures text is above the overlay */
+  color: #fff;     /* text color; can tweak as desired */
+  max-width: 800px;
   margin: 0 1rem;
 }
-body.dark .hero-container {
-  color: #fff;
+
+/* If you have a Dark Mode class on <body>, you can override the overlay color */
+body.dark .hero-section::before {
+  background-color: rgba(0, 0, 0, 0.5);
 }
+
+/* Additional styling for hero text & button */
 .hero-container h1 {
-  font-size: 2.5rem; margin-bottom: 1rem;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
 }
 .hero-container p {
-  font-size: 1.2rem; margin-bottom: 2rem;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
 }
 .hero-container button {
-  padding: 0.8rem 1.5rem; border: none;
-  background-color: #0077ff; color: #fff;
-  border-radius: 5px; cursor: pointer;
-  transition: background-color 0.2s;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  background-color: #0077ff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .hero-container button:hover {
   background-color: #005ec2;
 }
-
 /* =======================
    4. Page Sections
    ======================= */
@@ -301,29 +315,3 @@ body.dark .footer {
   }
 }
 
-
-.hero-section {
-  min-height: 100vh;
-  background: url("assets/images/IMG_0599.png") center/cover no-repeat;
-  position: relative;
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  text-align: center;
-}
-
-/* Optional overlay */
-.hero-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0,0,0,0.3);
-  z-index: 0;
-}
-
-.hero-container {
-  position: relative;
-  z-index: 1;
-  color: #fff; 
-  /* etc. */
-}
