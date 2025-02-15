@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Portfolio | Contact</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+
+  <!-- Header / Nav -->
+  <header class="navbar">
+    <div class="nav-content">
+      <div class="logo">MyPortfolio</div>
+      <nav class="menu">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html" class="active">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contact Section -->
+  <section class="page-section contact-section">
+    <h2>Contact Me</h2>
+    <form class="contact-form" action="https://formspree.io/f/yourFormId" method="POST">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required/>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="_replyto" required/>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <!-- Footer (Optional) -->
+  <footer class="footer">
+    <p>© 2025 MyPortfolio. All Rights Reserved.</p>
+  </footer>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>
