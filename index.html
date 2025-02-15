@@ -1,63 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8">
   <title>My Dynamic Portfolio | Home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="assets/style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
-  <!-- Glassmorphic Navbar -->
-  <header class="navbar">
-    <div class="nav-content">
-      <div class="logo">MyPortfolio</div>
-      <nav class="menu">
-        <a href="index.html" class="active">Home</a>
-        <a href="about.html">About</a>
-        <a href="projects.html">Projects</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <!-- Dark Mode Toggle -->
-      <label class="switch">
-        <input type="checkbox" id="darkModeToggle"/>
-        <span class="slider round"></span>
-      </label>
-    </div>
-  </header>
+<!-- Glassmorphic Navbar -->
+<header class="navbar">
+  <div class="nav-content">
+    <div class="logo">MyPortfolio</div>
+    <nav class="menu">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <!-- Dark Mode Toggle -->
+    <label class="switch">
+      <input type="checkbox" id="darkModeToggle">
+      <span class="slider round"></span>
+    </label>
+  </div>
+</header>
 
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-container">
-      <h1>Welcome to My Modern, Apple-Inspired Portfolio</h1>
-      <p>
-        A sleek, minimalistic website that dynamically showcases my projects.<br/>
-        Explore the comprehensive features—from Dark Mode to real-time GitHub code fetching.
-      </p>
-      <button onclick="window.location.href='projects.html'">Explore Projects</button>
-    </div>
-  </section>
+<!-- Hero Section with overlay for better text contrast -->
+<section class="hero-section">
+  <!-- Optional overlay; see style.css for .hero-section::before -->
+  <div class="hero-container">
+    <h1>Welcome to My Modern, Apple-Inspired Portfolio</h1>
+    <p>A sleek, minimalistic website that dynamically showcases my projects.<br>
+       Explore the comprehensive features—from Dark Mode to real-time GitHub code fetching.</p>
+    <button onclick="window.location.href='projects.html'">
+      Explore Projects
+    </button>
+  </div>
+</section>
 
-  <!-- Executive Summary -->
-  <section class="page-section">
-    <h2>Comprehensive Portfolio Website Vision</h2>
-    <p>
-      This portfolio is designed as a modern, Apple-inspired platform with a 
-      sleek, minimalistic interface. It dynamically showcases projects 
-      without requiring manual updates. Sorting, filtering, and GitHub 
-      integrations are all part of the experience.
-    </p>
-    <p>
-      By integrating Dark Mode, tabbed modals, and real-time code hosting, 
-      this portfolio ensures a premium user experience on any device.
-    </p>
-  </section>
+<!-- Executive Summary -->
+<section class="page-section">
+  <h2>Executive Summary</h2>
+  <p>This portfolio auto-updates from a simple <strong>projects.json</strong> file, 
+     pulling in project details, code, and more. Sort and filter features can be 
+     added easily in the future. Toggle Dark Mode above for a premium UI!</p>
+</section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
-  </footer>
+<!-- Footer -->
+<footer class="footer">
+  <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
+</footer>
 
-  <script src="assets/script.js"></script>
+<script src="assets/script.js"></script>
 </body>
 </html>
