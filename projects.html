@@ -3,62 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <title>My Dynamic Portfolio | Projects</title>
+  <meta name="description" content="Explore my projects, showcasing dynamic solutions and innovative code implementations.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
-<header class="navbar">
-  <div class="nav-content">
-    <div class="logo">MyPortfolio</div>
-    <nav class="menu">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="projects.html" class="active">Projects</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <label class="switch">
-      <input type="checkbox" id="darkModeToggle">
-      <span class="slider round"></span>
-    </label>
-  </div>
-</header>
-
-<section class="page-section projects-section">
-  <h2>My Projects</h2>
-
-  <!-- (Optional) Sorting or Filtering UI
-  <div class="filters">
-    <label for="sortSelect">Sort By:</label>
-    <select id="sortSelect" onchange="sortProjects()">
-      <option value="date">Date</option>
-      <option value="title">Title</option>
-    </select>
-  </div>
-  -->
-
-  <div id="projectCardsContainer" class="project-cards-container">
-    <!-- Cards loaded dynamically from projects.json by script.js -->
-  </div>
-</section>
-
-<!-- Modal for project details -->
-<div id="projectModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" id="modalCloseBtn">&times;</span>
-    <div class="modal-tabs">
-      <button class="tablinks active" data-tab="overviewTab">Overview</button>
-      <button class="tablinks" data-tab="codeTab">Code</button>
+  <!-- Navbar -->
+  <header class="navbar" role="banner">
+    <div class="nav-content">
+      <div class="logo">MyPortfolio</div>
+      <nav class="menu" role="navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html" class="active">Projects</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <label class="switch" for="darkModeToggle">
+        <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
+        <span class="slider round"></span>
+      </label>
     </div>
-    <div id="overviewTab" class="tabcontent active"></div>
-    <div id="codeTab" class="tabcontent"></div>
+  </header>
+
+  <section class="page-section projects-section">
+    <h2>My Projects</h2>
+
+    <!-- Optional Sorting or Filtering UI -->
+    <!--
+    <div class="filters">
+      <label for="sortSelect">Sort By:</label>
+      <select id="sortSelect" onchange="sortProjects()">
+        <option value="date">Date</option>
+        <option value="title">Title</option>
+      </select>
+    </div>
+    -->
+
+    <div id="projectCardsContainer" class="project-cards-container">
+      <!-- Cards loaded dynamically from projects.json via script.js -->
+    </div>
+  </section>
+
+  <!-- Accessible Modal for Project Details -->
+  <div id="projectModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <button class="close-btn" id="modalCloseBtn" aria-label="Close Modal">&times;</button>
+      <div class="modal-tabs" role="tablist">
+        <button class="tablinks active" data-tab="overviewTab" role="tab" aria-selected="true" aria-controls="overviewTab">Overview</button>
+        <button class="tablinks" data-tab="codeTab" role="tab" aria-selected="false" aria-controls="codeTab">Code</button>
+      </div>
+      <div id="overviewTab" class="tabcontent active" role="tabpanel"></div>
+      <div id="codeTab" class="tabcontent" role="tabpanel"></div>
+    </div>
   </div>
-</div>
 
-<footer class="footer">
-  <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
-</footer>
+  <footer class="footer" role="contentinfo">
+    <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
+  </footer>
 
-<script src="assets/script.js"></script>
+  <script src="assets/script.js"></script>
 </body>
 </html>

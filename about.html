@@ -1,51 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <title>My Dynamic Portfolio | About</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="assets/style.css"/>
+  <meta charset="UTF-8">
+  <title>My Dynamic Portfolio | About Me</title>
+  <meta name="description" content="Learn more about [Your Name], a passionate developer specializing in dynamic, user-friendly web experiences.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-
   <!-- Navbar -->
-  <header class="navbar">
+  <header class="navbar" role="banner">
     <div class="nav-content">
       <div class="logo">MyPortfolio</div>
-      <nav class="menu">
+      <nav class="menu" role="navigation">
         <a href="index.html">Home</a>
         <a href="about.html" class="active">About</a>
         <a href="projects.html">Projects</a>
         <a href="contact.html">Contact</a>
       </nav>
-      <label class="switch">
-        <input type="checkbox" id="darkModeToggle"/>
+      <label class="switch" for="darkModeToggle">
+        <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
         <span class="slider round"></span>
       </label>
     </div>
   </header>
 
+  <!-- About Section -->
   <section class="page-section about-section">
     <h2>About Me</h2>
     <div class="about-content">
-      <img src="assets/images/me.jpg" alt="My Photo" class="about-photo"/>
+      <!-- Updated image source to use an available image file; added lazy loading -->
+      <img src="assets/images/IMG_0599.png" alt="[Your Name] Photo" class="about-photo" loading="lazy">
       <p>
-        Hello! I'm [Your Name], a passionate developer dedicated to creating
-        dynamic, user-friendly web experiences. Skilled in front-end and
-        back-end technologies, I thrive on building elegant, maintainable
-        solutions.
-        <br/><br/>
-        <strong>Key Skills:</strong> JavaScript, React, Node.js, Python, CSS, etc.
-        <br/><br/>
-        Check out my <a href="resume.pdf" target="_blank">Resume</a> for a comprehensive overview,
-        or continue exploring my <a href="projects.html">Projects</a> to see the
-        innovative work I’ve been involved in.
+        Hello! I'm [Your Name], a passionate developer dedicated to creating dynamic, user-friendly web experiences. Skilled in both front-end and back-end technologies, I strive to build elegant, maintainable solutions.
+        <br><br>
+        <strong>Key Skills:</strong> JavaScript, React, Node.js, Python, CSS, and more.
+        <br><br>
+        Check out my <a href="resume.pdf" target="_blank">Resume</a> for a comprehensive overview, or explore my <a href="projects.html">Projects</a> to see some of my innovative work.
       </p>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="footer" role="contentinfo">
     <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
   </footer>
 
