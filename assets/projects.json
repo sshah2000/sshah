@@ -45,5 +45,24 @@
       "collectedData": "CIFAR-10 dataset plus local CSVs. Preprocessed in Jupyter Notebooks.",
       "conclusions": "90%+ accuracy with a CNN approach. The results were quite promising!"
     }
+  },
+  {
+    "title": "ABC",
+    "date": "2000-12-30",
+    "description": "This is important",
+    "methodology": "Data Mining",
+    "technologies": [
+      "ABC"
+    ],
+    "thumbnail": "assets/images/default.png",
+    "liveDemo": "",
+    "repoUrl": "",
+    "codeFiles": [],
+    "reportPdf": "",
+    "overview": {
+      "story": "",
+      "collectedData": "",
+      "conclusions": ""
+    }
   }
 ]
