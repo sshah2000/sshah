@@ -96,7 +96,7 @@ input:checked + .slider:before {
   justify-content: center;
   text-align: center;
   padding-top: 4rem;    /* offset for the navbar's height */
-  background: url("assets/images/IMG_0599.png") center/cover no-repeat;
+  background: url("assets/images/IMG_0599_1000.jpeg") center/cover no-repeat;
   /* 
      The above line references your psychedelic image file. 
      Make sure "psychedelic-hero.jpg" is actually in "assets/images/" 
