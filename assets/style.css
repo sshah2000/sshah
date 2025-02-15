@@ -90,18 +90,23 @@ input:checked + .slider:before {
    ======================= */
 .hero-section {
   position: relative;
-  min-height: 100vh;    /* ensures full vertical space */
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding-top: 4rem;    /* offset for the navbar's height */
-  background: url("assets/images/IMG_0599_1000.jpeg") center/cover no-repeat;
+  padding-top: 4rem; /* offset for your navbar */
+  
   /* 
-     The above line references your psychedelic image file. 
-     Make sure "psychedelic-hero.jpg" is actually in "assets/images/" 
-     or adjust the path accordingly.
+     This uses a semi-transparent gradient on top of the image. 
+     The background-blend-mode merges them, giving you a tinted effect 
+     while still allowing the bright colors to show through.
   */
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("assets/images/IMG_0599_1000.jpeg") center/cover no-repeat;
+    
+  background-blend-mode: overlay; /* or "multiply", "screen", etc. */
 }
 
 /* Optional overlay for better text contrast */
