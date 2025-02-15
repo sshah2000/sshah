@@ -1,5 +1,5 @@
 # .gitignore
 app.py
-templates/admin.html
+templates/
 venv/
 __pycache__/
