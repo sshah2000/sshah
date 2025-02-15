@@ -1,56 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8">
   <title>My Dynamic Portfolio | Projects</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="assets/style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
-  <!-- Navbar -->
-  <header class="navbar">
-    <div class="nav-content">
-      <div class="logo">MyPortfolio</div>
-      <nav class="menu">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="projects.html" class="active">Projects</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <label class="switch">
-        <input type="checkbox" id="darkModeToggle"/>
-        <span class="slider round"></span>
-      </label>
-    </div>
-  </header>
+<header class="navbar">
+  <div class="nav-content">
+    <div class="logo">MyPortfolio</div>
+    <nav class="menu">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <label class="switch">
+      <input type="checkbox" id="darkModeToggle">
+      <span class="slider round"></span>
+    </label>
+  </div>
+</header>
 
-  <section class="page-section projects-section">
-    <h2>Dynamic Projects</h2>
+<section class="page-section projects-section">
+  <h2>My Projects</h2>
 
-    <!-- Example Sorting Dropdown (Optional) -->
-    <!--
-    <div class="filters">
-      <label for="sortSelect">Sort By:</label>
-      <select id="sortSelect" onchange="sortProjects()">
-        <option value="date">Date</option>
-        <option value="title">Title</option>
-      </select>
-    </div>
-    -->
+  <!-- (Optional) Sorting or Filtering UI
+  <div class="filters">
+    <label for="sortSelect">Sort By:</label>
+    <select id="sortSelect" onchange="sortProjects()">
+      <option value="date">Date</option>
+      <option value="title">Title</option>
+    </select>
+  </div>
+  -->
 
-    <!-- Projects Grid -->
-    <div id="projectCardsContainer" class="project-cards-container">
-      <!-- Cards load here from script.js -->
-    </div>
-  </section>
+  <div id="projectCardsContainer" class="project-cards-container">
+    <!-- Cards loaded dynamically from projects.json by script.js -->
+  </div>
+</section>
 
-<!-- Modal for Project Details -->
+<!-- Modal for project details -->
 <div id="projectModal" class="modal">
   <div class="modal-content">
     <span class="close-btn" id="modalCloseBtn">&times;</span>
     <div class="modal-tabs">
-      <!-- Keep only two buttons: Overview & Code -->
       <button class="tablinks active" data-tab="overviewTab">Overview</button>
       <button class="tablinks" data-tab="codeTab">Code</button>
     </div>
@@ -59,11 +55,10 @@
   </div>
 </div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
-  </footer>
+<footer class="footer">
+  <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
+</footer>
 
-  <script src="assets/script.js"></script>
+<script src="assets/script.js"></script>
 </body>
 </html>
