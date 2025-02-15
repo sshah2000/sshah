@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>My Portfolio | Contact</title>
-  <link rel="stylesheet" href="assets/style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <title>MyPortfolio | Contact</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
 
-  <!-- Header / Nav -->
+  <!-- Glassmorphic Navbar -->
   <header class="navbar">
     <div class="nav-content">
       <div class="logo">MyPortfolio</div>
@@ -18,13 +18,21 @@
         <a href="projects.html">Projects</a>
         <a href="contact.html" class="active">Contact</a>
       </nav>
+      <!-- Dark Mode Toggle -->
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle"/>
+        <span class="slider round"></span>
+      </label>
     </div>
   </header>
 
   <!-- Contact Section -->
   <section class="page-section contact-section">
     <h2>Contact Me</h2>
-    <form class="contact-form" action="https://formspree.io/f/yourFormId" method="POST">
+    <form class="contact-form"
+          action="https://formspree.io/f/yourFormId"  <!-- or your own endpoint -->
+          method="POST">
+
       <label for="name">Name</label>
       <input type="text" id="name" name="name" required/>
 
@@ -38,7 +46,7 @@
     </form>
   </section>
 
-  <!-- Footer (Optional) -->
+  <!-- Footer -->
   <footer class="footer">
     <p>© 2025 MyPortfolio. All Rights Reserved.</p>
   </footer>
