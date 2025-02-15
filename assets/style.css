@@ -116,17 +116,14 @@ input:checked + .slider:before {
   justify-content: center;
   text-align: center;
   padding-top: 4rem;
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
-    url("assets/images/IMG_0599.png") center/cover no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+              url("assets/images/IMG_0599.png") center/cover no-repeat;
   background-blend-mode: overlay;
 }
 .hero-container {
   position: relative;
   z-index: 1;
   color: var(--white);
-  max-width: 800px;
-  margin: 0 1rem;
 }
 .hero-container h1 {
   font-size: 2.5rem;
@@ -183,24 +180,29 @@ body.dark .hero-section {
   border-radius: 50%;
 }
 
-/* Projects Grid */
+/* Projects Grid: 4 per row on large screens */
 .projects-section .project-cards-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);  /* Force exactly 3 columns on wider screens */
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
 }
-
-/* Responsive Tweaks */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .projects-section .project-cards-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 @media (max-width: 768px) {
   .projects-section .project-cards-container {
-    grid-template-columns: 1fr; /* 1 column on small screens */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
+@media (max-width: 480px) {
+  .projects-section .project-cards-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 .project-card {
   background-color: var(--white);
   border-radius: 8px;
