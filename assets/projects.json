@@ -4,7 +4,11 @@
     "date": "2025-01-10",
     "description": "A modern, dynamic project featuring real-time data.",
     "methodology": "Used a Node.js backend, real-time APIs, and Vanilla JS.",
-    "technologies": ["HTML", "CSS", "JavaScript"],
+    "technologies": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
     "thumbnail": "assets/images/default.png",
     "liveDemo": "",
     "repoUrl": "https://github.com/YourUser/awesome-project",
@@ -23,7 +27,12 @@
     "date": "2025-02-01",
     "description": "Exploring data science and ML algorithms.",
     "methodology": "Used Python, Pandas, and scikit-learn for classification tasks.",
-    "technologies": ["Python", "Pandas", "NumPy", "scikit-learn"],
+    "technologies": [
+      "Python",
+      "Pandas",
+      "NumPy",
+      "scikit-learn"
+    ],
     "thumbnail": "assets/images/ml-project.jpg",
     "liveDemo": "",
     "repoUrl": "https://github.com/YourUser/ml-demo",
@@ -35,6 +44,27 @@
       "story": "Wanted to classify images and tabular data with minimal overhead.",
       "collectedData": "CIFAR-10 dataset plus local CSVs. Preprocessed in Jupyter Notebooks.",
       "conclusions": "90%+ accuracy with a CNN approach. The results were quite promising!"
+    }
+  },
+  {
+    "title": "ABC",
+    "date": "2025-02-15",
+    "description": "abc",
+    "methodology": "abc",
+    "technologies": [
+      "abc"
+    ],
+    "thumbnail": "",
+    "liveDemo": "abc",
+    "repoUrl": "abc",
+    "codeFiles": [
+      "abc"
+    ],
+    "reportPdf": "",
+    "overview": {
+      "story": "abc",
+      "collectedData": "abc",
+      "conclusions": "abc"
     }
   }
 ]
