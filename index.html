@@ -1,62 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>My Dynamic Portfolio | Home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
 
-<!-- Glassmorphic Navbar -->
-<header class="navbar">
-  <div class="nav-content">
-    <div class="logo">MyPortfolio</div>
-    <nav class="menu">
-      <a href="index.html" class="active">Home</a>
-      <a href="about.html">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <!-- Dark Mode Toggle -->
-    <label class="switch">
-      <input type="checkbox" id="darkModeToggle">
-      <span class="slider round"></span>
-    </label>
-  </div>
-</header>
+  <!-- Glassmorphic Navbar -->
+  <header class="navbar">
+    <div class="nav-content">
+      <div class="logo">MyPortfolio</div>
+      <nav class="menu">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <!-- Dark Mode Toggle -->
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle" />
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </header>
 
-<!-- Hero Section with a psychedelic background & optional overlay -->
-<section class="hero-section">
-  <div class="hero-container">
-    <h1>Welcome to My Data Analytics Portfolio</h1>
+  <!-- Hero Section with Psychedelic Background -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <h1>Welcome to My Data Analytics Portfolio</h1>
+      <p>
+        Stay tuned for future updates and enhancements!<br />
+        Feel free to explore the current projects and watch them grow over time.
+      </p>
+      <button onclick="window.location.href='projects.html'">
+        Explore Projects
+      </button>
+    </div>
+  </section>
+
+  <!-- Executive Summary -->
+  <section class="page-section">
+    <h2>Executive Summary</h2>
     <p>
-      Stay tuned for future updates and enhancements!
-      <br>
-      Feel free to explore the current projects and watch them grow over time.
+      This portfolio auto-updates from a simple <strong>projects.json</strong>
+      file, pulling in project details, code, and more. Future features will
+      include advanced sorting, filtering, and dynamic visualizations. Toggle
+      Dark Mode (top-right) for a premium UI experience!
     </p>
-    <button onclick="window.location.href='projects.html'">
-      Explore Projects
-    </button>
-  </div>
-</section>
+  </section>
 
-<!-- Executive Summary -->
-<section class="page-section">
-  <h2>Executive Summary</h2>
-  <p>
-    This portfolio auto-updates from a simple <strong>projects.json</strong> file, 
-    pulling in project details, code, and more. Future features will include 
-    advanced sorting, filtering, and dynamic visualizations. Toggle Dark Mode 
-    (top-right) for a premium UI experience!
-  </p>
-</section>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
+  </footer>
 
-<!-- Footer -->
-<footer class="footer">
-  <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
-</footer>
-
-<script src="assets/script.js"></script>
+  <script src="assets/script.js"></script>
 </body>
 </html>
