@@ -57,12 +57,14 @@ function renderProjectCards(projects) {
     // Card content
     const cardContent = document.createElement('div');
     cardContent.classList.add('card-content');
+
     const h3 = document.createElement('h3');
     h3.textContent = project.title;
     cardContent.appendChild(h3);
 
+    // Use innerHTML instead of textContent to display HTML formatting
     const desc = document.createElement('p');
-    desc.textContent = project.description;
+    desc.innerHTML = project.description;
     cardContent.appendChild(desc);
 
     card.appendChild(cardContent);
