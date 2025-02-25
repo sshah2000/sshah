@@ -131,7 +131,7 @@ async function openModal(index) {
   tabLinks[0].setAttribute('aria-selected', 'true');
   tabContents[0].classList.add('active');
 
-  // Build the Overview tab content matching admin_preview.html:
+
   const overviewTab = document.getElementById('overviewTab');
   overviewTab.innerHTML = `
     <h2 id="modalTitle" style="text-align:center; text-decoration:underline; margin-bottom:1rem;">${project.title}</h2>
