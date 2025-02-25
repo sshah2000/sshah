@@ -21,7 +21,8 @@
       "collectedData": "<p>-Boston Housing dataset (various real estate features). -German Credit dataset (loan defaults and financial indicators).</p>",
       "conclusions": "<p>-Boston Housing dataset (various real estate features). -German Credit dataset (loan defaults and financial indicators).</p>"
     },
-    "codeFiles": []
+    "codeFiles": [],
+    "resources": []
   },
   {
     "id": 4,
@@ -50,6 +51,7 @@
       "data_analysis.py",
       "model_training.py",
       "results.ipynb"
-    ]
+    ],
+    "resources": []
   }
 ]
