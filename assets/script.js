@@ -131,74 +131,54 @@ async function openModal(index) {
   tabLinks[0].setAttribute('aria-selected', 'true');
   tabContents[0].classList.add('active');
 
-  // Fill Overview tab with "report-like" styling
+  // Build the Overview tab content matching admin_preview.html:
   const overviewTab = document.getElementById('overviewTab');
   overviewTab.innerHTML = `
-    <!-- Centered + underlined title -->
-    <h2
-      id="modalTitle"
-      style="
-        text-align:center;
-        text-decoration:underline;
-        margin-bottom:1rem;
-      "
-    >
-      ${project.title}
-    </h2>
-
-    <!-- Date -->
-    <p style="text-align:center; margin-bottom:1rem;">
-      <strong>Date:</strong> ${project.date}
-    </p>
-
-    <!-- Description heading + content -->
+    <h2 id="modalTitle" style="text-align:center; text-decoration:underline; margin-bottom:1rem;">${project.title}</h2>
+    <p style="text-align:center; margin-bottom:1rem;"><strong>Date:</strong> ${project.date}</p>
     <h3 style="text-decoration:underline; margin-top:1rem;">Description</h3>
     <div style="margin-left:1rem;">${project.description}</div>
-
-    <!-- Methodology heading + content -->
     <h3 style="text-decoration:underline; margin-top:1rem;">Methodology</h3>
     <div style="margin-left:1rem;">${project.methodology || 'N/A'}</div>
-
-    <!-- Technologies heading + bullet list -->
     <h3 style="text-decoration:underline; margin-top:1rem;">Technologies</h3>
-    ${
-      project.technologies && project.technologies.length
-      ? `<ul style="margin-left:2rem;">
-           ${project.technologies.map(t => `<li>${t}</li>`).join('')}
-         </ul>`
-      : `<p style="margin-left:1rem;"><em>No technologies listed</em></p>`
-    }
-
-    <!-- Story -->
+    ${ project.technologies && project.technologies.length
+        ? `<ul style="margin-left:2rem;">${project.technologies.map(t => `<li>${t}</li>`).join('')}</ul>`
+        : `<p style="margin-left:1rem;"><em>No technologies listed</em></p>` }
     <h3 style="text-decoration:underline; margin-top:1rem;">Story / Background</h3>
     <div style="margin-left:1rem;">${project.overview?.story || ''}</div>
-
-    <!-- Collected Data -->
     <h3 style="text-decoration:underline; margin-top:1rem;">Collected Data</h3>
     <div style="margin-left:1rem;">${project.overview?.collectedData || ''}</div>
-
-    <!-- Conclusions -->
     <h3 style="text-decoration:underline; margin-top:1rem;">Conclusions</h3>
     <div style="margin-left:1rem;">${project.overview?.conclusions || ''}</div>
-
-    ${
-      project.reportPdf
-      ? `<p style="margin-top:1rem;">
-           <strong>Report:</strong>
-           <a href="${project.reportPdf}" target="_blank">View PDF</a>
-         </p>`
-      : ''
-    }
-
-    <p><strong>GitHub Repo:</strong> 
-      <a href="${project.repoUrl}" target="_blank">${project.repoUrl}</a>
-    </p>
+    ${ project.reportPdf ? `
+      <p style="margin-top:1rem;"><strong>Report:</strong>
+        <a href="${project.reportPdf}" target="_blank">View PDF</a>
+      </p>
+    ` : '' }
+    ${ project.repoUrl ? `
+      <p><strong>GitHub Repo:</strong>
+        <a href="${project.repoUrl}" target="_blank">${project.repoUrl}</a>
+      </p>
+    ` : '' }
+    ${ project.resources && project.resources.length ? `
+      <div style="margin-top:1rem;">
+        <h3 style="text-decoration:underline;">Additional Resources</h3>
+        <ul style="margin-left:1rem;">
+          ${ project.resources.map(resource => `
+            <li>
+              <strong>${resource.name}</strong> (${resource.category}) – 
+              <a href="${resource.file_path}" target="_blank">View / Download</a>
+              <a href="/admin/resource/delete/${project.id}?resource_name=${encodeURIComponent(resource.file_path)}" onclick="return confirm('Delete this resource?');">Delete</a>
+            </li>
+          `).join('') }
+        </ul>
+      </div>
+    ` : `<p style="margin-top:1rem;"><strong>Additional Resources:</strong> None</p>` }
   `;
 
   // Fill Code tab
   const codeTab = document.getElementById('codeTab');
   codeTab.innerHTML = '';
-  
   if (project.codeFiles && project.codeFiles.length) {
     for (const fileUrl of project.codeFiles) {
       try {
@@ -217,6 +197,7 @@ async function openModal(index) {
     codeTab.innerHTML = `<p>No code files available.</p>`;
   }
 }
+
 
 function closeModal() {
   if (modal) {
