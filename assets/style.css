@@ -249,15 +249,12 @@ body.dark .project-card .card-content p {
   align-items: center;
 }
 .modal-content {
-  background-color: var(--modal-bg);
-  position: relative;
-  width: 80vw;              /* 80% of the viewport width */
-  max-height: 80vh;         /* 80% of the viewport height */
-  margin: 0 auto;
-  border-radius: 8px;
-  padding: 1rem;
-  overflow-y: auto;         /* enable vertical scroll inside the modal */
+  width: 80vw;
+  max-height: 80vh;
+  overflow-y: auto;
 }
+
+
 body.dark .modal-content {
   background-color: var(--modal-bg-dark);
   color: var(--dark-text);
