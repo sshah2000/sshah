@@ -1,28 +1,5 @@
 [
   {
-    "title": "Awesome Project",
-    "date": "2025-01-10",
-    "description": "A modern, dynamic project featuring real-time data.",
-    "methodology": "Used a Node.js backend, real-time APIs, and Vanilla JS.",
-    "technologies": [
-      "HTML",
-      "CSS",
-      "JavaScript"
-    ],
-    "thumbnail": "assets/images/default.png",
-    "liveDemo": "",
-    "repoUrl": "https://github.com/YourUser/awesome-project",
-    "codeFiles": [
-      "https://raw.githubusercontent.com/YourUser/awesome-project/main/script.js"
-    ],
-    "reportPdf": "",
-    "overview": {
-      "story": "This project started as an experiment in real-time weather data. We built a clean UI to display updated stats.",
-      "collectedData": "Fetched from OpenWeatherMap, processed data daily, stored results in a small MySQL DB.",
-      "conclusions": "Discovered a lot about asynchronous calls and performance tuning!"
-    }
-  },
-  {
     "title": "Machine Learning Demo",
     "date": "2025-02-01",
     "description": "Exploring data science and ML algorithms.",
