@@ -1,4 +1,5 @@
 # .gitignore
+migrate.py
 app.py
 templates/
 venv/
