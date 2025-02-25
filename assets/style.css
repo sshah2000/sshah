@@ -252,8 +252,8 @@ body.dark .project-card .card-content p {
   width: 80vw;
   max-height: 80vh;
   overflow-y: auto;
-}
-
+  .section {
+  margin-bottom: 1rem;
 }
 .field-label {
   font-weight: bold;
