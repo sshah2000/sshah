@@ -2,38 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Dynamic Portfolio | Home</title>
-  <meta name="description" content="Welcome to My Data Analytics Portfolio by [Your Name].">
+  <title>Shubh Shah | Data Analytics Portfolio</title>
+  <meta name="description" content="Welcome to the Data Analytics Portfolio of Shubh Shah. Explore projects, insights, and data-driven solutions.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+  
   <!-- Navbar -->
-  <header class="navbar" role="banner">
+  <header class="navbar">
     <div class="nav-content">
-      <div class="logo">MyPortfolio</div>
-      <nav class="menu" role="navigation">
+      <div class="logo">SS</div>
+      <nav class="menu">
         <a href="index.html" class="active">Home</a>
         <a href="about.html">About</a>
         <a href="projects.html">Projects</a>
         <a href="contact.html">Contact</a>
       </nav>
-      <label class="switch" for="darkModeToggle">
-        <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle">
         <span class="slider round"></span>
       </label>
     </div>
   </header>
 
-  <!-- Hero Section with Psychedelic Background -->
-  <section class="hero-section" role="img" aria-label="Psychedelic background with dynamic overlay">
+  <!-- Hero Section -->
+  <section class="hero-section">
     <div class="hero-container">
-      <h1>Welcome to My Data Analytics Portfolio</h1>
-      <p>
-        Stay tuned for future updates and enhancements!<br>
-        Feel free to explore my projects and watch them evolve.
-      </p>
-      <button onclick="window.location.href='projects.html'">Explore Projects</button>
+      <h1>Hello, I'm Shubh Shah</h1>
+      <h3>Data Analyst | Business Intelligence | Machine Learning</h3>
+      <p>Welcome to my portfolio! Explore my projects in **SQL, Python, R, Tableau, and Power BI**.</p>
+      <div class="hero-buttons">
+        <button onclick="window.location.href='projects.html'">Explore Projects</button>
+        <button onclick="window.open('assets/files/RESUME_2025.pdf', '_blank')">Download Resume</button>
+      </div>
     </div>
   </section>
 
@@ -41,13 +43,24 @@
   <section class="page-section">
     <h2>Executive Summary</h2>
     <p>
-      This portfolio dynamically updates from a <strong>projects.json</strong> file, which contains project details, code, and more. Future enhancements include advanced sorting, filtering, and dynamic visualizations. Toggle Dark Mode (top-right) for a premium UI experience!
+      This portfolio showcases my work in **data analytics, visualization, predictive modeling, and business intelligence**. 
+      My projects cover **EV adoption, obesity trends, sales dashboards, time series forecasting, and more.**
+      <br><br>
+      <strong>Key Technologies:</strong> Python, SQL, Tableau, Power BI, R, Machine Learning
     </p>
   </section>
 
+  <!-- Featured Projects -->
+  <section class="projects-section">
+    <h2>Highlighted Projects</h2>
+    <div class="projects-grid" id="featuredProjects"></div>
+  </section>
+
   <!-- Footer -->
-  <footer class="footer" role="contentinfo">
-    <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
+  <footer class="footer">
+    <p>© 2025 Shubh Shah | <a href="https://github.com/shubhshah" target="_blank">GitHub</a> | 
+    <a href="https://www.linkedin.com/in/shubhshah" target="_blank">LinkedIn</a> | 
+    <a href="mailto:shubhshah2000@yahoo.com">Email</a></p>
   </footer>
 
   <script src="assets/script.js"></script>
