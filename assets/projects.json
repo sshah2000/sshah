@@ -1,29 +1,5 @@
 [
   {
-    "title": "Machine Learning Demo",
-    "date": "2025-02-01",
-    "description": "Exploring data science and ML algorithms.",
-    "methodology": "Used Python, Pandas, and scikit-learn for classification tasks.",
-    "technologies": [
-      "Python",
-      "Pandas",
-      "NumPy",
-      "scikit-learn"
-    ],
-    "thumbnail": "assets/images/ml-project.jpg",
-    "liveDemo": "",
-    "repoUrl": "https://github.com/YourUser/ml-demo",
-    "codeFiles": [
-      "https://raw.githubusercontent.com/YourUser/ml-demo/main/notebook.py"
-    ],
-    "reportPdf": "assets/files/ml-demo-report.pdf",
-    "overview": {
-      "story": "Wanted to classify images and tabular data with minimal overhead.",
-      "collectedData": "CIFAR-10 dataset plus local CSVs. Preprocessed in Jupyter Notebooks.",
-      "conclusions": "90%+ accuracy with a CNN approach. The results were quite promising!"
-    }
-  },
-  {
     "title": "ABC",
     "date": "2000-12-30",
     "description": "This is important",
