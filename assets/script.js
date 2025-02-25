@@ -131,7 +131,6 @@ async function openModal(index) {
   tabLinks[0].setAttribute('aria-selected', 'true');
   tabContents[0].classList.add('active');
 
-
   const overviewTab = document.getElementById('overviewTab');
   overviewTab.innerHTML = `
     <h2 id="modalTitle" style="text-align:center; text-decoration:underline; margin-bottom:1rem;">${project.title}</h2>
@@ -150,16 +149,15 @@ async function openModal(index) {
     <div style="margin-left:1rem;">${project.overview?.collectedData || ''}</div>
     <h3 style="text-decoration:underline; margin-top:1rem;">Conclusions</h3>
     <div style="margin-left:1rem;">${project.overview?.conclusions || ''}</div>
+
+    <!-- Report Section -->
     ${ project.reportPdf ? `
-      <p style="margin-top:1rem;"><strong>Report:</strong>
-        <a href="${project.reportPdf}" target="_blank">View PDF</a>
+      <p style="margin-top:1rem;"><strong>Project Report:</strong>
+        <a href="${project.reportPdf}" target="_blank">View Report</a>
       </p>
-    ` : '' }
-    ${ project.repoUrl ? `
-      <p><strong>GitHub Repo:</strong>
-        <a href="${project.repoUrl}" target="_blank">${project.repoUrl}</a>
-      </p>
-    ` : '' }
+    ` : `<p><strong>Project Report:</strong> None available.</p>` }
+
+    <!-- Additional Resources Section -->
     ${ project.resources && project.resources.length ? `
       <div style="margin-top:1rem;">
         <h3 style="text-decoration:underline;">Additional Resources</h3>
@@ -183,11 +181,11 @@ async function openModal(index) {
       try {
         const res = await fetch(fileUrl);
         const codeContent = await res.text();
-        const codeBlock = document.createElement('pre');
+        const codeBlock = document.createElement("pre");
         codeBlock.textContent = codeContent;
         codeTab.appendChild(codeBlock);
       } catch (error) {
-        const errorMsg = document.createElement('p');
+        const errorMsg = document.createElement("p");
         errorMsg.textContent = `Error fetching code: ${error}`;
         codeTab.appendChild(errorMsg);
       }
@@ -196,6 +194,7 @@ async function openModal(index) {
     codeTab.innerHTML = `<p>No code files available.</p>`;
   }
 }
+
 
 
 function closeModal() {
