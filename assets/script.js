@@ -38,6 +38,9 @@ if (projectCardsContainer) {
   })();
 }
 
+/**
+ * Render the project cards in a format that resembles your admin preview
+ */
 function renderProjectCards(projects) {
   projectCardsContainer.innerHTML = '';
 
@@ -54,22 +57,55 @@ function renderProjectCards(projects) {
     img.loading = "lazy";
     card.appendChild(img);
 
-    // Card content
+    // Card content container
     const cardContent = document.createElement('div');
     cardContent.classList.add('card-content');
 
-    const h3 = document.createElement('h3');
-    h3.textContent = project.title;
-    cardContent.appendChild(h3);
-
-    // Use innerHTML instead of textContent to display HTML formatting
-    const desc = document.createElement('p');
-    desc.innerHTML = project.description;
-    cardContent.appendChild(desc);
+    // Build a more detailed HTML snippet, matching "admin_preview" style
+    cardContent.innerHTML = `
+      <h3 
+        style="
+          text-align:center;
+          font-weight:bold;
+          text-decoration: underline;
+          font-size:1.2rem;
+          margin-bottom:1rem;
+        "
+      >
+        ${project.title}
+      </h3>
+      
+      <p><strong>Date:</strong> ${project.date}</p>
+      
+      <p><strong>Description:</strong><br>${project.description}</p>
+      
+      <p><strong>Methodology:</strong><br>${project.methodology || 'N/A'}</p>
+      
+      <p><strong>Technologies:</strong> ${project.technologies.join(', ')}</p>
+      
+      <h4 style="margin-top:1rem;">Story / Background:</h4>
+      <div>${project.overview?.story || 'No story provided.'}</div>
+      
+      <h4 style="margin-top:1rem;">Collected Data:</h4>
+      <div>${project.overview?.collectedData || 'No data info provided.'}</div>
+      
+      <h4 style="margin-top:1rem;">Conclusions:</h4>
+      <div>${project.overview?.conclusions || 'No conclusions provided.'}</div>
+      
+      ${
+        project.reportPdf 
+        ? `<p><strong>Report:</strong> 
+             <a href="${project.reportPdf}" target="_blank">View PDF</a>
+           </p>`
+        : ''
+      }
+      <p><strong>GitHub Repo:</strong> 
+         <a href="${project.repoUrl}" target="_blank">${project.repoUrl}</a></p>
+    `;
 
     card.appendChild(cardContent);
 
-    // Open modal on click
+    // Click card to open the modal
     card.addEventListener('click', () => openModal(index));
     projectCardsContainer.appendChild(card);
   });
@@ -88,6 +124,9 @@ window.addEventListener('click', (e) => {
   if (e.target === modal) closeModal();
 });
 
+/**
+ * Opens the project modal and populates the Overview & Code tabs
+ */
 async function openModal(index) {
   if (!modal) return;
   const project = projectData[index];
@@ -133,7 +172,6 @@ async function openModal(index) {
         const codeBlock = document.createElement('pre');
         codeBlock.textContent = codeContent;
         codeTab.appendChild(codeBlock);
-        // Optionally, add syntax highlighting here if desired
       } catch (error) {
         const errorMsg = document.createElement('p');
         errorMsg.textContent = `Error fetching code: ${error}`;
