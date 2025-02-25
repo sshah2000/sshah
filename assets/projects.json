@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "id": 5,
+    "title": "Obesity Analysis and Prediction Using Machine Learning",
+    "date": "2024-12-01",
+    "description": "<p>This project analyzes obesity trends and contributing factors using machine learning models. It employs <strong data-start=\"527\" data-end=\"586\">Linear Regression, Regression Trees, and Random Forests</strong> to predict weight based on demographic and lifestyle factors. The dataset is sourced from the <strong data-start=\"681\" data-end=\"716\">UCI Machine Learning Repository</strong>.</p>",
+    "methodology": "<ul>\r\n<li data-start=\"754\" data-end=\"992\">\r\n<p data-start=\"757\" data-end=\"788\"><strong data-start=\"757\" data-end=\"786\">Data Preprocessing &amp; EDA:</strong></p>\r\n<ul data-start=\"792\" data-end=\"992\">\r\n<li data-start=\"792\" data-end=\"886\">Analyzed key variables such as Age, Height, and Weight using histograms and scatter plots.</li>\r\n<li data-start=\"890\" data-end=\"992\">Identified patterns in the dataset, including right-skewed distributions and correlation clusters.</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"994\" data-end=\"1214\">\r\n<p data-start=\"997\" data-end=\"1021\"><strong data-start=\"997\" data-end=\"1019\">Linear Regression:</strong></p>\r\n<ul data-start=\"1025\" data-end=\"1214\">\r\n<li data-start=\"1025\" data-end=\"1081\">Built a stepwise regression model to predict Weight.</li>\r\n<li data-start=\"1085\" data-end=\"1137\">Removed non-significant predictors (SMOKE, SCC).</li>\r\n<li data-start=\"1141\" data-end=\"1214\">Achieved an <strong data-start=\"1155\" data-end=\"1177\">R&sup2; value of 96.29%</strong>, indicating strong predictability.</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"1216\" data-end=\"1429\">\r\n<p data-start=\"1219\" data-end=\"1241\"><strong data-start=\"1219\" data-end=\"1239\">Regression Tree:</strong></p>\r\n<ul data-start=\"1245\" data-end=\"1429\">\r\n<li data-start=\"1245\" data-end=\"1302\">Developed a decision tree to classify obesity levels.</li>\r\n<li data-start=\"1306\" data-end=\"1381\">Height and obesity category (NObeyesdad) were the strongest predictors.</li>\r\n<li data-start=\"1385\" data-end=\"1429\">Performed pruning to reduce overfitting.</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"1431\" data-end=\"1718\">\r\n<p data-start=\"1434\" data-end=\"1460\"><strong data-start=\"1434\" data-end=\"1458\">Random Forest Model:</strong></p>\r\n<ul data-start=\"1464\" data-end=\"1718\">\r\n<li data-start=\"1464\" data-end=\"1520\">Built an ensemble model with <strong data-start=\"1495\" data-end=\"1517\">100 decision trees</strong>.</li>\r\n<li data-start=\"1524\" data-end=\"1626\">Feature importance analysis showed <strong data-start=\"1561\" data-end=\"1603\">NObeyesdad, Height, and Family History</strong> as top contributors.</li>\r\n<li data-start=\"1630\" data-end=\"1718\">The model had high accuracy but risked overfitting, requiring hyperparameter tuning.</li>\r\n</ul>\r\n</li>\r\n</ul>",
+    "thumbnail": "assets/images/obesity_report_photo_1740524917.png",
+    "liveDemo": "",
+    "repoUrl": "",
+    "reportPdf": "",
+    "technologies": [
+      "R",
+      "Random Forest",
+      "Linear Regression",
+      "Decision Trees",
+      "Data Visualization",
+      "Machine Learning"
+    ],
+    "overview": {
+      "story": "<p>Obesity is a growing epidemic influenced by multiple demographic and lifestyle factors. Using data-driven methods, this study explores how different features contribute to an individual's weight and obesity classification. The goal is to develop predictive models that can identify key contributors to obesity levels.</p>",
+      "collectedData": "<ul>\r\n<li data-start=\"2933\" data-end=\"3048\"><strong data-start=\"2935\" data-end=\"2947\">Dataset:</strong> <strong data-start=\"2948\" data-end=\"3046\">UCI Machine Learning Repository - Obesity Levels Based on Eating Habits and Physical Condition</strong></li>\r\n<li data-start=\"3049\" data-end=\"3162\"><strong data-start=\"3051\" data-end=\"3068\">17 Variables:</strong> Includes Age, Gender, Height, Weight, Family History, Physical Activity, and Eating Habits.</li>\r\n<li data-start=\"3163\" data-end=\"3360\"><strong data-start=\"3165\" data-end=\"3182\">Key Insights:</strong>\r\n<ul data-start=\"3187\" data-end=\"3360\">\r\n<li data-start=\"3187\" data-end=\"3269\">The average weight in the dataset is <strong data-start=\"3226\" data-end=\"3234\">83kg</strong>, ranging from <strong data-start=\"3249\" data-end=\"3266\">39kg to 173kg</strong>.</li>\r\n<li data-start=\"3272\" data-end=\"3360\"><strong data-start=\"3274\" data-end=\"3347\">Height and obesity category (NObeyesdad) are the strongest predictors</strong> of weight.</li>\r\n</ul>\r\n</li>\r\n</ul>",
+      "conclusions": "<ul>\r\n<li data-start=\"3397\" data-end=\"3485\"><strong data-start=\"3399\" data-end=\"3435\">Linear Regression performed best</strong>, achieving an <strong data-start=\"3450\" data-end=\"3482\">out-of-sample error of 23.85</strong>.</li>\r\n<li data-start=\"3486\" data-end=\"3592\"><strong data-start=\"3488\" data-end=\"3541\">Regression Tree showed structured decision-making</strong>, but pruning was necessary to avoid overfitting.</li>\r\n<li data-start=\"3593\" data-end=\"3659\"><strong data-start=\"3595\" data-end=\"3632\">Random Forest was highly accurate</strong>, but risked overfitting.</li>\r\n<li data-start=\"3660\" data-end=\"3764\"><strong data-start=\"3662\" data-end=\"3678\">Future Work:</strong> Hyperparameter tuning and cross-validation could further improve prediction accuracy.</li>\r\n</ul>"
+    },
+    "codeFiles": [],
+    "resources": []
+  }
+]
