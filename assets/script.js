@@ -132,73 +132,76 @@ async function openModal(index) {
   tabContents[0].classList.add('active');
 
   // Fill Overview tab with "report-like" styling
+// In script.js, inside openModal(index) {...}
+async function openModal(index) {
+  if (!modal) return;
+  const project = projectData[index];
+  modal.style.display = 'flex';
+
+  // Reset tabs
+  tabLinks.forEach(btn => {
+    btn.classList.remove('active');
+    btn.setAttribute('aria-selected', 'false');
+  });
+  tabContents.forEach(tc => tc.classList.remove('active'));
+  tabLinks[0].classList.add('active');
+  tabLinks[0].setAttribute('aria-selected', 'true');
+  tabContents[0].classList.add('active');
+
+  // === REPLICATED FROM admin_preview ===
   const overviewTab = document.getElementById('overviewTab');
   overviewTab.innerHTML = `
-    <!-- Centered + underlined title -->
-    <h2
-      id="modalTitle"
-      style="
-        text-align:center;
-        text-decoration:underline;
-        margin-bottom:1rem;
-      "
-    >
-      ${project.title}
-    </h2>
-
-    <!-- Date -->
-    <p style="text-align:center; margin-bottom:1rem;">
-      <strong>Date:</strong> ${project.date}
-    </p>
-
-    <!-- Description heading + content -->
-    <h3 style="text-decoration:underline; margin-top:1rem;">Description</h3>
-    <div style="margin-left:1rem;">${project.description}</div>
-
-    <!-- Methodology heading + content -->
-    <h3 style="text-decoration:underline; margin-top:1rem;">Methodology</h3>
-    <div style="margin-left:1rem;">${project.methodology || 'N/A'}</div>
-
-    <!-- Technologies heading + bullet list -->
-    <h3 style="text-decoration:underline; margin-top:1rem;">Technologies</h3>
-    ${
-      project.technologies && project.technologies.length
-      ? `<ul style="margin-left:2rem;">
-           ${project.technologies.map(t => `<li>${t}</li>`).join('')}
-         </ul>`
-      : `<p style="margin-left:1rem;"><em>No technologies listed</em></p>`
-    }
-
-    <!-- Story -->
-    <h3 style="text-decoration:underline; margin-top:1rem;">Story / Background</h3>
-    <div style="margin-left:1rem;">${project.overview?.story || ''}</div>
-
-    <!-- Collected Data -->
-    <h3 style="text-decoration:underline; margin-top:1rem;">Collected Data</h3>
-    <div style="margin-left:1rem;">${project.overview?.collectedData || ''}</div>
-
-    <!-- Conclusions -->
-    <h3 style="text-decoration:underline; margin-top:1rem;">Conclusions</h3>
-    <div style="margin-left:1rem;">${project.overview?.conclusions || ''}</div>
-
+    <h2 id="modalTitle">${project.title}</h2>
+    
+    <div class="section">
+      <span class="field-label">Date:</span>
+      ${project.date}
+    </div>
+    <div class="section">
+      <span class="field-label">Description:</span>
+      <div>${project.description || ''}</div>
+    </div>
+    <div class="section">
+      <span class="field-label">Methodology:</span>
+      <div>${project.methodology || ''}</div>
+    </div>
+    <div class="section">
+      <span class="field-label">Technologies:</span>
+      ${
+        project.technologies && project.technologies.length
+        ? `<ul>${project.technologies.map(t => `<li>${t}</li>`).join('')}</ul>`
+        : '<em>No technologies listed</em>'
+      }
+    </div>
+    <div class="section">
+      <span class="field-label">Story/Background:</span>
+      <div>${project.overview?.story || ''}</div>
+    </div>
+    <div class="section">
+      <span class="field-label">Collected Data:</span>
+      <div>${project.overview?.collectedData || ''}</div>
+    </div>
+    <div class="section">
+      <span class="field-label">Conclusions:</span>
+      <div>${project.overview?.conclusions || ''}</div>
+    </div>
     ${
       project.reportPdf
-      ? `<p style="margin-top:1rem;">
-           <strong>Report:</strong>
-           <a href="${project.reportPdf}" target="_blank">View PDF</a>
-         </p>`
-      : ''
+        ? `<div class="section"><span class="field-label">Report:</span>
+             <a href="${project.reportPdf}" target="_blank">View PDF</a></div>`
+        : ''
     }
-
-    <p><strong>GitHub Repo:</strong> 
-      <a href="${project.repoUrl}" target="_blank">${project.repoUrl}</a>
-    </p>
+    ${
+      project.repoUrl
+        ? `<div class="section"><span class="field-label">GitHub Repo:</span>
+             <a href="${project.repoUrl}" target="_blank">${project.repoUrl}</a></div>`
+        : ''
+    }
   `;
 
-  // Fill Code tab
+  // === CODE TAB (unchanged) ===
   const codeTab = document.getElementById('codeTab');
   codeTab.innerHTML = '';
-  
   if (project.codeFiles && project.codeFiles.length) {
     for (const fileUrl of project.codeFiles) {
       try {
@@ -217,6 +220,7 @@ async function openModal(index) {
     codeTab.innerHTML = `<p>No code files available.</p>`;
   }
 }
+
 
 function closeModal() {
   if (modal) {
