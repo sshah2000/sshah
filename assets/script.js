@@ -168,7 +168,6 @@ async function openModal(index) {
             <li>
               <strong>${resource.name}</strong> (${resource.category}) – 
               <a href="${resource.file_path}" target="_blank">View / Download</a>
-              <a href="/admin/resource/delete/${project.id}?resource_name=${encodeURIComponent(resource.file_path)}" onclick="return confirm('Delete this resource?');">Delete</a>
             </li>
           `).join('') }
         </ul>
