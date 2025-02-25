@@ -22,7 +22,14 @@
       "conclusions": "<p>-Boston Housing dataset (various real estate features). -German Credit dataset (loan defaults and financial indicators).</p>"
     },
     "codeFiles": [],
-    "resources": []
+    "resources": [
+      {
+        "name": "",
+        "category": "",
+        "file_path": "assets/files/CaseStudy4_1740520255.html",
+        "file_type": "text/html"
+      }
+    ]
   },
   {
     "id": 4,
