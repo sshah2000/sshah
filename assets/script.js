@@ -39,17 +39,19 @@ if (projectCardsContainer) {
 }
 
 /**
- * Render the project cards in a format that resembles your admin preview
+ * Renders each project as a "box" (card) with a thumbnail and a snippet of data
+ * When clicked, it opens the modal with full details (similar to admin_preview)
  */
 function renderProjectCards(projects) {
   projectCardsContainer.innerHTML = '';
 
   projects.forEach((project, index) => {
+    // Create the card container
     const card = document.createElement('div');
     card.classList.add('project-card');
     card.setAttribute('data-index', index);
 
-    // Thumbnail with fallback
+    // Thumbnail (fallback to default if none)
     const imgSrc = project.thumbnail || 'assets/images/default.png';
     const img = document.createElement('img');
     img.src = imgSrc;
@@ -61,47 +63,34 @@ function renderProjectCards(projects) {
     const cardContent = document.createElement('div');
     cardContent.classList.add('card-content');
 
-    // Build a more detailed HTML snippet, matching "admin_preview" style
+    // We'll display partial info in the card,
+    // but keep the full "indentation" for bullet points inside the text
     cardContent.innerHTML = `
-      <h3 
+      <h3
         style="
           text-align:center;
           font-weight:bold;
           text-decoration: underline;
-          font-size:1.2rem;
-          margin-bottom:1rem;
+          margin-bottom:0.5rem;
         "
       >
         ${project.title}
       </h3>
-      
+
       <p><strong>Date:</strong> ${project.date}</p>
       
-      <p><strong>Description:</strong><br>${project.description}</p>
-      
-      <p><strong>Methodology:</strong><br>${project.methodology || 'N/A'}</p>
-      
-      <p><strong>Technologies:</strong> ${project.technologies.join(', ')}</p>
-      
-      <h4 style="margin-top:1rem;">Story / Background:</h4>
-      <div>${project.overview?.story || 'No story provided.'}</div>
-      
-      <h4 style="margin-top:1rem;">Collected Data:</h4>
-      <div>${project.overview?.collectedData || 'No data info provided.'}</div>
-      
-      <h4 style="margin-top:1rem;">Conclusions:</h4>
-      <div>${project.overview?.conclusions || 'No conclusions provided.'}</div>
-      
-      ${
-        project.reportPdf 
-        ? `<p><strong>Report:</strong> 
-             <a href="${project.reportPdf}" target="_blank">View PDF</a>
-           </p>`
-        : ''
-      }
-      <p><strong>GitHub Repo:</strong> 
-         <a href="${project.repoUrl}" target="_blank">${project.repoUrl}</a></p>
+      <!-- Show a snippet of the description (or entire if you want) -->
+      <div style="margin-top:0.5rem;">
+        <strong>Description Preview:</strong>
+        <div style="margin-left:1rem;">
+          ${project.description}
+        </div>
+      </div>
     `;
+    /*
+      If you want to show more fields in the card (Methodology, etc.), you can add them
+      similarly. Usually, a card is a brief summary, and the full details appear in the modal.
+    */
 
     card.appendChild(cardContent);
 
@@ -125,7 +114,8 @@ window.addEventListener('click', (e) => {
 });
 
 /**
- * Opens the project modal and populates the Overview & Code tabs
+ * Opens the project modal and populates the "Overview" & "Code" tabs
+ * with a layout that mirrors admin_preview.html
  */
 async function openModal(index) {
   if (!modal) return;
@@ -145,25 +135,52 @@ async function openModal(index) {
   // Fill Overview tab
   const overviewTab = document.getElementById('overviewTab');
   overviewTab.innerHTML = `
-    <h2 id="modalTitle">${project.title}</h2>
+    <h2 id="modalTitle" style="margin-top:0;">${project.title}</h2>
     <p><strong>Date:</strong> ${project.date}</p>
-    <p><strong>Description:</strong> ${project.description}</p>
-    <p><strong>Methodology:</strong> ${project.methodology || 'N/A'}</p>
-    <p><strong>Technologies:</strong> ${project.technologies.join(', ')}</p>
-    <h3>Story / Background</h3>
-    <p>${project.overview?.story || 'No story provided.'}</p>
-    <h3>Collected Data</h3>
-    <p>${project.overview?.collectedData || 'No data info provided.'}</p>
-    <h3>Conclusions</h3>
-    <p>${project.overview?.conclusions || 'No conclusions provided.'}</p>
-    ${project.reportPdf ? `<p><strong>Report:</strong> <a href="${project.reportPdf}" target="_blank">View PDF</a></p>` : ''}
-    <p><strong>GitHub Repo:</strong> <a href="${project.repoUrl}" target="_blank">Link</a></p>
+    <br>
+    
+    <p><strong>Description:</strong></p>
+    <div style="margin-left:1rem;">${project.description}</div>
+    <br>
+
+    <p><strong>Methodology:</strong></p>
+    <div style="margin-left:1rem;">${project.methodology || 'N/A'}</div>
+    <br>
+
+    <p><strong>Technologies:</strong></p>
+    ${
+      project.technologies && project.technologies.length
+      ? `<ul style="margin-left:1.5rem;">${project.technologies.map(t => `<li>${t}</li>`).join('')}</ul>`
+      : '<p style="margin-left:1rem;"><em>No technologies listed</em></p>'
+    }
+    <br>
+
+    <p><strong>Story / Background:</strong></p>
+    <div style="margin-left:1rem;">${project.overview?.story || 'No story provided.'}</div>
+    <br>
+
+    <p><strong>Collected Data:</strong></p>
+    <div style="margin-left:1rem;">${project.overview?.collectedData || 'No data info provided.'}</div>
+    <br>
+
+    <p><strong>Conclusions:</strong></p>
+    <div style="margin-left:1rem;">${project.overview?.conclusions || 'No conclusions provided.'}</div>
+    <br>
+
+    ${
+      project.reportPdf
+      ? `<p><strong>Report:</strong> 
+           <a href="${project.reportPdf}" target="_blank">View PDF</a>
+         </p>`
+      : ''
+    }
+    <p><strong>GitHub Repo:</strong> <a href="${project.repoUrl}" target="_blank">${project.repoUrl}</a></p>
   `;
 
-  // Fill Code tab
+  // Code tab
   const codeTab = document.getElementById('codeTab');
   codeTab.innerHTML = '';
-  
+
   if (project.codeFiles && project.codeFiles.length) {
     for (const fileUrl of project.codeFiles) {
       try {
@@ -205,7 +222,7 @@ tabLinks.forEach(btn => {
   });
 });
 
-// Optional Sorting function (if sort UI is uncommented)
+// Optional Sorting function (if you want sorting)
 function sortProjects() {
   const sortSelect = document.getElementById('sortSelect');
   const sortValue = sortSelect.value;
