@@ -1,9 +1,9 @@
 [
   {
     "title": "Case Study 4",
-    "date": "2024-11-05",
-    "description": "Goal:\r\nBoston Housing Data: Analyze and Model Housing Data using CART (Classification and Regression Trees) and Linear Regression. \r\nGerman Credit Data: Classify Credit Defaults Using Decision Trees",
-    "methodology": "Boston Housing Data: \r\n-Loaded data from the MASS library.\r\n-Split into 90% training and 10% testing.\r\n-Built and visualized a regression tree model predicting the target median home value (medv).\r\n-Visualized the regression tree using the prp function.\r\n-Calculated in-sample MSE (Mean Squared Error) at 17.2 and out-of-sample MSE at 27.4, indicating possible overfitting.\r\n-Created a linear regression model, excluding \u2018indus\u2019 and \u2018age\u2019 variables.\r\n-The linear regression model had in-sample MSE of 21.5 and out-of-sample MSE of 25.5, showing that CART might fit non-linear relationships better.\r\nGerman Credit Data: \r\n-Loaded and preprocessed German Credit data, converting categorical variables into factors.\r\n-Split the dataset into 80% training and 20% testing.\r\n-Built a classification tree predicting credit defaults.\r\n-Developed a second model applying a weighted cost matrix (false negatives cost 5x more than false positives).\r\n-Compared the models and evaluated misclassification costs.\r\n-Tested out-of-sample performance, showing possible improvements in handling misclassifications.",
+    "date": "2024-11-12",
+    "description": "",
+    "methodology": "<p><span style=\"text-decoration: underline;\"><strong>Boston Housing Dataset</strong></span></p>\r\n<p>&nbsp;</p>",
     "technologies": [
       "R",
       "Decision Trees",
@@ -17,9 +17,9 @@
     "codeFiles": [],
     "reportPdf": "assets/files/CaseStudy4.pdf",
     "overview": {
-      "story": "-Examined real-world housing and credit data to build predictive models.\r\n-Compared different machine learning techniques to evaluate their effectiveness.",
-      "collectedData": "-Boston Housing dataset (various real estate features).\r\n-German Credit dataset (loan defaults and financial indicators).",
-      "conclusions": "-Boston Housing dataset (various real estate features).\r\n-German Credit dataset (loan defaults and financial indicators)."
+      "story": "<p>-Examined real-world housing and credit data to build predictive models. -Compared different machine learning techniques to evaluate their effectiveness.</p>",
+      "collectedData": "<p>-Boston Housing dataset (various real estate features). -German Credit dataset (loan defaults and financial indicators).</p>",
+      "conclusions": "<p>-Boston Housing dataset (various real estate features). -German Credit dataset (loan defaults and financial indicators).</p>"
     }
   }
 ]
