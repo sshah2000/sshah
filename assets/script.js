@@ -132,50 +132,63 @@ async function openModal(index) {
   tabLinks[0].setAttribute('aria-selected', 'true');
   tabContents[0].classList.add('active');
 
-  // Fill Overview tab
+  // Instead of <p><strong>Methodology:</strong>, use underlined headings, etc.
   const overviewTab = document.getElementById('overviewTab');
   overviewTab.innerHTML = `
-    <h2 id="modalTitle" style="margin-top:0;">${project.title}</h2>
-    <p><strong>Date:</strong> ${project.date}</p>
-    <br>
-    
-    <p><strong>Description:</strong></p>
+    <!-- Center and underline the title -->
+    <h2 id="modalTitle" style="text-align:center; text-decoration:underline;">
+      ${project.title}
+    </h2>
+
+    <!-- Date in normal text -->
+    <p style="text-align:center; margin-bottom:1rem;">
+      <strong>Date:</strong> ${project.date}
+    </p>
+
+    <!-- Underlined heading for Description -->
+    <h3 style="text-decoration:underline;">Description</h3>
     <div style="margin-left:1rem;">${project.description}</div>
-    <br>
 
-    <p><strong>Methodology:</strong></p>
+    <!-- Underlined heading for Methodology -->
+    <h3 style="text-decoration:underline; margin-top:1rem;">Methodology</h3>
     <div style="margin-left:1rem;">${project.methodology || 'N/A'}</div>
-    <br>
 
-    <p><strong>Technologies:</strong></p>
+    <!-- Underlined heading for Technologies -->
+    <h3 style="text-decoration:underline; margin-top:1rem;">Technologies</h3>
     ${
       project.technologies && project.technologies.length
-      ? `<ul style="margin-left:1.5rem;">${project.technologies.map(t => `<li>${t}</li>`).join('')}</ul>`
+      ? `<ul style="margin-left:2rem;">
+           ${project.technologies.map(t => `<li>${t}</li>`).join('')}
+         </ul>`
       : '<p style="margin-left:1rem;"><em>No technologies listed</em></p>'
     }
-    <br>
 
-    <p><strong>Story / Background:</strong></p>
+    <!-- Underlined heading for Story -->
+    <h3 style="text-decoration:underline; margin-top:1rem;">Story / Background</h3>
     <div style="margin-left:1rem;">${project.overview?.story || 'No story provided.'}</div>
-    <br>
 
-    <p><strong>Collected Data:</strong></p>
+    <!-- Underlined heading for Collected Data -->
+    <h3 style="text-decoration:underline; margin-top:1rem;">Collected Data</h3>
     <div style="margin-left:1rem;">${project.overview?.collectedData || 'No data info provided.'}</div>
-    <br>
 
-    <p><strong>Conclusions:</strong></p>
+    <!-- Underlined heading for Conclusions -->
+    <h3 style="text-decoration:underline; margin-top:1rem;">Conclusions</h3>
     <div style="margin-left:1rem;">${project.overview?.conclusions || 'No conclusions provided.'}</div>
-    <br>
-
+    
     ${
       project.reportPdf
-      ? `<p><strong>Report:</strong> 
+      ? `<p style="margin-top:1rem;">
+           <strong>Report:</strong>
            <a href="${project.reportPdf}" target="_blank">View PDF</a>
          </p>`
       : ''
     }
-    <p><strong>GitHub Repo:</strong> <a href="${project.repoUrl}" target="_blank">${project.repoUrl}</a></p>
+    <p><strong>GitHub Repo:</strong> <a href="${project.repoUrl}" target="_blank">Link</a></p>
   `;
+
+  // Code tab ...
+  // [Unchanged code that fetches codeFiles and inserts them as <pre> blocks]
+}
 
   // Code tab
   const codeTab = document.getElementById('codeTab');
