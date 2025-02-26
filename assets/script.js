@@ -109,8 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-
-
   /************************************************
    * PROJECTS LOADING & MODAL LOGIC
    ************************************************/
