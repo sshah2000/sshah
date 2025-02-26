@@ -18,12 +18,14 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: var(--light-bg);
   color: var(--light-text);
   transition: background-color 0.3s, color 0.3s;
 }
+
 body.dark {
   background-color: var(--dark-bg);
   color: var(--dark-text);
@@ -40,26 +42,31 @@ body.dark {
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   z-index: 999;
 }
+
 body.dark .navbar {
   background-color: rgba(30, 30, 30, 0.5);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .nav-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
 }
+
 .logo {
   font-weight: bold;
   font-size: 1.2rem;
 }
+
 .menu a {
   margin-left: 1rem;
   text-decoration: none;
   color: inherit;
   transition: color 0.2s;
 }
+
 .menu a:hover,
 .menu a.active {
   color: var(--primary-color);
@@ -73,19 +80,25 @@ body.dark .navbar {
   width: 42px;
   height: 22px;
 }
+
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
+
 .slider {
   position: absolute;
   cursor: pointer;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: var(--gray-light);
   transition: 0.4s;
   border-radius: 34px;
 }
+
 .slider:before {
   position: absolute;
   content: "";
@@ -97,582 +110,16 @@ body.dark .navbar {
   transition: 0.4s;
   border-radius: 50%;
 }
+
 input:checked + .slider {
   background-color: var(--primary-color);
 }
+
 input:checked + .slider:before {
   transform: translateX(20px);
 }
 
-/* Hero Section */
-.hero-section {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding-top: 4rem;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* Blur overlay */
-              url("assets/images/slideshow-default.jpg") center/cover no-repeat; /* Default image */
-  background-blend-mode: overlay;
-  backdrop-filter: blur(10px); /* Blur effect similar to navbar */
-  animation: slideshow 20s infinite; /* Smooth transition for slideshow */
-}
-
-.hero-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); /* Overlay for text readability */
-  z-index: 1;
-}
-
-.hero-container {
-  position: relative;
-  z-index: 2; /* Above the slideshow and blur */
-  color: var(--white); /* Ensure text is readable over slideshow */
-}
-
-/* Fix Dark Mode Text Visibility */
-body.dark .hero-section {
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("assets/images/slideshow-default.jpg") center/cover no-repeat; /* Default slideshow image */
-  background-blend-mode: overlay;
-  color: var(--dark-text); /* Ensure text is readable in dark mode */
-}
-
-body.dark .hero-container h1,
-body.dark .hero-container h3,
-body.dark .hero-container p {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Improve contrast for dark mode */
-  color: var(--white); /* Use white text for better visibility */
-}
-
-body.dark .hero-buttons button {
-  color: var(--white); /* Ensure button text is visible */
-  background-color: var(--primary-color-dark); /* Darker primary color for buttons */
-}
-
-body.dark .hero-buttons button:last-child {
-  background-color: var(--dark-bg); /* Dark background for secondary button */
-  color: var(--primary-color); /* Primary color text for contrast */
-  border: 2px solid var(--primary-color); /* Maintain border visibility */
-}
-
-/* Ensure light mode works correctly */
-body:not(.dark) .hero-section {
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
-    url("assets/images/slideshow-default.jpg") center/cover no-repeat;
-  color: var(--light-text); /* Use light text for better visibility in light mode */
-}
-
-body:not(.dark) .hero-container h1,
-body:not(.dark) .hero-container h3,
-body:not(.dark) .hero-container p {
-  color: var(--white); /* Ensure text is readable over the dark gradient in light mode */
-  text-shadow: none; /* Remove shadow in light mode for cleaner look */
-}
-
-body:not(.dark) .hero-buttons button {
-  color: var(--white); /* Ensure button text is visible in light mode */
-  background-color: var(--primary-color); /* Light mode primary color */
-}
-
-body:not(.dark) .hero-buttons button:last-child {
-  background-color: var(--white); /* Light mode secondary button */
-  color: var(--primary-color); /* Primary color text for contrast */
-  border: 2px solid var(--primary-color); /* Maintain border visibility */
-}
-body.dark .summary-section {
-  background-color: var(--dark-bg); /* Dark background for summary */
-  color: var(--dark-text); /* Ensure text is readable */
-}
-body.dark .projects-teaser {
-  background-color: var(--dark-bg); /* Dark background for projects */
-  color: var(--dark-text); /* Ensure text is readable */
-}
-body.dark .projects-grid .project-card {
-  background-color: var(--modal-bg-dark); /* Dark background for project cards */
-  color: var(--dark-text); /* Ensure text is readable */
-}
-body.dark .footer {
-  background-color: var(--modal-bg-dark); /* Dark background for footer */
-  color: var(--gray-light); /* Lighter gray for better contrast */
-}
-body.dark .footer a {
-  color: var(--primary-color); /* Ensure links are visible */
-}
-
-/* Slideshow Background with Fluid Mobility for Hero Section */
-.hero-section {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding-top: 4rem;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* Blur overlay */
-              url("assets/images/slideshow-default.jpg") center/cover no-repeat; /* Default image */
-  background-blend-mode: overlay;
-  backdrop-filter: blur(10px); /* Blur effect similar to navbar */
-  animation: slideshow 20s infinite; /* Smooth transition for slideshow */
-}
-
-.hero-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); /* Overlay for text readability */
-  z-index: 1;
-}
-
-.hero-container {
-  position: relative;
-  z-index: 2; /* Above the slideshow and blur */
-  color: var(--white); /* Ensure text is readable over slideshow */
-}
-
-/* Slideshow Animation */
-@keyframes slideshow {
-  0% { background-image: url("assets/images/slideshow-1.jpg"); }
-  33.33% { background-image: url("assets/images/slideshow-2.jpg"); }
-  66.66% { background-image: url("assets/images/slideshow-3.jpg"); }
-  100% { background-image: url("assets/images/slideshow-1.jpg"); }
-}
-
-/* Ensure smooth transitions for fluid mobility */
-.hero-section {
-  transition: background-image 1s ease-in-out;
-}
-
-/* Responsive Adjustments for Slideshow */
-@media (max-width: 768px) {
-  .hero-section {
-    padding-top: 6rem;
-    background-size: cover;
-    backdrop-filter: blur(5px); /* Reduce blur on mobile */
-  }
-}
-
-/* Ensure buttons and text remain readable over slideshow */
-.hero-container h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Enhance readability */
-}
-.hero-container h3 {
-  font-size: 1.2rem;
-  margin: 0.5rem 0;
-}
-.hero-container p {
-  font-size: 1rem;
-  margin-bottom: 2rem;
-}
-.hero-buttons button {
-  padding: 0.8rem 1.5rem;
-  border: none;
-  background-color: var(--primary-color);
-  color: var(--white);
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-.hero-buttons button:hover {
-  background-color: var(--primary-color-dark);
-  transform: translateY(-2px);
-}
-.hero-buttons button:last-child {
-  background-color: var(--white);
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
-}
-
-/* Page Sections */
-.page-section {
-  padding: 6rem 2rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-.page-section h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-/* About Section */
-.about-section .about-content {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  align-items: center;
-  justify-content: center;
-  max-width: 800px;
-  margin: 0 auto;
-}
-.about-photo {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-/* Projects Grid: 4 per row on large screens */
-.projects-section .project-cards-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-}
-@media (max-width: 1200px) {
-  .projects-section .project-cards-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media (max-width: 768px) {
-  .projects-section .project-cards-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 480px) {
-  .projects-section .project-cards-container {
-    grid-template-columns: 1fr;
-  }
-}
-
-.project-card {
-  background-color: var(--white);
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: transform 0.2s;
-  cursor: pointer;
-}
-body.dark .project-card {
-  background-color: #2a2a2a;
-}
-.project-card:hover {
-  transform: translateY(-3px);
-}
-.project-card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-.project-card .card-content {
-  padding: 1rem;
-}
-.project-card .card-content h3 {
-  margin-bottom: 0.5rem;
-}
-.project-card .card-content p {
-  color: var(--gray-dark);
-}
-body.dark .project-card .card-content p {
-  color: #ccc;
-}
-
-/* Modal Overlay */
-.modal {
-  display: none;
-  position: fixed;
-  left: 0; top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* semi-transparent overlay */
-  z-index: 2000;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Modal Content */
-.modal-content {
-  width: 80vw;
-  max-height: 80vh;
-  overflow-y: auto;
-  background-color: var(--modal-bg); /* Light mode */
-  color: var(--light-text);
-  position: relative;
-  border-radius: 8px;
-  padding: 1rem;
-}
-
-/* Dark mode override for modal content */
-body.dark .modal-content {
-  background-color: var(--modal-bg-dark);
-  color: var(--dark-text);
-}
-
-/* Matching admin_preview styles */
-.section {
-  margin-bottom: 1rem;
-}
-.field-label {
-  font-weight: bold;
-}
-
-/* Close button */
-.close-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.5rem;
-  cursor: pointer;
-  background: none;
-  border: none;
-}
-
-/* Tabs */
-.modal-tabs {
-  display: flex;
-  border-bottom: 1px solid var(--gray-light);
-  margin-bottom: 1rem;
-}
-body.dark .modal-tabs {
-  border-bottom: 1px solid #444;
-}
-.tablinks {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  font-weight: 500;
-}
-.tablinks.active {
-  border-bottom: 3px solid var(--primary-color);
-  color: var(--primary-color);
-}
-.tabcontent {
-  display: none;
-  margin-top: 1rem;
-}
-.tabcontent.active {
-  display: block;
-}
-
-/* Contact Form */
-.contact-section {
-  padding: 5rem 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: left;
-}
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.contact-form label {
-  font-weight: bold;
-  margin-bottom: 0.3rem;
-}
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  padding: 0.7rem;
-  border-radius: 5px;
-  border: 1px solid var(--gray-light);
-}
-.contact-form button {
-  align-self: flex-start;
-  background-color: var(--primary-color);
-  color: var(--white);
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-.contact-form button:hover {
-  background-color: var(--primary-color-dark);
-}
-
-/* Footer */
-.footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #f0f0f0;
-  margin-top: 2rem;
-}
-body.dark .footer {
-  background-color: #2a2a2a;
-  color: var(--dark-text);
-}
-
-/* Responsive Tweaks */
-@media (max-width: 768px) {
-  .nav-content {
-    flex-direction: column;
-  }
-  .hero-section {
-    padding-top: 6rem;
-  }
-  .about-section .about-content {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-.projects-section {
-  padding: 4rem 2rem;
-  background-color: var(--white);
-}
-
-body.dark .projects-section {
-  background-color: var(--dark-bg);
-}
-
-.projects-section h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
-}
-
-.featured-projects-grid {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.featured-project-card {
-  background-color: var(--white);
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  width: 260px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-}
-
-body.dark .featured-project-card {
-  background-color: var(--modal-bg-dark);
-  color: var(--dark-text);
-}
-
-.featured-project-card:hover {
-  transform: translateY(-5px);
-}
-
-.featured-project-card img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-
-.featured-project-card .content {
-  padding: 1rem;
-}
-
-.featured-project-card .content h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-
-.featured-project-card .content p {
-  font-size: 0.9rem;
-  color: var(--gray-dark);
-}
-
-body.dark .featured-project-card .content p {
-  color: #ccc;
-}
-
-.featured-project-card button {
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: var(--primary-color);
-  border: none;
-  border-radius: 5px;
-  color: var(--white);
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.featured-project-card button:hover {
-  background-color: var(--primary-color-dark);
-}
-
-.footer {
-  text-align: center;
-  padding: 1.5rem;
-  background-color: var(--light-bg);
-  color: var(--gray-dark);
-  font-size: 0.9rem;
-  border-top: 1px solid var(--gray-light);
-}
-
-body.dark .footer {
-  background-color: var(--modal-bg-dark);
-  color: var(--gray-light);
-}
-
-.footer a {
-  color: var(--primary-color);
-  text-decoration: none;
-  margin: 0 0.5rem;
-  transition: color 0.2s;
-}
-
-.footer a:hover {
-  color: var(--primary-color-dark);
-}
-
-/* Add to or update in assets/style.css */
-
-/* Report Section Styling for Modal */
-.report-section {
-  line-height: 1.6;
-  font-size: 1rem;
-}
-.report-section h2 {
-  text-align: center;
-  text-decoration: underline;
-  margin-bottom: 1rem;
-}
-.report-section h3 {
-  text-decoration: underline;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
-}
-.report-section p, .report-section ul, .report-section li {
-  margin-left: 1rem;
-}
-.report-section ul {
-  list-style-type: disc;
-}
-.report-section a {
-  color: var(--primary-color);
-  text-decoration: none;
-}
-.report-section a:hover {
-  text-decoration: underline;
-}
-
-/* Ensure project-card content aligns with reference images */
-.project-card .card-content h3 {
-  text-align: center;
-  text-decoration: underline;
-  margin-bottom: 0.5rem;
-}
-.project-card .card-content p {
-  margin-bottom: 0.5rem;
-  text-align: center;
-}
-
-/* Optional: Adjust modal padding and shadow for better alignment with admin_preview */
-.modal-content {
-  padding: 2rem; /* Increased for report-like spacing */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Theme Controls: Group Dark Mode Toggle & Auto Mode */
+/* Theme Controls */
 .theme-controls {
   display: flex;
   align-items: center;
@@ -703,7 +150,7 @@ body.dark .footer {
   transform: scale(1.05);
 }
 
-/* Dark Mode Adjustments */
+/* Dark Mode Adjustments for Auto Switch */
 body.dark .auto-switch {
   background-color: var(--gray-dark);
   color: var(--white);
@@ -713,38 +160,507 @@ body.dark .auto-switch.active {
   background-color: var(--primary-color-dark); /* Darker blue in dark mode */
 }
 
-/* Improve project card visibility in dark mode */
-body.dark .project-card {
-  background-color: #2a2a2a !important; /* Adjusted background for better contrast */
-  color: #ffffff !important; /* Ensure text is readable */
-  border: 1px solid #444; /* Light border for separation */
+/* Hero Section with Slideshow and Blur */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 4rem;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* Blur overlay */
+              url("assets/images/slideshow-default.jpg") center/cover no-repeat; /* Default image */
+  background-blend-mode: overlay;
+  backdrop-filter: blur(10px); /* Blur effect for the background */
+  animation: slideshow 20s infinite; /* Smooth transition for slideshow */
 }
 
-/* Ensure project titles are readable in dark mode */
-body.dark .project-card .card-content h3 {
-  color: #ffffff !important; /* White text for clear visibility */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)); /* Dark overlay for text readability */
+  z-index: 1;
+  backdrop-filter: blur(5px); /* Blur effect for text layer */
 }
 
-/* Improve project descriptions */
-body.dark .project-card .card-content p {
-  color: #cccccc !important; /* Light gray text for readability */
+.hero-container {
+  position: relative;
+  z-index: 2; /* Above the slideshow and blur */
+  color: var(--white); /* Ensure text is readable over slideshow */
+  max-width: 800px;
 }
 
-/* Ensure project images stand out */
-.project-card img {
+.hero-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Enhance readability */
+}
+
+.hero-container h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  color: #e0e0e0;
+}
+
+.hero-container p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.hero-buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.hero-buttons button {
+  padding: 0.8rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  color: var(--white);
+  background-color: var(--primary-color);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.hero-buttons button:hover {
+  background-color: var(--primary-color-dark);
+  transform: translateY(-2px);
+}
+
+/* Dark Mode Adjustments for Hero Section */
+body.dark .hero-section {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("assets/images/slideshow-default.jpg") center/cover no-repeat;
+  background-blend-mode: overlay;
+  color: var(--dark-text);
+}
+
+body.dark .hero-container h1,
+body.dark .hero-container h3,
+body.dark .hero-container p {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: var(--white);
+}
+
+body.dark .hero-buttons button {
+  color: var(--white);
+  background-color: var(--primary-color-dark);
+}
+
+body.dark .hero-buttons button:last-child {
+  background-color: var(--dark-bg);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+/* Light Mode Adjustments for Hero Section */
+body:not(.dark) .hero-section {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+    url("assets/images/slideshow-default.jpg") center/cover no-repeat;
+  color: var(--light-text);
+}
+
+body:not(.dark) .hero-container h1,
+body:not(.dark) .hero-container h3,
+body:not(.dark) .hero-container p {
+  color: var(--white);
+  text-shadow: none;
+}
+
+body:not(.dark) .hero-buttons button {
+  color: var(--white);
+  background-color: var(--primary-color);
+}
+
+body:not(.dark) .hero-buttons button:last-child {
+  background-color: var(--white);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+/* Page Sections */
+.page-section {
+  padding: 6rem 2rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* About Section */
+.about-section .about-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-photo {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Projects Section */
+.projects-section {
+  padding: 4rem 2rem;
+  background-color: var(--white);
+}
+
+body.dark .projects-section {
+  background-color: var(--dark-bg);
+}
+
+.projects-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.projects-grid,
+.featured-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 900px;
+  margin: 2rem auto;
+  justify-content: center;
+}
+
+@media (max-width: 1200px) {
+  .projects-grid,
+  .featured-projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .projects-grid,
+  .featured-projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .projects-grid,
+  .featured-projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-grid,
+  .featured-projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.project-card,
+.featured-project-card {
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+body.dark .project-card,
+body.dark .featured-project-card {
+  background-color: var(--modal-bg-dark);
+  color: var(--dark-text);
+  border: 1px solid #444;
+}
+
+.project-card:hover,
+.featured-project-card:hover {
+  transform: translateY(-3px);
+}
+
+.project-card img,
+.featured-project-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.project-card .card-content,
+.featured-project-card .content {
+  padding: 1rem;
+  text-align: center;
+}
+
+.project-card .card-content h3,
+.featured-project-card .content h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  color: var(--light-text);
+  text-align: center;
+  text-decoration: underline;
+}
+
+body.dark .project-card .card-content h3,
+body.dark .featured-project-card .content h3 {
+  color: var(--dark-text);
+}
+
+.project-card .card-content p,
+.featured-project-card .content p {
+  margin-bottom: 0.5rem;
+  color: var(--gray-dark);
+  flex-grow: 1;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+body.dark .project-card .card-content p,
+body.dark .featured-project-card .content p {
+  color: var(--gray-light);
+}
+
+.featured-project-card button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  color: var(--white);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.featured-project-card button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+/* Modal Overlay */
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* semi-transparent overlay */
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal Content */
+.modal-content {
+  width: 80vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  background-color: var(--modal-bg); /* Light mode */
+  color: var(--light-text);
+  position: relative;
+  border-radius: 8px;
+  padding: 2rem; /* Increased for report-like spacing */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .modal-content {
+  background-color: var(--modal-bg-dark);
+  color: var(--dark-text);
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* Tabs */
+.modal-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--gray-light);
+  margin-bottom: 1rem;
+}
+
+body.dark .modal-tabs {
+  border-bottom: 1px solid #444;
+}
+
+.tablinks {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+}
+
+.tablinks.active {
+  border-bottom: 3px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.tabcontent {
+  display: none;
+  margin-top: 1rem;
+}
+
+.tabcontent.active {
+  display: block;
+}
+
+/* Report Section Styling for Modal */
+.report-section {
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.report-section h2 {
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 1rem;
+}
+
+.report-section h3 {
+  text-decoration: underline;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.report-section p,
+.report-section ul,
+.report-section li {
+  margin-left: 1rem;
+}
+
+.report-section ul {
+  list-style-type: disc;
+}
+
+.report-section a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.report-section a:hover {
+  text-decoration: underline;
+}
+
+/* Contact Form */
+.contact-section {
+  padding: 5rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-form label {
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 5px;
+  border: 1px solid var(--gray-light);
+}
+
+.contact-form button {
+  align-self: flex-start;
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: var(--light-bg);
+  color: var(--gray-dark);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--gray-light);
+}
+
+body.dark .footer {
+  background-color: var(--modal-bg-dark);
+  color: var(--gray-light);
+}
+
+.footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+  margin: 0 0.5rem;
+  transition: color 0.2s;
+}
+
+.footer a:hover {
+  color: var(--primary-color-dark);
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+  .nav-content {
+    flex-direction: column;
+  }
+  .hero-section {
+    padding-top: 6rem;
+  }
+  .about-section .about-content,
+  .contact-form {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Improve Project Card Visibility in Dark Mode */
+body.dark .project-card img,
+body.dark .featured-project-card img {
   border-radius: 4px;
   display: block;
   width: 100%;
   height: auto;
 }
 
-/* Improve card content padding */
-.project-card .card-content {
-  padding: 1rem;
-  text-align: center;
-}
-
-/* Add a subtle shadow effect */
-.project-card {
+.project-card,
+.featured-project-card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

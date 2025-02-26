@@ -63,120 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, 3600000); // Check every hour
 
-/************************************************
-* NAVBAR AND FOOTER TEMPLATES 
- ************************************************/
-
-// Navbar and Footer Templates
-const navbarHTML = `
-  <header class="navbar" role="banner">
-    <div class="nav-content">
-      <div class="logo">MyPortfolio</div>
-      <nav class="menu" role="navigation">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="projects.html">Projects</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <div class="theme-controls">
-        <label class="switch">
-          <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
-          <span class="slider round"></span>
-        </label>
-        <button id="autoModeToggle" class="auto-switch">Auto</button>
-      </div>
-    </div>
-  </header>
-`;
-
-const footerHTML = `
-  <footer class="footer" role="contentinfo">
-    <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
-  </footer>
-`;
-
-// Inject Navbar and Footer
-document.addEventListener('DOMContentLoaded', () => {
-  document.body.insertAdjacentHTML('afterbegin', navbarHTML);
-  document.body.insertAdjacentHTML('beforeend', footerHTML);
-  
-  // Update active link based on current page
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.menu a').forEach(link => {
-    if (link.getAttribute('href') === currentPage) {
-      link.classList.add('active');
-    }
-  });
-});
-
-  /************************************************
-   * PROJECTS LOADING & MODAL LOGIC
-   ************************************************/
-/************************************************
- * DYNAMIC DARK MODE TOGGLE WITH AUTO MODE
- ************************************************/
-document.addEventListener('DOMContentLoaded', () => {
-  const darkModeToggle = document.getElementById('darkModeToggle');
-  const autoModeToggle = document.getElementById('autoModeToggle');
-  const body = document.body;
-
-  // Function to determine if it's nighttime (6 PM - 6 AM)
-  function isNightTime() {
-    const now = new Date();
-    const hour = now.getHours();
-    return hour >= 18 || hour < 6;
-  }
-
-  // Function to apply theme based on time or user preference
-  function applyTheme() {
-    let preferredTheme = localStorage.getItem('theme');
-    const isNight = isNightTime();
-
-    if (!preferredTheme || preferredTheme === 'auto') {
-      preferredTheme = isNight ? 'dark' : 'light';
-      localStorage.setItem('theme', 'auto');
-      autoModeToggle?.classList.add('active');
-    } else {
-      autoModeToggle?.classList.remove('active');
-    }
-
-    if (preferredTheme === 'dark') {
-      body.classList.add('dark');
-      darkModeToggle.checked = true;
-    } else {
-      body.classList.remove('dark');
-      darkModeToggle.checked = false;
-    }
-  }
-
-  // Initial theme application
-  applyTheme();
-
-  // Manual dark mode toggle
-  if (darkModeToggle) {
-    darkModeToggle.addEventListener('change', () => {
-      const isDark = darkModeToggle.checked;
-      body.classList.toggle('dark', isDark);
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      autoModeToggle?.classList.remove('active');
-    });
-  }
-
-  // Auto Mode toggle logic
-  if (autoModeToggle) {
-    autoModeToggle.addEventListener('click', () => {
-      localStorage.setItem('theme', 'auto');
-      applyTheme();
-    });
-  }
-
-  // Periodic check for auto mode updates
-  setInterval(() => {
-    if (localStorage.getItem('theme') === 'auto') {
-      applyTheme();
-    }
-  }, 3600000); // Check every hour
-
   /************************************************
    * NAVBAR AND FOOTER TEMPLATES
    ************************************************/
@@ -225,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /************************************************
-   * PROJECTS LOADING & MODAL LOGIC
+   * PROJECTS LOADING FOR HOME AND PROJECTS PAGES
    ************************************************/
   let projectData = [];
 
@@ -243,6 +129,21 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (error) {
         console.error('Error loading recent projects:', error);
         recentProjectsContainer.innerHTML = '<p>Unable to load recent projects.</p>';
+      }
+    })();
+  }
+
+  // Load projects for projects.html
+  const projectCardsContainer = document.getElementById('projectCardsContainer');
+  if (projectCardsContainer) {
+    (async function loadProjects() {
+      try {
+        const response = await fetch('assets/projects.json');
+        projectData = await response.json();
+        renderProjectCards(projectData);
+      } catch (error) {
+        console.error('Error loading projects:', error);
+        projectCardsContainer.innerHTML = '<p>Error loading projects. Please try again later.</p>';
       }
     })();
   }
@@ -265,9 +166,45 @@ document.addEventListener('DOMContentLoaded', () => {
       recentProjectsContainer.appendChild(card);
     });
   }
-});
 
-  // Modal setup
+  // Render project cards (for projects.html)
+  function renderProjectCards(projects) {
+    projectCardsContainer.innerHTML = '';
+    projects.forEach((project, index) => {
+      const card = document.createElement('div');
+      card.classList.add('project-card');
+      card.setAttribute('data-index', index);
+      card.innerHTML = `
+        <img src="${project.thumbnail || 'assets/images/default.png'}" alt="${project.title} thumbnail" loading="lazy">
+        <div class="card-content">
+          <h3>${project.title}</h3>
+          <p><strong>Date:</strong> ${project.date}</p>
+          <p>${project.description.substring(0, 100)}...</p>
+        </div>
+      `;
+      card.addEventListener('click', () => openModal(index));
+      projectCardsContainer.appendChild(card);
+    });
+  }
+
+  // Sorting function for projects.html
+  function sortProjects() {
+    const sortSelect = document.getElementById('sortSelect');
+    if (!sortSelect || !projectData.length) return;
+    const sortValue = sortSelect.value;
+    let sorted = [...projectData];
+    if (sortValue === 'date') {
+      sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (sortValue === 'title') {
+      sorted.sort((a, b) => a.title.localeCompare(b.title));
+    }
+    renderProjectCards(sorted);
+  }
+  window.sortProjects = sortProjects;
+
+  /************************************************
+   * MODAL LOGIC FOR PROJECTS PAGE
+   ************************************************/
   const modal = document.getElementById('projectModal');
   const modalCloseBtn = document.getElementById('modalCloseBtn');
   const tabLinks = document.querySelectorAll('.tablinks');
@@ -363,19 +300,4 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById(btn.getAttribute('data-tab'))?.classList.add('active');
     });
   });
-
-  // Sorting function
-  function sortProjects() {
-    const sortSelect = document.getElementById('sortSelect');
-    if (!sortSelect || !projectData.length) return;
-    const sortValue = sortSelect.value;
-    let sorted = [...projectData];
-    if (sortValue === 'date') {
-      sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
-    } else if (sortValue === 'title') {
-      sorted.sort((a, b) => a.title.localeCompare(b.title));
-    }
-    renderProjectCards(sorted);
-  }
-  window.sortProjects = sortProjects;
 });
