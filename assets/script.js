@@ -62,3 +62,5 @@ document.addEventListener('DOMContentLoaded', () => {
       applyTheme();
     }
   }, 3600000); // Check every hour
+
+  });
