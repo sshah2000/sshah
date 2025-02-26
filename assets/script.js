@@ -19,11 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /************************************************
- * PROJECTS LOADING & MODAL LOGIC
+ * PROJECTS LOADING & MODAL LOGIC (Removed duplicate rendering)
  ************************************************/
 let projectData = [];
 
-// Load projects if container exists
+// Load projects if container exists (for projects.html, not index.html)
 const projectCardsContainer = document.getElementById('projectCardsContainer');
 if (projectCardsContainer) {
   (async function loadProjects() {
@@ -97,7 +97,7 @@ function renderProjectCards(projects) {
   });
 }
 
-// Modal logic
+// Modal logic (unchanged, assuming it’s used in projects.html)
 const modal = document.getElementById('projectModal');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
 const tabLinks = document.querySelectorAll('.tablinks');
@@ -195,8 +195,6 @@ async function openModal(index) {
   }
 }
 
-
-
 function closeModal() {
   if (modal) {
     modal.style.display = 'none';
@@ -219,7 +217,7 @@ tabLinks.forEach(btn => {
   });
 });
 
-// Optional Sorting
+// Optional Sorting (for projects.html, if needed)
 function sortProjects() {
   const sortSelect = document.getElementById('sortSelect');
   const sortValue = sortSelect.value;
@@ -233,25 +231,3 @@ function sortProjects() {
   renderProjectCards(sorted);
 }
 window.sortProjects = sortProjects;
-
-document.addEventListener("DOMContentLoaded", function () {
-  fetch("assets/projects.json")
-      .then(response => response.json())
-      .then(data => {
-          const featuredProjects = document.getElementById("featuredProjects");
-          const topProjects = data.slice(0, 3); // Select the first 3 projects
-
-          topProjects.forEach(project => {
-              const projectCard = document.createElement("div");
-              projectCard.classList.add("project-card");
-              projectCard.innerHTML = `
-                  <img src="${project.thumbnail}" alt="${project.title}">
-                  <h3>${project.title}</h3>
-                  <p>${project.description.substring(0, 100)}...</p>
-                  <button onclick="window.location.href='projects.html'">View Project</button>
-              `;
-              featuredProjects.appendChild(projectCard);
-          });
-      })
-      .catch(error => console.error("Error loading projects:", error));
-});
