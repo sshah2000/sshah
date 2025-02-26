@@ -40,7 +40,7 @@
     .hero-buttons button:hover { transform: scale(1.05); }
     .summary-section { padding: 4rem 2rem; text-align: center; background: #fff; }
     .summary-section h2 { font-size: 2rem; margin-bottom: 1rem; }
-    .summary-section p { max-width: 700px; margin: 0 auto; line-height: 1.6; }
+    .summary-section p { max-width: 700px; margin: 0 auto; line-height: 1.6; color: #333; }
     .projects-teaser { padding: 4rem 2rem; background: #f1f3f5; text-align: center; }
     .projects-grid { display: grid; grid-template-columns: repeat(3, 260px); gap: 2rem; max-width: 900px; margin: 2rem auto; justify-content: center; }
     .project-card {
@@ -84,31 +84,35 @@
       .hero-container h3 { font-size: 1.2rem; }
       .hero-buttons button { display: block; margin: 0.5rem auto; }
     }
+
+    /* Dark Mode Adjustments for Home Page */
+    body.dark {
+      background-color: var(--dark-bg);
+    }
+    body.dark .summary-section {
+      background-color: var(--dark-bg);
+      color: var(--dark-text);
+    }
+    body.dark .summary-section p {
+      color: var(--dark-text);
+    }
+    body.dark .projects-teaser {
+      background-color: var(--dark-bg);
+      color: var(--dark-text);
+    }
+    body.dark .projects-grid .project-card {
+      background-color: var(--modal-bg-dark);
+      color: var(--dark-text);
+    }
+    body.dark .projects-grid .project-card h3 {
+      color: var(--dark-text);
+    }
+    body.dark .projects-grid .project-card p {
+      color: var(--gray-light);
+    }
   </style>
 </head>
 <body>
-<!-- Navbar (Updated with Auto Mode Button) -->
-<header class="navbar" role="banner">
-  <div class="nav-content">
-    <div class="logo">MyPortfolio</div>
-    <nav class="menu" role="navigation">
-      <a href="index.html" class="active" >Home</a>
-      <a href="about.html">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-
-    <!-- Dark Mode Toggle and Auto Mode Button -->
-    <div class="theme-controls">
-      <label class="switch">
-        <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
-        <span class="slider round"></span>
-      </label>
-      <button id="autoModeToggle" class="auto-switch">Auto</button>
-    </div>
-  </div>
-</header>
-
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-container">
