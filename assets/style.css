@@ -1,3 +1,6 @@
+/* style.css */
+
+/* CSS Variables for Light and Dark Mode */
 :root {
   --primary-color: #0077ff;
   --primary-color-dark: #005ec2;
@@ -31,7 +34,7 @@ body.dark {
   color: var(--dark-text);
 }
 
-/* Navbar */
+/* Navbar Styles */
 .navbar {
   position: fixed;
   top: 0;
@@ -160,7 +163,7 @@ body.dark .auto-switch.active {
   background-color: var(--primary-color-dark); /* Darker blue in dark mode */
 }
 
-/* Hero Section with Slideshow and Blur */
+/* Hero Section Styles */
 .hero-section {
   position: relative;
   min-height: 100vh;
@@ -455,7 +458,7 @@ body.dark .featured-project-card .content p {
   background-color: var(--primary-color-dark);
 }
 
-/* Modal Overlay */
+/* Modal Styles */
 .modal {
   display: none;
   position: fixed;
@@ -463,10 +466,11 @@ body.dark .featured-project-card .content p {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* semi-transparent overlay */
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
   z-index: 2000;
   justify-content: center;
   align-items: center;
+  transition: background-color 0.3s; /* Smooth transition for theme changes */
 }
 
 /* Modal Content */
@@ -480,8 +484,10 @@ body.dark .featured-project-card .content p {
   border-radius: 8px;
   padding: 2rem; /* Increased for report-like spacing */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, color 0.3s; /* Smooth theme switching */
 }
 
+/* Dark Mode Adjustments for Modal Content */
 body.dark .modal-content {
   background-color: var(--modal-bg-dark);
   color: var(--dark-text);
@@ -496,9 +502,15 @@ body.dark .modal-content {
   cursor: pointer;
   background: none;
   border: none;
+  color: var(--light-text);
+  transition: color 0.3s;
 }
 
-/* Tabs */
+body.dark .close-btn {
+  color: var(--dark-text);
+}
+
+/* Modal Tabs (Optional, preserved from original) */
 .modal-tabs {
   display: flex;
   border-bottom: 1px solid var(--gray-light);
@@ -515,6 +527,12 @@ body.dark .modal-tabs {
   cursor: pointer;
   padding: 0.5rem 1rem;
   font-weight: 500;
+  color: var(--light-text);
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+body.dark .tablinks {
+  color: var(--dark-text);
 }
 
 .tablinks.active {
@@ -535,40 +553,64 @@ body.dark .modal-tabs {
 .report-section {
   line-height: 1.6;
   font-size: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Desktop: 3 columns for thumbnail, title/date, description */
+  gap: 1rem;
 }
 
 .report-section h2 {
   text-align: center;
   text-decoration: underline;
   margin-bottom: 1rem;
+  grid-column: span 3; /* Span all columns */
+  color: var(--light-text);
+}
+
+body.dark .report-section h2 {
+  color: var(--dark-text);
 }
 
 .report-section h3 {
   text-decoration: underline;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
+  grid-column: span 3; /* Span all columns */
+  color: var(--light-text);
+}
+
+body.dark .report-section h3 {
+  color: var(--dark-text);
 }
 
 .report-section p,
 .report-section ul,
 .report-section li {
   margin-left: 1rem;
+  color: var(--light-text);
+}
+
+body.dark .report-section p,
+body.dark .report-section ul,
+body.dark .report-section li {
+  color: var(--dark-text);
 }
 
 .report-section ul {
   list-style-type: disc;
+  margin-left: 1.5rem;
 }
 
 .report-section a {
   color: var(--primary-color);
   text-decoration: none;
+  transition: color 0.3s;
 }
 
 .report-section a:hover {
   text-decoration: underline;
 }
 
-/* Contact Form */
+/* Contact Form Styles */
 .contact-section {
   padding: 5rem 2rem;
   max-width: 800px;
@@ -610,7 +652,7 @@ body.dark .modal-tabs {
   background-color: var(--primary-color-dark);
 }
 
-/* Footer */
+/* Footer Styles */
 .footer {
   text-align: center;
   padding: 1.5rem;
@@ -636,20 +678,6 @@ body.dark .footer {
   color: var(--primary-color-dark);
 }
 
-/* Set a Fixed Background Image for Hero Section */
-.hero-section {
-  background-image: url("assets/images/image01.png"); /* Choose one static image */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transition: none; /* Remove smooth transition effect */
-}
-
-/* Remove Slideshow Animation */
-@keyframes slideshow {
-  /* No animation needed, so this can be removed */
-}
-
 /* Responsive Tweaks */
 @media (max-width: 768px) {
   .nav-content {
@@ -665,6 +693,39 @@ body.dark .footer {
   }
 }
 
+@media (max-width: 900px) { /* Tablet */
+  .modal-content {
+    width: 90vw;
+  }
+  .report-section {
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+  }
+  .report-section h2,
+  .report-section h3,
+  .report-section p,
+  .report-section ul,
+  .report-section li {
+    grid-column: span 2; /* Span both columns */
+  }
+}
+
+@media (max-width: 480px) { /* Mobile */
+  .modal-content {
+    width: 95vw;
+    padding: 1rem;
+  }
+  .report-section {
+    grid-template-columns: 1fr; /* Single column, stacked vertically */
+  }
+  .report-section h2,
+  .report-section h3,
+  .report-section p,
+  .report-section ul,
+  .report-section li {
+    grid-column: span 1; /* Span single column */
+  }
+}
+
 /* Improve Project Card Visibility in Dark Mode */
 body.dark .project-card img,
 body.dark .featured-project-card img {
@@ -677,4 +738,22 @@ body.dark .featured-project-card img {
 .project-card,
 .featured-project-card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure Smooth Transitions for All Modal Elements */
+.modal-content,
+.close-btn,
+.tablinks,
+.report-section h2,
+.report-section h3,
+.report-section p,
+.report-section ul,
+.report-section li,
+.report-section a {
+  transition: all 0.3s ease;
+}
+
+/* Remove Slideshow Animation */
+@keyframes slideshow {
+  /* No animation needed, so this can be removed */
 }
