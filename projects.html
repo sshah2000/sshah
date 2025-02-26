@@ -8,29 +8,31 @@
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <!-- Navbar -->
-  <header class="navbar" role="banner">
-    <div class="nav-content">
-      <div class="logo">MyPortfolio</div>
-      <nav class="menu" role="navigation">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="projects.html" class="active">Projects</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <div class="theme-controls">
-        <label class="switch">
-          <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
-          <span class="slider round"></span>
-        </label>
-        <button id="autoModeToggle" class="auto-switch">Auto</button>
-      </div>
-    </div>
-  </header>
+<!-- Navbar (Updated with Auto Mode Button) -->
+<header class="navbar" role="banner">
+  <div class="nav-content">
+    <div class="logo">MyPortfolio</div>
+    <nav class="menu" role="navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="contact.html">Contact</a>
+    </nav>
 
-  <!-- Projects Section -->
+    <!-- Dark Mode Toggle and Auto Mode Button -->
+    <div class="theme-controls">
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
+        <span class="slider round"></span>
+      </label>
+      <button id="autoModeToggle" class="auto-switch">Auto</button>
+    </div>
+  </div>
+</header>
+
   <section class="page-section projects-section">
     <h2>My Projects</h2>
+    <!-- Add sorting mechanism (dropdown) -->
     <div style="margin-bottom: 1rem; text-align: center;">
       <label for="sortSelect">Sort By:</label>
       <select id="sortSelect" onchange="sortProjects()">
@@ -38,15 +40,17 @@
         <option value="title">Title (A-Z)</option>
       </select>
     </div>
-    <div id="projectCardsContainer" class="project-cards-container"></div>
+    <div id="projectCardsContainer" class="project-cards-container">
+      <!-- Cards loaded dynamically from projects.json -->
+    </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer (unchanged) -->
   <footer class="footer" role="contentinfo">
     <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
   </footer>
 
-  <!-- Modal -->
+  <!-- Modal for Project Details -->
   <div id="projectModal" class="modal">
     <div class="modal-content">
       <button class="close-btn" id="modalCloseBtn">×</button>
@@ -54,7 +58,7 @@
     </div>
   </div>
 
-  <!-- JavaScript -->
+  <!-- JavaScript to Load Projects, Handle Sorting, Navigation, and Modal -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       loadProjects();
@@ -63,28 +67,36 @@
     async function loadProjects() {
       try {
         const response = await fetch('assets/projects.json');
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
         const projects = await response.json();
+        // Filter to ensure unique projects by ID
         const uniqueProjects = projects.filter((project, index, self) =>
           index === self.findIndex((p) => p.id === project.id)
         );
+        // Sort unique projects by date (default: newest first)
         uniqueProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
         renderProjectCards(uniqueProjects);
+        // Store projects globally for sorting
         window.projectData = uniqueProjects;
       } catch (error) {
         console.error('Error loading projects:', error);
-        document.getElementById('projectCardsContainer').innerHTML = '<p>Unable to load projects at this time.</p>';
+        document.getElementById('projectCardsContainer').innerHTML = '<p>Unable to load projects at this time. Please check your network connection or try again later.</p>';
       }
     }
 
     function renderProjectCards(projects) {
       const container = document.getElementById('projectCardsContainer');
-      if (!container) return;
-      container.innerHTML = '';
+      if (!container) {
+        console.error('Container #projectCardsContainer not found');
+        return;
+      }
+      container.innerHTML = ''; // Clear any existing content
       projects.forEach(project => {
         const card = document.createElement('div');
         card.className = 'project-card';
-        card.id = `project-${project.id}`;
+        card.id = `project-${project.id}`; // Add ID for navigation
         card.innerHTML = `
           <img src="${project.thumbnail || 'assets/images/default.png'}" alt="${project.title} Thumbnail" class="thumbnail">
           <div class="card-content">
@@ -93,14 +105,19 @@
             <p>${(project.description || 'No description available.').substring(0, 100)}...</p>
           </div>
         `;
+        // Add click event to open modal with project details
         card.addEventListener('click', () => openModal(project));
         container.appendChild(card);
       });
-      const hash = window.location.hash.substring(1);
+
+      // Handle navigation from index.html (URL hash)
+      const hash = window.location.hash.substring(1); // Get #id (e.g., "5")
       if (hash) {
-        const projectId = parseInt(hash, 10);
+        const projectId = parseInt(hash, 10); // Convert to number
         const targetProject = projects.find(p => p.id === projectId);
-        if (targetProject) openModal(targetProject);
+        if (targetProject) {
+          openModal(targetProject); // Open modal for the project
+        }
       }
     }
 
@@ -108,6 +125,8 @@
       const modal = document.getElementById('projectModal');
       const report = document.getElementById('projectReport');
       if (!modal || !report) return;
+
+      // Format the report based on the rightmost image (admin_preview-like)
       report.innerHTML = `
         <h2>${project.title}</h2>
         <p><strong>Date:</strong> ${project.date}</p>
@@ -126,13 +145,24 @@
         <h3>Conclusions</h3>
         <p>${project.overview?.conclusions || ''}</p>
         ${project.resources && project.resources.length
-          ? `<h3>Additional Resources</h3>
-             <ul>${project.resources.map(r => `<li><strong>${r.name}</strong> (${r.category}) – <a href="${r.file_path}" target="_blank">View / Download</a></li>`).join('')}</ul>`
+          ? `
+            <h3>Additional Resources</h3>
+            <ul>
+              ${project.resources.map(resource => `
+                <li><strong>${resource.name}</strong> (${resource.category}) – 
+                  <a href="${resource.file_path}" target="_blank">View / Download</a></li>
+              `).join('')}
+            </ul>
+          `
           : '<p>No additional resources available.</p>'}
         ${project.reportPdf
-          ? `<h3>Project Report</h3><p><a href="${project.reportPdf}" target="_blank">View Report</a></p>`
+          ? `
+            <h3>Project Report</h3>
+            <p><a href="${project.reportPdf}" target="_blank">View Report</a></p>
+          `
           : '<p>No project report available.</p>'}
       `;
+
       modal.style.display = 'flex';
     }
 
@@ -141,6 +171,7 @@
       if (modal) modal.style.display = 'none';
     }
 
+    // Close modal when clicking outside or on close button
     document.getElementById('modalCloseBtn')?.addEventListener('click', closeModal);
     window.addEventListener('click', (e) => {
       const modal = document.getElementById('projectModal');
@@ -151,20 +182,23 @@
       const sortSelect = document.getElementById('sortSelect');
       const sortValue = sortSelect.value;
       let sortedProjects = [...window.projectData];
+
       if (!sortedProjects || sortedProjects.length === 0) {
+        console.warn('No project data available for sorting. Reloading...');
         loadProjects();
         return;
       }
+
       if (sortValue === 'date') {
-        sortedProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
+        sortedProjects.sort((a, b) => new Date(b.date) - new Date(a.date)); // Newest first
       } else if (sortValue === 'title') {
-        sortedProjects.sort((a, b) => a.title.localeCompare(b.title));
+        sortedProjects.sort((a, b) => a.title.localeCompare(b.title)); // A-Z
       }
       renderProjectCards(sortedProjects);
     }
 
-    window.sortProjects = sortProjects;
+    window.sortProjects = sortProjects; // Expose for HTML onchange
+
   </script>
-  <script src="assets/script.js"></script>
 </body>
 </html>
