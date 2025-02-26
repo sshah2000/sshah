@@ -636,6 +636,20 @@ body.dark .footer {
   color: var(--primary-color-dark);
 }
 
+/* Set a Fixed Background Image for Hero Section */
+.hero-section {
+  background-image: url("assets/images/image01.png"); /* Choose one static image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: none; /* Remove smooth transition effect */
+}
+
+/* Remove Slideshow Animation */
+@keyframes slideshow {
+  /* No animation needed, so this can be removed */
+}
+
 /* Responsive Tweaks */
 @media (max-width: 768px) {
   .nav-content {
