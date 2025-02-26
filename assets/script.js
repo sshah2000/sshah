@@ -196,6 +196,54 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
   if (modal) window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
+  function openModal(project) {
+    if (!modal) return;
+    modal.style.display = 'flex';
+  
+    const reportSection = document.getElementById('projectReport') || modal.querySelector('.report-section');
+    if (reportSection) {
+      reportSection.innerHTML = `
+        <h2>${project.title}</h2>
+        <p><strong>Date:</strong> ${project.date}</p>
+        <h3>Description</h3>
+        <div>${project.description || 'No description available.'}</div>
+        <h3>Methodology</h3>
+        <div>${project.methodology || 'N/A'}</div>
+        <h3>Technologies</h3>
+        ${project.technologies?.length ? `<ul>${project.technologies.map(t => `<li>${t}</li>`).join('')}</ul>` : '<p>No technologies listed.</p>'}
+        <h3>Story / Background</h3>
+        <div>${project.overview?.story || 'N/A'}</div>
+        <h3>Collected Data</h3>
+        <div>${project.overview?.collectedData || 'N/A'}</div>
+        <h3>Conclusions</h3>
+        <div>${project.overview?.conclusions || 'N/A'}</div>
+        ${project.reportPdf ? `<p><strong>Project Report:</strong> <a href="${project.reportPdf}" target="_blank">View Report</a></p>` : '<p><strong>Project Report:</strong> None available.</p>'}
+        ${project.resources?.length ? `
+          <h3>Additional Resources</h3>
+          <ul>
+            ${project.resources.map(r => `
+              <li><strong>${r.name}</strong> (${r.category}) – 
+                ${isImageFile(r.file_path) ? `<a href="#" onclick="openImageViewer('${r.file_path}'); return false;">View</a> / <a href="${r.file_path}" target="_blank">Download</a>` : `<a href="${r.file_path}" target="_blank">View / Download</a>`}
+              </li>`).join('')}
+          </ul>` : '<p><strong>Additional Resources:</strong> None available.</p>'}
+      `;
+    }
+  }
+
+  (async function loadProjects() {
+    try {
+      const response = await fetch('assets/projects.json');
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      const projects = await response.json();
+      projectData = projects.filter((p, i, self) => i === self.findIndex(t => t.id === p.id));
+      projectData.sort((a, b) => new Date(b.date) - new Date(a.date));
+      renderProjectCards(projectData);
+      checkHashNavigation();
+    } catch (error) {
+      console.error('Error loading projects:', error);
+      projectCardsContainer.innerHTML = '<p>Unable to load projects. Check console for details.</p>';
+    }
+  })();
   
   function closeModal() {
     if (modal) modal.style.display = 'none';
