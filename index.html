@@ -118,4 +118,46 @@
   <footer class="footer">
     <p>© 2025 Shubh Shah | <a href="https://github.com/sshah2000" target="_blank">GitHub</a> | 
     <a href="https://www.linkedin.com/in/shubh-shah-054463211" target="_blank">LinkedIn</a> | 
-    <a href="/cdn-cgi/l/email-protection#c3b0abb6a1abb0aba2abf1f3f3f383baa2abacaceda0ac
+    <a href="/cdn-cgi/l/email-protection#c3b0abb6a1abb0aba2abf1f3f3f383baa2abacaceda0acae">Email</a></p>
+  </footer>
+
+  <!-- JavaScript to Load Top 3 Unique Recent Projects from JSON -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('assets/projects.json')
+        .then(response => response.json())
+        .then(projects => {
+          // Filter to ensure unique projects by ID
+          const uniqueProjects = projects.filter((project, index, self) =>
+            index === self.findIndex((p) => p.id === project.id)
+          );
+          // Sort unique projects by date (assuming date is in 'YYYY-MM-DD' format) in descending order
+          uniqueProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
+          // Take the top 3 most recent unique projects
+          const recent = uniqueProjects.slice(0, 3);
+          const container = document.getElementById('recentProjects');
+          container.innerHTML = ''; // Clear any existing content
+          recent.forEach(project => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.innerHTML = `
+              <img src="${project.thumbnail || 'assets/images/default.png'}" alt="${project.title} Thumbnail" class="thumbnail">
+              <h3>${project.title}</h3>
+              <p>${project.description || 'No description available.'}</p>
+            `;
+            // Add click event to navigate to projects.html with project ID
+            card.addEventListener('click', () => {
+              window.location.href = `projects.html#${project.id}`;
+            });
+            container.appendChild(card);
+          });
+        })
+        .catch(error => {
+          console.error('Error loading projects:', error);
+          document.getElementById('recentProjects').innerHTML = '<p>Unable to load recent projects at this time.</p>';
+        });
+    });
+  </script>
+  <script src="assets/script.js"></script>
+</body>
+</html>
