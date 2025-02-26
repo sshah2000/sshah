@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Shubh Shah | Projects</title>
-  <meta name="description" content="Explore Shubh Shah's projects, showcasing innovative data analytics and business intelligence solutions.">
+  <title>My Dynamic Portfolio | Projects</title>
+  <meta name="description" content="Explore my projects, showcasing dynamic solutions and innovative code implementations.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <!-- Navbar (Updated with Auto Mode Button) -->
+  <!-- Navbar (unchanged) -->
   <header class="navbar" role="banner">
     <div class="nav-content">
       <div class="logo">MyPortfolio</div>
@@ -18,50 +18,31 @@
         <a href="projects.html" class="active">Projects</a>
         <a href="contact.html">Contact</a>
       </nav>
-      <div class="theme-controls">
-        <label class="switch">
-          <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
-          <span class="slider round"></span>
-        </label>
-        <button id="autoModeToggle" class="auto-switch">Auto</button>
-      </div>
+      <label class="switch" for="darkModeToggle">
+        <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
+        <span class="slider round"></span>
+      </label>
     </div>
   </header>
 
-  <!-- Hero Section (Enhanced with Project Focus) -->
-  <section class="hero-section">
-    <div class="hero-container">
-      <h1>My Data Analytics Projects</h1>
-      <h3>Discover Innovative Solutions in EV Adoption, Sales, Obesity Trends, and More</h3>
-      <p>Explore my portfolio of projects built with SQL, Python, Tableau, Power BI, and Machine Learning to drive impactful insights.</p>
-      <div class="hero-buttons">
-        <button onclick="scrollToProjects()">View Projects</button>
-        <button onclick="window.open('assets/files/RESUME_2025.pdf', '_blank')">Download Resume</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section (Enhanced Layout and Sorting) -->
   <section class="page-section projects-section">
-    <h2>Explore My Projects</h2>
-    <div class="project-controls" style="margin-bottom: 2rem; text-align: center;">
+    <h2>My Projects</h2>
+    <!-- Add sorting mechanism (dropdown) -->
+    <div style="margin-bottom: 1rem; text-align: center;">
       <label for="sortSelect">Sort By:</label>
       <select id="sortSelect" onchange="sortProjects()">
         <option value="date">Date (Newest First)</option>
         <option value="title">Title (A-Z)</option>
       </select>
-      <button id="filterBtn" onclick="filterProjects()">Filter by Category</button>
     </div>
-    <div id="projectCardsContainer" class="projects-grid enhanced-grid">
+    <div id="projectCardsContainer" class="project-cards-container">
       <!-- Cards loaded dynamically from projects.json -->
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer (unchanged) -->
   <footer class="footer" role="contentinfo">
-    <p>© 2025 Shubh Shah | <a href="https://github.com/sshah2000" target="_blank">GitHub</a> | 
-    <a href="https://www.linkedin.com/in/shubh-shah-054463211" target="_blank">LinkedIn</a> | 
-    <a href="/cdn-cgi/l/email-protection#c3b0abb6a1abb0aba2abf1f3f3f383baa2abacaceda0acae">Email</a></p>
+    <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
   </footer>
 
   <!-- Modal for Project Details -->
@@ -81,70 +62,102 @@
     async function loadProjects() {
       try {
         const response = await fetch('assets/projects.json');
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
         const projects = await response.json();
-        window.projectData = projects.filter((project, index, self) =>
-          index === self.findIndex((p) => p.id === p.id)
+        // Filter to ensure unique projects by ID
+        const uniqueProjects = projects.filter((project, index, self) =>
+          index === self.findIndex((p) => p.id === project.id)
         );
-        window.projectData.sort((a, b) => new Date(b.date) - new Date(a.date));
-        renderProjectCards(window.projectData);
+        // Sort unique projects by date (default: newest first)
+        uniqueProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
+        renderProjectCards(uniqueProjects);
+        // Store projects globally for sorting
+        window.projectData = uniqueProjects;
       } catch (error) {
         console.error('Error loading projects:', error);
-        document.getElementById('projectCardsContainer').innerHTML = '<p>Unable to load projects. Please try again later.</p>';
+        document.getElementById('projectCardsContainer').innerHTML = '<p>Unable to load projects at this time. Please check your network connection or try again later.</p>';
       }
     }
 
     function renderProjectCards(projects) {
       const container = document.getElementById('projectCardsContainer');
-      if (!container) return;
-      container.innerHTML = '';
+      if (!container) {
+        console.error('Container #projectCardsContainer not found');
+        return;
+      }
+      container.innerHTML = ''; // Clear any existing content
       projects.forEach(project => {
         const card = document.createElement('div');
-        card.className = 'project-card enhanced-card';
-        card.id = `project-${project.id}`;
+        card.className = 'project-card';
+        card.id = `project-${project.id}`; // Add ID for navigation
         card.innerHTML = `
           <img src="${project.thumbnail || 'assets/images/default.png'}" alt="${project.title} Thumbnail" class="thumbnail">
           <div class="card-content">
             <h3>${project.title}</h3>
             <p><strong>Date:</strong> ${project.date}</p>
-            <p><strong>Category:</strong> ${project.overview?.category || 'Uncategorized'}</p>
             <p>${(project.description || 'No description available.').substring(0, 100)}...</p>
           </div>
         `;
+        // Add click event to open modal with project details
         card.addEventListener('click', () => openModal(project));
         container.appendChild(card);
       });
-      checkHashNavigation();
+
+      // Handle navigation from index.html (URL hash)
+      const hash = window.location.hash.substring(1); // Get #id (e.g., "5")
+      if (hash) {
+        const projectId = parseInt(hash, 10); // Convert to number
+        const targetProject = projects.find(p => p.id === projectId);
+        if (targetProject) {
+          openModal(targetProject); // Open modal for the project
+        }
+      }
     }
 
     function openModal(project) {
       const modal = document.getElementById('projectModal');
       const report = document.getElementById('projectReport');
       if (!modal || !report) return;
+
+      // Format the report based on the rightmost image (admin_preview-like)
       report.innerHTML = `
-        <h2 style="text-align:center; text-decoration:underline; margin-bottom:1rem;">${project.title}</h2>
-        <p style="text-align:center; margin-bottom:1rem;"><strong>Date:</strong> ${project.date}</p>
-        <h3 style="text-decoration:underline; margin-top:1rem;">Description</h3>
-        <div style="margin-left:1rem;">${project.description || 'No description available.'}</div>
-        <h3 style="text-decoration:underline; margin-top:1rem;">Methodology</h3>
-        <div style="margin-left:1rem;">${project.methodology || 'N/A'}</div>
-        <h3 style="text-decoration:underline; margin-top:1rem;">Technologies</h3>
-        ${project.technologies?.length ? `<ul style="margin-left:2rem;">${project.technologies.map(t => `<li>${t}</li>`).join('')}</ul>` : '<p style="margin-left:1rem;">No technologies listed.</p>'}
-        <h3 style="text-decoration:underline; margin-top:1rem;">Story / Background</h3>
-        <div style="margin-left:1rem;">${project.overview?.story || 'N/A'}</div>
-        <h3 style="text-decoration:underline; margin-top:1rem;">Collected Data</h3>
-        <div style="margin-left:1rem;">${project.overview?.collectedData || 'N/A'}</div>
-        <h3 style="text-decoration:underline; margin-top:1rem;">Conclusions</h3>
-        <div style="margin-left:1rem;">${project.overview?.conclusions || 'N/A'}</div>
-        ${project.reportPdf ? `<p style="margin-top:1rem;"><strong>Project Report:</strong> <a href="${project.reportPdf}" target="_blank">View Report</a></p>` : '<p style="margin-top:1rem;"><strong>Project Report:</strong> None available.</p>'}
-        ${project.resources?.length ? `
-          <div style="margin-top:1rem;">
-            <h3 style="text-decoration:underline;">Additional Resources</h3>
-            <ul style="margin-left:1rem;">
-              ${project.resources.map(r => `<li><strong>${r.name}</strong> (${r.category}) – <a href="${r.file_path}" target="_blank">View / Download</a></li>`).join('')}
+        <h2>${project.title}</h2>
+        <p><strong>Date:</strong> ${project.date}</p>
+        <h3>Description</h3>
+        <p>${project.description || 'No description available.'}</p>
+        <h3>Methodology</h3>
+        <p>${project.methodology || 'N/A'}</p>
+        <h3>Technologies</h3>
+        ${project.technologies && project.technologies.length
+          ? `<ul><li>${project.technologies.join('</li><li>')}</li></ul>`
+          : '<p>No technologies listed</p>'}
+        <h3>Story / Background</h3>
+        <p>${project.overview?.story || ''}</p>
+        <h3>Collected Data</h3>
+        <p>${project.overview?.collectedData || ''}</p>
+        <h3>Conclusions</h3>
+        <p>${project.overview?.conclusions || ''}</p>
+        ${project.resources && project.resources.length
+          ? `
+            <h3>Additional Resources</h3>
+            <ul>
+              ${project.resources.map(resource => `
+                <li><strong>${resource.name}</strong> (${resource.category}) – 
+                  <a href="${resource.file_path}" target="_blank">View / Download</a></li>
+              `).join('')}
             </ul>
-          </div>` : '<p style="margin-top:1rem;"><strong>Additional Resources:</strong> None available.</p>'}
+          `
+          : '<p>No additional resources available.</p>'}
+        ${project.reportPdf
+          ? `
+            <h3>Project Report</h3>
+            <p><a href="${project.reportPdf}" target="_blank">View Report</a></p>
+          `
+          : '<p>No project report available.</p>'}
       `;
+
       modal.style.display = 'flex';
     }
 
@@ -160,41 +173,26 @@
       if (e.target === modal) closeModal();
     });
 
-    function checkHashNavigation() {
-      const hash = window.location.hash.substring(1);
-      if (hash) {
-        const projectId = parseInt(hash, 10);
-        const targetProject = window.projectData.find(p => p.id === projectId);
-        if (targetProject) openModal(targetProject);
-      }
-    }
-
     function sortProjects() {
       const sortSelect = document.getElementById('sortSelect');
       const sortValue = sortSelect.value;
       let sortedProjects = [...window.projectData];
+
       if (!sortedProjects || sortedProjects.length === 0) {
+        console.warn('No project data available for sorting. Reloading...');
         loadProjects();
         return;
       }
+
       if (sortValue === 'date') {
-        sortedProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
+        sortedProjects.sort((a, b) => new Date(b.date) - new Date(a.date)); // Newest first
       } else if (sortValue === 'title') {
-        sortedProjects.sort((a, b) => a.title.localeCompare(b.title));
+        sortedProjects.sort((a, b) => a.title.localeCompare(b.title)); // A-Z
       }
       renderProjectCards(sortedProjects);
     }
 
-    window.sortProjects = sortProjects;
-
-    function scrollToProjects() {
-      document.querySelector('.projects-section').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function filterProjects() {
-      // Placeholder for filtering by category (can be enhanced with a modal or dropdown)
-      alert('Filter by category functionality to be implemented. Current categories: ' + window.projectData.map(p => p.overview?.category || 'Uncategorized').join(', '));
-    }
+    window.sortProjects = sortProjects; // Expose for HTML onchange
   </script>
 </body>
 </html>
