@@ -196,39 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
   if (modal) window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-  function openModal(project) {
-    if (!modal) return;
-    modal.style.display = 'flex';
-
-    const reportSection = document.getElementById('projectReport') || modal.querySelector('.report-section');
-    if (reportSection) {
-      reportSection.innerHTML = `
-        <h2 style="text-align:center; text-decoration:underline; margin-bottom:1rem;">${project.title}</h2>
-        <p style="text-align:center; margin-bottom:1rem;"><strong>Date:</strong> ${project.date}</p>
-        <h3 style="text-decoration:underline; margin-top:1rem;">Description</h3>
-        <div style="margin-left:1rem;">${project.description || 'No description available.'}</div>
-        <h3 style="text-decoration:underline; margin-top:1rem;">Methodology</h3>
-        <div style="margin-left:1rem;">${project.methodology || 'N/A'}</div>
-        <h3 style="text-decoration:underline; margin-top:1rem;">Technologies</h3>
-        ${project.technologies?.length ? `<ul style="margin-left:2rem;">${project.technologies.map(t => `<li>${t}</li>`).join('')}</ul>` : '<p style="margin-left:1rem;">No technologies listed.</p>'}
-        <h3 style="text-decoration:underline; margin-top:1rem;">Story / Background</h3>
-        <div style="margin-left:1rem;">${project.overview?.story || 'N/A'}</div>
-        <h3 style="text-decoration:underline; margin-top:1rem;">Collected Data</h3>
-        <div style="margin-left:1rem;">${project.overview?.collectedData || 'N/A'}</div>
-        <h3 style="text-decoration:underline; margin-top:1rem;">Conclusions</h3>
-        <div style="margin-left:1rem;">${project.overview?.conclusions || 'N/A'}</div>
-        ${project.reportPdf ? `<p style="margin-top:1rem;"><strong>Project Report:</strong> <a href="${project.reportPdf}" target="_blank">View Report</a></p>` : '<p style="margin-top:1rem;"><strong>Project Report:</strong> None available.</p>'}
-        ${project.resources?.length ? `
-          <div style="margin-top:1rem;">
-            <h3 style="text-decoration:underline;">Additional Resources</h3>
-            <ul style="margin-left:1rem;">
-              ${project.resources.map(r => `<li><strong>${r.name}</strong> (${r.category}) – <a href="${r.file_path}" target="_blank">View / Download</a></li>`).join('')}
-            </ul>
-          </div>` : '<p style="margin-top:1rem;"><strong>Additional Resources:</strong> None available.</p>'}
-      `;
-    }
-  }
-
+  
   function closeModal() {
     if (modal) modal.style.display = 'none';
   }
