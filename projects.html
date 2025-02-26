@@ -27,6 +27,14 @@
 
   <section class="page-section projects-section">
     <h2>My Projects</h2>
+    <!-- Add sorting mechanism (dropdown) -->
+    <div style="margin-bottom: 1rem; text-align: center;">
+      <label for="sortSelect">Sort By:</label>
+      <select id="sortSelect" onchange="sortProjects()">
+        <option value="date">Date (Newest First)</option>
+        <option value="title">Title (A-Z)</option>
+      </select>
+    </div>
     <div id="projectCardsContainer" class="project-cards-container">
       <!-- Cards loaded dynamically from projects.json via script.js -->
     </div>
@@ -37,61 +45,98 @@
     <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
   </footer>
 
-  <!-- JavaScript to Load Remaining Projects and Handle Navigation -->
+  <!-- JavaScript to Load Projects, Handle Sorting, and Navigation -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      fetch('assets/projects.json')
-        .then(response => response.json())
-        .then(projects => {
-          // Filter to ensure unique projects by ID
-          const uniqueProjects = projects.filter((project, index, self) =>
-            index === self.findIndex((p) => p.id === project.id)
-          );
-          // Sort unique projects by date (assuming date is in 'YYYY-MM-DD' format) in descending order
-          uniqueProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
-          // Take all projects except the top 3 (which are on index.html)
-          const remainingProjects = uniqueProjects.slice(3);
-          const container = document.getElementById('projectCardsContainer');
-          container.innerHTML = ''; // Clear any existing content
-          remainingProjects.forEach(project => {
-            const card = document.createElement('div');
-            card.className = 'project-card';
-            card.id = `project-${project.id}`; // Add ID for navigation
-            card.innerHTML = `
-              <img src="${project.thumbnail || 'assets/images/default.png'}" alt="${project.title} Thumbnail" class="thumbnail">
-              <h3>${project.title}</h3>
-              <p>${project.description || 'No description available.'}</p>
-            `;
-            // Add click event for local navigation (optional, if needed within projects.html)
-            card.addEventListener('click', () => {
-              window.location.hash = `#project-${project.id}`;
-            });
-            container.appendChild(card);
-          });
-
-          // Handle navigation from index.html (URL hash)
-          const hash = window.location.hash.substring(1); // Get #id (e.g., "5")
-          if (hash) {
-            const projectId = parseInt(hash, 10); // Convert to number
-            const targetProject = uniqueProjects.find(p => p.id === projectId);
-            if (targetProject) {
-              const targetCard = document.getElementById(`project-${targetProject.id}`);
-              if (targetCard) {
-                targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                // Optionally highlight the card (e.g., add a class)
-                targetCard.classList.add('highlight');
-                setTimeout(() => targetCard.classList.remove('highlight'), 2000); // Remove highlight after 2 seconds
-              }
-            }
-          }
-        })
-        .catch(error => {
-          console.error('Error loading projects:', error);
-          document.getElementById('projectCardsContainer').innerHTML = '<p>Unable to load projects at this time.</p>';
-        });
+      loadProjects();
     });
+
+    async function loadProjects() {
+      try {
+        const response = await fetch('assets/projects.json');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const projects = await response.json();
+        // Filter to ensure unique projects by ID
+        const uniqueProjects = projects.filter((project, index, self) =>
+          index === self.findIndex((p) => p.id === project.id)
+        );
+        // Sort unique projects by date (default: newest first)
+        uniqueProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
+        // Take all projects (since index.html shows top 3, this shows the rest)
+        renderProjectCards(uniqueProjects);
+      } catch (error) {
+        console.error('Error loading projects:', error);
+        document.getElementById('projectCardsContainer').innerHTML = '<p>Unable to load projects at this time. Please check your network connection or try again later.</p>';
+      }
+    }
+
+    function renderProjectCards(projects) {
+      const container = document.getElementById('projectCardsContainer');
+      if (!container) {
+        console.error('Container #projectCardsContainer not found');
+        return;
+      }
+      container.innerHTML = ''; // Clear any existing content
+      projects.forEach(project => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.id = `project-${project.id}`; // Add ID for navigation
+        card.innerHTML = `
+          <img src="${project.thumbnail || 'assets/images/default.png'}" alt="${project.title} Thumbnail" class="thumbnail">
+          <h3>${project.title}</h3>
+          <p><strong>Date:</strong> ${project.date}</p>
+          <p>${project.description || 'No description available.'}</p>
+        `;
+        // Add click event for navigation to index.html or local modal (if needed)
+        card.addEventListener('click', () => {
+          window.location.hash = `#project-${project.id}`; // Local navigation within projects.html
+          // Optional: Navigate to index.html if needed, but since this is projects.html, keep local
+        });
+        container.appendChild(card);
+      });
+
+      // Handle navigation from index.html (URL hash)
+      const hash = window.location.hash.substring(1); // Get #id (e.g., "5")
+      if (hash) {
+        const projectId = parseInt(hash, 10); // Convert to number
+        const targetProject = projects.find(p => p.id === projectId);
+        if (targetProject) {
+          const targetCard = document.getElementById(`project-${targetProject.id}`);
+          if (targetCard) {
+            targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Optionally highlight the card (e.g., add a class)
+            targetCard.classList.add('highlight');
+            setTimeout(() => targetCard.classList.remove('highlight'), 2000); // Remove highlight after 2 seconds
+          }
+        }
+      }
+    }
+
+    function sortProjects() {
+      const sortSelect = document.getElementById('sortSelect');
+      const sortValue = sortSelect.value;
+      let sortedProjects = [...projectData]; // Use global projectData or fetch again if not stored
+
+      if (!sortedProjects || sortedProjects.length === 0) {
+        // If projectData isn’t available, reload projects
+        loadProjects();
+        return;
+      }
+
+      if (sortValue === 'date') {
+        sortedProjects.sort((a, b) => new Date(b.date) - new Date(a.date)); // Newest first
+      } else if (sortValue === 'title') {
+        sortedProjects.sort((a, b) => a.title.localeCompare(b.title)); // A-Z
+      }
+      renderProjectCards(sortedProjects);
+    }
+
+    // Store project data globally or fetch on sort if needed
+    let projectData = [];
+    window.sortProjects = sortProjects; // Expose for HTML onchange
   </script>
-  <script src="assets/script.js"></script>
   <style>
     .highlight {
       background-color: #e9ecef;
