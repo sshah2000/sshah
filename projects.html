@@ -5,8 +5,7 @@
   <title>My Dynamic Portfolio | Projects</title>
   <meta name="description" content="Explore my projects, showcasing dynamic solutions and innovative code implementations.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/style.css">
-  <!-- Inline Critical Styles -->
+  <!-- Inline CSS -->
   <style>
     /* Base Styles */
     * {
@@ -126,6 +125,7 @@
     }
     .modal-content {
       width: 80vw;
+      max-width: 900px;
       max-height: 80vh;
       overflow-y: auto;
       background-color: #fff;
@@ -152,17 +152,17 @@
       color: #f0f0f0;
     }
     .modal-report {
-      display: grid;
-      grid-template-columns: 150px 1fr;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 1rem;
-      align-items: start;
     }
     .modal-image {
-      grid-row: span 2;
       padding: 0.5rem;
     }
     .modal-image .thumbnail {
       width: 100%;
+      max-width: 150px;
       height: auto;
       border-radius: 4px;
       object-fit: cover;
@@ -170,9 +170,10 @@
     .report-section {
       line-height: 1.6;
       font-size: 1rem;
+      width: 100%;
     }
     .report-section h2 {
-      text-align: center;
+      text-align: left;
       text-decoration: underline;
       margin-bottom: 1rem;
     }
@@ -181,14 +182,16 @@
       margin-top: 1rem;
       margin-bottom: 0.5rem;
     }
-    .report-section p,
-    .report-section ul,
-    .report-section li {
-      margin-left: 1rem;
+    .report-section p {
+      margin-left: 0;
     }
     .report-section ul {
-      list-style-type: disc;
       margin-left: 1.5rem;
+      list-style-type: disc;
+    }
+    .report-section img {
+      max-width: 100%;
+      height: auto;
     }
     .report-section a {
       color: #0077ff;
@@ -234,12 +237,6 @@
     @media (max-width: 768px) {
       .project-cards-container {
         grid-template-columns: repeat(2, 1fr);
-      }
-      .modal-report {
-        grid-template-columns: 1fr;
-      }
-      .modal-image {
-        grid-row: auto;
       }
     }
     @media (max-width: 480px) {
@@ -459,6 +456,5 @@
 
     window.sortProjects = sortProjects;
   </script>
-  <script src="assets/script.js"></script>
 </body>
 </html>
