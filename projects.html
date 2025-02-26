@@ -8,83 +8,203 @@
   <link rel="stylesheet" href="assets/style.css">
   <!-- Inline CSS -->
   <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fff;
+    }
+    body.dark {
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: #000;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .nav-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .menu a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    .menu a.active, .menu a:hover {
+      color: #0077ff;
+    }
+    .theme-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      border-radius: 24px;
+      transition: 0.4s;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: #fff;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+    input:checked + .slider {
+      background-color: #0077ff;
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    .auto-switch {
+      background-color: #0077ff;
+      color: #fff;
+      border: none;
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+    .auto-switch:hover {
+      background-color: #005fa3;
+    }
+
     /* Projects Section */
     .page-section {
-      padding: 6rem 2rem 2rem;
+      padding: 4rem 1rem 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
     .projects-section h2 {
       text-align: center;
-      margin-bottom: 2rem;
       font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .sort-container {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    #sortSelect {
+      padding: 0.4rem 0.8rem;
+      border: 1px solid #0077ff;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      background-color: #fff;
+    }
+    body.dark #sortSelect {
+      background-color: #2a2a2a;
+      color: #f0f0f0;
+      border-color: #444;
     }
     .project-cards-container {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      gap: 1.5rem;
       max-width: 900px;
       margin: 0 auto;
     }
     .project-card {
       background-color: #fff;
       border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
     body.dark .project-card {
       background-color: #2a2a2a;
-      color: #f0f0f0;
       border: 1px solid #444;
     }
     .project-card img {
       width: 100%;
-      height: 160px;
+      height: 140px;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: 8px 8px 0 0;
     }
     .card-content {
-      padding: 1rem;
+      padding: 0.8rem;
       text-align: center;
     }
     .card-content h3 {
-      margin-bottom: 0.5rem;
-      font-size: 1.2rem;
-      text-decoration: underline;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      color: #0077ff;
     }
     .card-content p {
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #555;
     }
     body.dark .card-content p {
       color: #ccc;
     }
+
     /* Modal */
     .modal {
       display: none;
       position: fixed;
-      left: 0;
       top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.7);
       z-index: 2000;
       justify-content: center;
       align-items: center;
     }
     .modal-content {
       width: 80vw;
-      max-width: 900px;
+      max-width: 800px;
       max-height: 80vh;
       overflow-y: auto;
       background-color: #fff;
-      color: #333;
       border-radius: 8px;
-      padding: 1rem;
+      padding: 0.75rem; /* Reduced for compactness */
       position: relative;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     body.dark .modal-content {
       background-color: #2a2a2a;
@@ -92,13 +212,17 @@
     }
     .close-btn {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 1.5rem;
-      cursor: pointer;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 1.2rem;
       background: none;
       border: none;
       color: #333;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .close-btn:hover {
+      color: #0077ff;
     }
     body.dark .close-btn {
       color: #f0f0f0;
@@ -106,56 +230,70 @@
     .modal-report {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
+      align-items: center;
+      gap: 0.3rem; /* Reduced for compactness */
     }
     .modal-image {
-      padding: 0.5rem;
+      margin-bottom: 0.5rem;
     }
     .modal-image .thumbnail {
       width: 100%;
-      max-width: 150px;
+      max-width: 120px; /* Smaller thumbnail */
       height: auto;
       border-radius: 4px;
       object-fit: cover;
     }
     .report-section {
-      line-height: 1.4;
-      font-size: 0.95rem;
       width: 100%;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      padding: 0 0.5rem;
     }
-    .report-section h2 {
-      text-align: left;
-      text-decoration: underline;
-      margin-bottom: 0.5rem;
+    .report-section .section {
+      margin-bottom: 0.4rem; /* Reduced spacing */
     }
-    .report-section h3 {
-      text-decoration: underline;
-      margin-top: 0.5rem;
-      margin-bottom: 0.3rem;
+    .report-section .field-label {
+      font-weight: bold;
+      margin-right: 0.4rem;
+      color: #0077ff;
     }
-    .report-section p {
-      margin-left: 0;
+    body.dark .report-section .field-label {
+      color: #66b0ff;
     }
     .report-section ul {
-      margin-left: 1.5rem;
+      margin-left: 1.2rem;
       list-style-type: disc;
       margin-bottom: 0.3rem;
     }
-    .report-section img {
-      max-width: 100%;
-      height: auto;
+    .report-section li {
+      margin-bottom: 0.2rem;
     }
-    .report-section a {
-      color: #0077ff;
+    .report-section .resource-links a {
+      background-color: #0077ff;
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
       text-decoration: none;
+      font-size: 0.8rem;
+      margin-right: 0.4rem;
+      transition: background-color 0.3s;
     }
+    .report-section .resource-links a:hover {
+      background-color: #005fa3;
+    }
+    body.dark .report-section .resource-links a {
+      background-color: #66b0ff;
+    }
+    body.dark .report-section .resource-links a:hover {
+      background-color: #4d8ecc;
+    }
+
     /* Image Viewer Overlay */
     .overlay {
       display: none;
       position: fixed;
-      left: 0;
       top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       background-color: rgba(0, 0, 0, 0.8);
@@ -172,69 +310,89 @@
       max-width: 100%;
       max-height: 80vh;
       object-fit: contain;
+      border-radius: 4px;
     }
+
     /* Footer */
     .footer {
       text-align: center;
-      padding: 1.5rem;
+      padding: 1rem;
       background-color: #fafafa;
       color: #555;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       border-top: 1px solid #ccc;
     }
     body.dark .footer {
       background-color: #2a2a2a;
       color: #ccc;
+      border-top: 1px solid #444;
     }
+
     /* Responsive Adjustments */
     @media (max-width: 768px) {
       .project-cards-container {
         grid-template-columns: repeat(2, 1fr);
+      }
+      .modal-content {
+        width: 90vw;
+        padding: 0.5rem;
       }
     }
     @media (max-width: 480px) {
       .project-cards-container {
         grid-template-columns: 1fr;
       }
+      .modal-image .thumbnail {
+        max-width: 100px;
+      }
+      .nav-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .menu a {
+        margin-left: 0;
+      }
     }
   </style>
 </head>
 <body>
-<!-- Navbar (Updated with Auto Mode Button) -->
-<header class="navbar" role="banner">
-  <div class="nav-content">
-    <div class="logo">MyPortfolio</div>
-    <nav class="menu" role="navigation">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="projects.html" class="active">Projects</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-
-    <!-- Dark Mode Toggle and Auto Mode Button -->
-    <div class="theme-controls">
-      <label class="switch">
-        <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
-        <span class="slider round"></span>
-      </label>
-      <button id="autoModeToggle" class="auto-switch">Auto</button>
+  <!-- Navbar -->
+  <header class="navbar" role="banner">
+    <div class="nav-content">
+      <div class="logo">MyPortfolio</div>
+      <nav class="menu" role="navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html" class="active" aria-current="page">Projects</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="theme-controls">
+        <label class="switch" aria-label="Toggle dark mode">
+          <input type="checkbox" id="darkModeToggle">
+          <span class="slider"></span>
+        </label>
+        <button id="autoModeToggle" class="auto-switch">Auto</button>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
   <!-- Projects Section -->
   <section class="page-section projects-section">
     <h2>My Projects</h2>
-    <div style="margin-bottom: 1rem; text-align: center;">
+    <div class="sort-container">
       <label for="sortSelect">Sort By:</label>
       <select id="sortSelect" onchange="sortProjects()">
         <option value="date">Date (Newest First)</option>
         <option value="title">Title (A-Z)</option>
       </select>
     </div>
-    <div id="projectCardsContainer" class="project-cards-container">
-      <!-- Cards loaded dynamically -->
-    </div>
+    <div id="projectCardsContainer" class="project-cards-container"></div>
   </section>
 
   <!-- Footer -->
@@ -272,7 +430,7 @@
     async function loadProjects() {
       try {
         const response = await fetch('assets/projects.json');
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) throw new Error('Failed to fetch projects');
         const projects = await response.json();
         const uniqueProjects = projects.filter((p, i, self) => i === self.findIndex(t => t.id === p.id));
         uniqueProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -280,7 +438,7 @@
         window.projectData = uniqueProjects;
       } catch (error) {
         console.error('Error loading projects:', error);
-        document.getElementById('projectCardsContainer').innerHTML = '<p>Unable to load projects at this time.</p>';
+        document.getElementById('projectCardsContainer').innerHTML = '<p>Sorry, projects failed to load. Please try again later.</p>';
       }
     }
 
@@ -293,11 +451,10 @@
         card.className = 'project-card';
         card.id = `project-${project.id}`;
         card.innerHTML = `
-          <img src="${project.thumbnail || 'assets/images/default.png'}" alt="${project.title} Thumbnail" class="thumbnail">
+          <img src="${project.thumbnail || 'assets/images/default.png'}" alt="${project.title} Thumbnail">
           <div class="card-content">
             <h3>${project.title}</h3>
-            <p><strong>Date:</strong> ${project.date}</p>
-            <p>${(project.description || 'No description available.').substring(0, 100)}...</p>
+            <p>${(project.description || 'No description available.').substring(0, 80)}...</p>
           </div>
         `;
         card.addEventListener('click', () => openModal(project));
@@ -313,7 +470,7 @@
 
     function isImageFile(filePath) {
       const imageExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg'];
-      const ext = filePath.toLowerCase().slice((filePath.lastIndexOf(".") - 1 >>> 0) + 2);
+      const ext = filePath.toLowerCase().slice(filePath.lastIndexOf('.') + 1);
       return imageExtensions.includes('.' + ext);
     }
 
@@ -323,40 +480,66 @@
       const thumbnail = document.getElementById('modalThumbnail');
       if (!modal || !report || !thumbnail) return;
       thumbnail.src = project.thumbnail || 'assets/images/default.png';
+      thumbnail.alt = `${project.title} Thumbnail`;
+      const githubBase = 'https://github.com/yourusername/yourrepo/blob/main/';
+      const rawBase = 'https://raw.githubusercontent.com/yourusername/yourrepo/main/';
       report.innerHTML = `
-        <h2>${project.title}</h2>
-        <p><strong>Date:</strong> ${project.date}</p>
-        <h3>Description</h3>
-        <p>${project.description || 'No description available.'}</p>
-        <h3>Methodology</h3>
-        <p>${project.methodology || 'N/A'}</p>
-        <h3>Technologies</h3>
-        ${project.technologies && project.technologies.length
-          ? `<ul><li>${project.technologies.join('</li><li>')}</li></ul>`
-          : '<p>No technologies listed</p>'}
-        <h3>Story / Background</h3>
-        <p>${project.overview?.story || ''}</p>
-        <h3>Collected Data</h3>
-        <p>${project.overview?.collectedData || ''}</p>
-        <h3>Conclusions</h3>
-        <p>${project.overview?.conclusions || ''}</p>
-        ${project.resources && project.resources.length
-          ? `
-            <h3>Additional Resources</h3>
-            <ul>
-              ${project.resources.map(resource => `
+        <div class="section">
+          <span class="field-label">Title:</span> ${project.title}
+        </div>
+        <div class="section">
+          <span class="field-label">Date:</span> ${new Date(project.date).toLocaleDateString()}
+        </div>
+        <div class="section">
+          <span class="field-label">Description:</span>
+          <div>${project.description || 'No description provided.'}</div>
+        </div>
+        <div class="section">
+          <span class="field-label">Methodology:</span>
+          <div>${project.methodology || 'Not specified.'}</div>
+        </div>
+        <div class="section">
+          <span class="field-label">Technologies:</span>
+          ${project.technologies && project.technologies.length
+            ? `<ul>${project.technologies.map(tech => `<li>${tech}</li>`).join('')}</ul>`
+            : '<div>None listed.</div>'}
+        </div>
+        <div class="section">
+          <span class="field-label">Background:</span>
+          <div>${project.overview?.story || 'No background available.'}</div>
+        </div>
+        <div class="section">
+          <span class="field-label">Data:</span>
+          <div>${project.overview?.collectedData || 'No data details provided.'}</div>
+        </div>
+        <div class="section">
+          <span class="field-label">Conclusions:</span>
+          <div>${project.overview?.conclusions || 'No conclusions specified.'}</div>
+        </div>
+        <div class="section">
+          <span class="field-label">Resources:</span>
+          ${project.resources && project.resources.length
+            ? `<ul>${project.resources.map(resource => `
                 <li><strong>${resource.name}</strong> (${resource.category}) – 
-                  ${isImageFile(resource.file_path)
-                    ? `<a href="#" onclick="openImageViewer('${resource.file_path}'); return false;">View</a> / <a href="${resource.file_path}" target="_blank">Download</a>`
-                    : `<a href="${resource.file_path}" target="_blank">View / Download</a>`}
+                  <span class="resource-links">
+                    ${isImageFile(resource.file_path)
+                      ? `<a href="#" onclick="openImageViewer('${resource.file_path}'); return false;">View</a>`
+                      : `<a href="${githubBase}${resource.file_path}" target="_blank">View</a>`}
+                    <a href="${rawBase}${resource.file_path}" download>Download</a>
+                  </span>
                 </li>
-              `).join('')}
-            </ul>
-          `
-          : '<p>No additional resources available.</p>'}
-        ${project.reportPdf
-          ? `<h3>Project Report</h3><p><a href="${project.reportPdf}" target="_blank">View Report</a></p>`
-          : '<p>No project report available.</p>'}
+              `).join('')}</ul>`
+            : '<div>No resources available.</div>'}
+        </div>
+        <div class="section">
+          <span class="field-label">Report:</span>
+          ${project.reportPdf
+            ? `<span class="resource-links">
+                 <a href="${githubBase}${project.reportPdf}" target="_blank">View</a>
+                 <a href="${rawBase}${project.reportPdf}" download>Download</a>
+               </span>`
+            : '<div>No report available.</div>'}
+        </div>
       `;
       modal.style.display = 'flex';
     }
@@ -395,9 +578,9 @@
     function sortProjects() {
       const sortSelect = document.getElementById('sortSelect');
       const sortValue = sortSelect.value;
-      let sortedProjects = [...window.projectData];
-      if (!sortedProjects || sortedProjects.length === 0) {
-        console.warn('No project data available for sorting. Reloading...');
+      let sortedProjects = [...window.projectData || []];
+      if (sortedProjects.length === 0) {
+        console.warn('No project data available. Reloading...');
         loadProjects();
         return;
       }
@@ -410,6 +593,16 @@
     }
 
     window.sortProjects = sortProjects;
+
+    // Dark Mode Toggle (Simplified Example)
+    document.getElementById('darkModeToggle')?.addEventListener('change', (e) => {
+      document.body.classList.toggle('dark', e.target.checked);
+    });
+    document.getElementById('autoModeToggle')?.addEventListener('click', () => {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.body.classList.toggle('dark', prefersDark);
+      document.getElementById('darkModeToggle').checked = prefersDark;
+    });
   </script>
   <script src="assets/script.js"></script>
 </body>
