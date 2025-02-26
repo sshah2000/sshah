@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-  <!-- Navbar (unchanged) -->
+  <!-- Navbar -->
   <header class="navbar" role="banner">
     <div class="nav-content">
       <div class="logo">MyPortfolio</div>
@@ -27,121 +27,41 @@
 
   <section class="page-section projects-section">
     <h2>My Projects</h2>
-    <!-- Add sorting mechanism (dropdown) -->
-    <div style="margin-bottom: 1rem; text-align: center;">
+
+    <!-- Optional Sorting or Filtering UI -->
+    <!--
+    <div class="filters">
       <label for="sortSelect">Sort By:</label>
       <select id="sortSelect" onchange="sortProjects()">
-        <option value="date">Date (Newest First)</option>
-        <option value="title">Title (A-Z)</option>
+        <option value="date">Date</option>
+        <option value="title">Title</option>
       </select>
     </div>
+    -->
+
     <div id="projectCardsContainer" class="project-cards-container">
       <!-- Cards loaded dynamically from projects.json via script.js -->
     </div>
   </section>
 
-  <!-- Footer (unchanged) -->
+  <!-- Accessible Modal for Project Details -->
+  <div id="projectModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <button class="close-btn" id="modalCloseBtn" aria-label="Close Modal">&times;</button>
+      <div class="modal-tabs" role="tablist">
+        <button class="tablinks active" data-tab="overviewTab" role="tab" aria-selected="true" aria-controls="overviewTab">Overview</button>
+        <button class="tablinks" data-tab="codeTab" role="tab" aria-selected="false" aria-controls="codeTab">Code</button>
+      </div>
+      <div id="overviewTab" class="tabcontent active" role="tabpanel"></div>
+      <div id="codeTab" class="tabcontent" role="tabpanel"></div>
+    </div>
+  </div>
+
   <footer class="footer" role="contentinfo">
     <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
   </footer>
 
-  <!-- JavaScript to Load Projects, Handle Sorting, and Navigation -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      loadProjects();
-    });
-
-    async function loadProjects() {
-      try {
-        const response = await fetch('assets/projects.json');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const projects = await response.json();
-        // Filter to ensure unique projects by ID
-        const uniqueProjects = projects.filter((project, index, self) =>
-          index === self.findIndex((p) => p.id === project.id)
-        );
-        // Sort unique projects by date (default: newest first)
-        uniqueProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
-        // Take all projects (since index.html shows top 3, this shows the rest)
-        renderProjectCards(uniqueProjects);
-      } catch (error) {
-        console.error('Error loading projects:', error);
-        document.getElementById('projectCardsContainer').innerHTML = '<p>Unable to load projects at this time. Please check your network connection or try again later.</p>';
-      }
-    }
-
-    function renderProjectCards(projects) {
-      const container = document.getElementById('projectCardsContainer');
-      if (!container) {
-        console.error('Container #projectCardsContainer not found');
-        return;
-      }
-      container.innerHTML = ''; // Clear any existing content
-      projects.forEach(project => {
-        const card = document.createElement('div');
-        card.className = 'project-card';
-        card.id = `project-${project.id}`; // Add ID for navigation
-        card.innerHTML = `
-          <img src="${project.thumbnail || 'assets/images/default.png'}" alt="${project.title} Thumbnail" class="thumbnail">
-          <h3>${project.title}</h3>
-          <p><strong>Date:</strong> ${project.date}</p>
-          <p>${project.description || 'No description available.'}</p>
-        `;
-        // Add click event for navigation to index.html or local modal (if needed)
-        card.addEventListener('click', () => {
-          window.location.hash = `#project-${project.id}`; // Local navigation within projects.html
-          // Optional: Navigate to index.html if needed, but since this is projects.html, keep local
-        });
-        container.appendChild(card);
-      });
-
-      // Handle navigation from index.html (URL hash)
-      const hash = window.location.hash.substring(1); // Get #id (e.g., "5")
-      if (hash) {
-        const projectId = parseInt(hash, 10); // Convert to number
-        const targetProject = projects.find(p => p.id === projectId);
-        if (targetProject) {
-          const targetCard = document.getElementById(`project-${targetProject.id}`);
-          if (targetCard) {
-            targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            // Optionally highlight the card (e.g., add a class)
-            targetCard.classList.add('highlight');
-            setTimeout(() => targetCard.classList.remove('highlight'), 2000); // Remove highlight after 2 seconds
-          }
-        }
-      }
-    }
-
-    function sortProjects() {
-      const sortSelect = document.getElementById('sortSelect');
-      const sortValue = sortSelect.value;
-      let sortedProjects = [...projectData]; // Use global projectData or fetch again if not stored
-
-      if (!sortedProjects || sortedProjects.length === 0) {
-        // If projectData isn’t available, reload projects
-        loadProjects();
-        return;
-      }
-
-      if (sortValue === 'date') {
-        sortedProjects.sort((a, b) => new Date(b.date) - new Date(a.date)); // Newest first
-      } else if (sortValue === 'title') {
-        sortedProjects.sort((a, b) => a.title.localeCompare(b.title)); // A-Z
-      }
-      renderProjectCards(sortedProjects);
-    }
-
-    // Store project data globally or fetch on sort if needed
-    let projectData = [];
-    window.sortProjects = sortProjects; // Expose for HTML onchange
-  </script>
-  <style>
-    .highlight {
-      background-color: #e9ecef;
-      transition: background-color 0.3s;
-    }
-  </style>
+  <!-- Link to your main script that loads & displays the projects -->
+  <script src="assets/script.js"></script>
 </body>
 </html>
