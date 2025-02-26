@@ -1,15 +1,16 @@
 /************************************************
- * DYNAMIC DARK MODE TOGGLE WITH TIME-BASED AUTOMATION
+ * DARK MODE TOGGLE WITH AUTO MODE
  ************************************************/
 document.addEventListener('DOMContentLoaded', () => {
   const darkModeToggle = document.getElementById('darkModeToggle');
+  const autoModeToggle = document.getElementById('autoModeToggle'); // Auto Mode Button
   const body = document.body;
 
   // Function to determine if it's nighttime (6 PM - 6 AM)
   function isNightTime() {
     const now = new Date();
     const hour = now.getHours();
-    return hour >= 18 || hour < 6; // 6 PM (18) to 6 AM (6)
+    return hour >= 18 || hour < 6;
   }
 
   // Function to apply theme based on time or user preference
@@ -17,38 +18,50 @@ document.addEventListener('DOMContentLoaded', () => {
     let preferredTheme = localStorage.getItem('theme');
     const isNight = isNightTime();
 
-    // If no user preference, use time-based default
-    if (!preferredTheme) {
+    // If no preference or set to auto, use time-based default
+    if (!preferredTheme || preferredTheme === 'auto') {
       preferredTheme = isNight ? 'dark' : 'light';
-      localStorage.setItem('theme', preferredTheme); // Save initial preference
+      localStorage.setItem('theme', 'auto'); // Store as "auto"
+      autoModeToggle.classList.add('active'); // Indicate Auto Mode is active
+    } else {
+      autoModeToggle.classList.remove('active'); // Remove active styling
     }
 
-    // Apply the theme (prioritize user preference over time if set)
+    // Apply the theme
     if (preferredTheme === 'dark') {
       body.classList.add('dark');
-      if (darkModeToggle) darkModeToggle.checked = true;
+      darkModeToggle.checked = true;
     } else {
       body.classList.remove('dark');
-      if (darkModeToggle) darkModeToggle.checked = false;
+      darkModeToggle.checked = false;
     }
   }
 
-  // Initial theme application
+  // Apply theme on page load
   applyTheme();
 
-  // Manual toggle handler
+  // Manual dark mode toggle
   if (darkModeToggle) {
     darkModeToggle.addEventListener('change', () => {
       const isDark = darkModeToggle.checked;
       body.classList.toggle('dark', isDark);
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      autoModeToggle.classList.remove('active'); // Disable auto mode when manually set
     });
   }
 
-  // Optional: Periodically check time and update theme (e.g., every hour)
+  // Auto Mode toggle logic
+  if (autoModeToggle) {
+    autoModeToggle.addEventListener('click', () => {
+      localStorage.setItem('theme', 'auto'); // Enable Auto Mode
+      applyTheme(); // Reset theme based on time
+    });
+  }
+
+  // Periodic check for auto mode updates
   setInterval(() => {
-    if (!localStorage.getItem('theme')) { // Only update if no user preference
+    if (localStorage.getItem('theme') === 'auto') {
       applyTheme();
     }
-  }, 3600000); // Check every hour (3600000 ms)
+  }, 3600000); // Check every hour
 });

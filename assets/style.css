@@ -679,3 +679,45 @@ body.dark .footer {
   padding: 2rem; /* Increased for report-like spacing */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* Theme Controls: Group Dark Mode Toggle & Auto Mode */
+.theme-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Auto Mode Button Styling */
+.auto-switch {
+  padding: 6px 12px;
+  background-color: var(--gray-light); /* Default inactive */
+  color: var(--dark-text);
+  border: none;
+  border-radius: 34px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Auto Mode Active (Blue) */
+.auto-switch.active {
+  background-color: var(--primary-color); /* Blue when active */
+  color: var(--white);
+}
+
+/* Hover Effect */
+.auto-switch:hover {
+  transform: scale(1.05);
+}
+
+/* Dark Mode Adjustments */
+body.dark .auto-switch {
+  background-color: var(--gray-dark);
+  color: var(--white);
+}
+
+body.dark .auto-switch.active {
+  background-color: var(--primary-color-dark); /* Darker blue in dark mode */
+}
+
