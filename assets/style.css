@@ -499,6 +499,21 @@ body.dark .featured-project-card .content p {
   transition: background-color 0.3s; /* Smooth transition for theme changes */
 }
 
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s; /* Smooth transition for theme changes */
+}
+
 /* Modal Content */
 .modal-content {
   width: 80vw;
@@ -784,6 +799,63 @@ body.dark .featured-project-card img {
 .report-section li,
 .report-section a {
   transition: all 0.3s ease;
+}
+
+
+/* Enhanced Project Grid and Cards (Optional) */
+.enhanced-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem; /* Slightly larger gap for visual appeal */
+  max-width: 1200px;
+  margin: 2rem auto;
+  justify-content: center;
+}
+
+.enhanced-card {
+  background-color: var(--white);
+  border-radius: 10px; /* Slightly more rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+body.dark .enhanced-card {
+  background-color: var(--modal-bg-dark);
+  color: var(--dark-text);
+  border: 1px solid #444;
+}
+
+.enhanced-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.enhanced-card .card-content p {
+  margin-bottom: 0.75rem; /* Slightly more spacing */
+}
+
+/* Responsive Adjustments for Enhanced Grid */
+@media (max-width: 900px) {
+  .enhanced-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .enhanced-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .enhanced-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Remove Slideshow Animation */
