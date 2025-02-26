@@ -3,7 +3,7 @@
  ************************************************/
 document.addEventListener('DOMContentLoaded', () => {
   const darkModeToggle = document.getElementById('darkModeToggle');
-  const autoModeToggle = document.getElementById('autoModeToggle'); // Auto Mode Toggle
+  const autoModeToggle = document.getElementById('autoModeToggle');
   const body = document.body;
 
   // Function to determine if it's nighttime (6 PM - 6 AM)
@@ -18,16 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let preferredTheme = localStorage.getItem('theme');
     const isNight = isNightTime();
 
-    // If no user preference or set to auto, use time-based default
     if (!preferredTheme || preferredTheme === 'auto') {
       preferredTheme = isNight ? 'dark' : 'light';
-      localStorage.setItem('theme', 'auto'); // Store as "auto"
-      autoModeToggle.classList.add('active'); // Show auto mode as active
+      localStorage.setItem('theme', 'auto');
+      autoModeToggle?.classList.add('active');
     } else {
-      autoModeToggle.classList.remove('active'); // Remove auto mode styling
+      autoModeToggle?.classList.remove('active');
     }
 
-    // Apply the theme
     if (preferredTheme === 'dark') {
       body.classList.add('dark');
       darkModeToggle.checked = true;
@@ -46,15 +44,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const isDark = darkModeToggle.checked;
       body.classList.toggle('dark', isDark);
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      autoModeToggle.classList.remove('active'); // Disable auto mode when manually set
+      autoModeToggle?.classList.remove('active');
     });
   }
 
   // Auto Mode toggle logic
   if (autoModeToggle) {
     autoModeToggle.addEventListener('click', () => {
-      localStorage.setItem('theme', 'auto'); // Enable auto mode
-      applyTheme(); // Reset theme based on time
+      localStorage.setItem('theme', 'auto');
+      applyTheme();
     });
   }
 
@@ -64,219 +62,241 @@ document.addEventListener('DOMContentLoaded', () => {
       applyTheme();
     }
   }, 3600000); // Check every hour
-});
-
 
 /************************************************
- * PROJECTS LOADING & MODAL LOGIC (Removed duplicate rendering)
+* NAVBAR AND FOOTER TEMPLATES 
  ************************************************/
-let projectData = [];
 
-// Load projects if container exists (for projects.html, not index.html)
-const projectCardsContainer = document.getElementById('projectCardsContainer');
-if (projectCardsContainer) {
-  (async function loadProjects() {
-    try {
-      const response = await fetch('assets/projects.json');
-      projectData = await response.json();
-      renderProjectCards(projectData);
-    } catch (error) {
-      console.error('Error loading projects:', error);
-      projectCardsContainer.innerHTML = '<p>Error loading projects. Please try again later.</p>';
+// Navbar and Footer Templates
+const navbarHTML = `
+  <header class="navbar" role="banner">
+    <div class="nav-content">
+      <div class="logo">MyPortfolio</div>
+      <nav class="menu" role="navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="theme-controls">
+        <label class="switch">
+          <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
+          <span class="slider round"></span>
+        </label>
+        <button id="autoModeToggle" class="auto-switch">Auto</button>
+      </div>
+    </div>
+  </header>
+`;
+
+const footerHTML = `
+  <footer class="footer" role="contentinfo">
+    <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
+  </footer>
+`;
+
+// Inject Navbar and Footer
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.insertAdjacentHTML('afterbegin', navbarHTML);
+  document.body.insertAdjacentHTML('beforeend', footerHTML);
+  
+  // Update active link based on current page
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.menu a').forEach(link => {
+    if (link.getAttribute('href') === currentPage) {
+      link.classList.add('active');
     }
-  })();
-}
-
-/**
- * Render minimal info in each project card:
- *  - Thumbnail
- *  - Title
- *  - Date
- *  - A short snippet for Description
- */
-function renderProjectCards(projects) {
-  projectCardsContainer.innerHTML = '';
-
-  projects.forEach((project, index) => {
-    const card = document.createElement('div');
-    card.classList.add('project-card');
-    card.setAttribute('data-index', index);
-
-    // Thumbnail image (fallback if none)
-    const imgSrc = project.thumbnail || 'assets/images/default.png';
-    const img = document.createElement('img');
-    img.src = imgSrc;
-    img.alt = project.title + " thumbnail";
-    img.loading = "lazy";
-    card.appendChild(img);
-
-    // Card content container
-    const cardContent = document.createElement('div');
-    cardContent.classList.add('card-content');
-
-    // Only Title, Date, short snippet of Description
-    // If your "description" is long, you can either display the full text or just a substring
-    cardContent.innerHTML = `
-      <h3
-        style="
-          text-align:center;
-          margin-bottom:0.5rem;
-          text-decoration:underline;
-        "
-      >
-        ${project.title}
-      </h3>
-
-      <p><strong>Date:</strong> ${project.date}</p>
-      
-      <p style="margin-top:0.5rem;">
-        <strong>Description:</strong>
-        <br>
-        <span style="margin-left:1rem;">
-          ${project.description}
-        </span>
-      </p>
-    `;
-
-    card.appendChild(cardContent);
-
-    // Clicking the card -> open modal
-    card.addEventListener('click', () => openModal(index));
-    projectCardsContainer.appendChild(card);
   });
-}
-
-// Modal logic (unchanged, assuming it’s used in projects.html)
-const modal = document.getElementById('projectModal');
-const modalCloseBtn = document.getElementById('modalCloseBtn');
-const tabLinks = document.querySelectorAll('.tablinks');
-const tabContents = document.querySelectorAll('.tabcontent');
-
-if (modalCloseBtn) {
-  modalCloseBtn.addEventListener('click', closeModal);
-}
-window.addEventListener('click', (e) => {
-  if (e.target === modal) closeModal();
 });
 
-/**
- * Open the modal with a "report-like" format, centered title, underlined headings, etc.
- * Also enable scrollbar (via CSS in .modal-content).
- */
-async function openModal(index) {
-  if (!modal) return;
-  const project = projectData[index];
-  
-  // Show the modal
-  modal.style.display = 'flex';
 
-  // Reset tab states
-  tabLinks.forEach(btn => {
-    btn.classList.remove('active');
-    btn.setAttribute('aria-selected', 'false');
-  });
-  tabContents.forEach(tc => tc.classList.remove('active'));
-  tabLinks[0].classList.add('active');
-  tabLinks[0].setAttribute('aria-selected', 'true');
-  tabContents[0].classList.add('active');
 
-  const overviewTab = document.getElementById('overviewTab');
-  overviewTab.innerHTML = `
-    <h2 id="modalTitle" style="text-align:center; text-decoration:underline; margin-bottom:1rem;">${project.title}</h2>
-    <p style="text-align:center; margin-bottom:1rem;"><strong>Date:</strong> ${project.date}</p>
-    <h3 style="text-decoration:underline; margin-top:1rem;">Description</h3>
-    <div style="margin-left:1rem;">${project.description}</div>
-    <h3 style="text-decoration:underline; margin-top:1rem;">Methodology</h3>
-    <div style="margin-left:1rem;">${project.methodology || 'N/A'}</div>
-    <h3 style="text-decoration:underline; margin-top:1rem;">Technologies</h3>
-    ${ project.technologies && project.technologies.length
-        ? `<ul style="margin-left:2rem;">${project.technologies.map(t => `<li>${t}</li>`).join('')}</ul>`
-        : `<p style="margin-left:1rem;"><em>No technologies listed</em></p>` }
-    <h3 style="text-decoration:underline; margin-top:1rem;">Story / Background</h3>
-    <div style="margin-left:1rem;">${project.overview?.story || ''}</div>
-    <h3 style="text-decoration:underline; margin-top:1rem;">Collected Data</h3>
-    <div style="margin-left:1rem;">${project.overview?.collectedData || ''}</div>
-    <h3 style="text-decoration:underline; margin-top:1rem;">Conclusions</h3>
-    <div style="margin-left:1rem;">${project.overview?.conclusions || ''}</div>
+  /************************************************
+   * PROJECTS LOADING & MODAL LOGIC
+   ************************************************/
+  let projectData = [];
 
-    <!-- Report Section -->
-    ${ project.reportPdf ? `
-      <p style="margin-top:1rem;"><strong>Project Report:</strong>
-        <a href="${project.reportPdf}" target="_blank">View Report</a>
-      </p>
-    ` : `<p><strong>Project Report:</strong> None available.</p>` }
-
-    <!-- Additional Resources Section -->
-    ${ project.resources && project.resources.length ? `
-      <div style="margin-top:1rem;">
-        <h3 style="text-decoration:underline;">Additional Resources</h3>
-        <ul style="margin-left:1rem;">
-          ${ project.resources.map(resource => `
-            <li>
-              <strong>${resource.name}</strong> (${resource.category}) – 
-              <a href="${resource.file_path}" target="_blank">View / Download</a>
-            </li>
-          `).join('') }
-        </ul>
-      </div>
-    ` : `<p style="margin-top:1rem;"><strong>Additional Resources:</strong> None</p>` }
-  `;
-
-  // Fill Code tab
-  const codeTab = document.getElementById('codeTab');
-  codeTab.innerHTML = '';
-  if (project.codeFiles && project.codeFiles.length) {
-    for (const fileUrl of project.codeFiles) {
+  // Load projects if container exists
+  const projectCardsContainer = document.getElementById('projectCardsContainer');
+  if (projectCardsContainer) {
+    (async function loadProjects() {
       try {
-        const res = await fetch(fileUrl);
-        const codeContent = await res.text();
-        const codeBlock = document.createElement("pre");
-        codeBlock.textContent = codeContent;
-        codeTab.appendChild(codeBlock);
+        const response = await fetch('assets/projects.json');
+        projectData = await response.json();
+        renderProjectCards(projectData);
       } catch (error) {
-        const errorMsg = document.createElement("p");
-        errorMsg.textContent = `Error fetching code: ${error}`;
-        codeTab.appendChild(errorMsg);
+        console.error('Error loading projects:', error);
+        projectCardsContainer.innerHTML = '<p>Error loading projects. Please try again later.</p>';
       }
-    }
-  } else {
-    codeTab.innerHTML = `<p>No code files available.</p>`;
+    })();
   }
-}
 
-function closeModal() {
-  if (modal) {
-    modal.style.display = 'none';
+  // Load recent projects for index.html
+  const recentProjectsContainer = document.getElementById('recentProjects');
+  if (recentProjectsContainer) {
+    (async function loadRecentProjects() {
+      try {
+        const response = await fetch('assets/projects.json');
+        const projects = await response.json();
+        const uniqueProjects = projects.filter((p, i, self) => i === self.findIndex(t => t.id === p.id));
+        uniqueProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
+        const recent = uniqueProjects.slice(0, 3);
+        renderRecentProjectCards(recent);
+      } catch (error) {
+        console.error('Error loading recent projects:', error);
+        recentProjectsContainer.innerHTML = '<p>Unable to load recent projects.</p>';
+      }
+    })();
   }
-}
 
-// Tab switching logic
-tabLinks.forEach(btn => {
-  btn.addEventListener('click', () => {
-    tabLinks.forEach(link => {
-      link.classList.remove('active');
-      link.setAttribute('aria-selected', 'false');
+  // Render project cards (for projects.html)
+  function renderProjectCards(projects) {
+    projectCardsContainer.innerHTML = '';
+    projects.forEach((project, index) => {
+      const card = document.createElement('div');
+      card.classList.add('project-card');
+      card.setAttribute('data-index', index);
+      card.innerHTML = `
+        <img src="${project.thumbnail || 'assets/images/default.png'}" alt="${project.title} thumbnail" loading="lazy">
+        <div class="card-content">
+          <h3>${project.title}</h3>
+          <p><strong>Date:</strong> ${project.date}</p>
+          <p>${project.description.substring(0, 100)}...</p>
+        </div>
+      `;
+      card.addEventListener('click', () => openModal(index));
+      projectCardsContainer.appendChild(card);
+    });
+  }
+
+  // Render recent project cards (for index.html)
+  function renderRecentProjectCards(projects) {
+    recentProjectsContainer.innerHTML = '';
+    projects.forEach(project => {
+      const card = document.createElement('div');
+      card.classList.add('project-card');
+      card.innerHTML = `
+        <img src="${project.thumbnail || 'assets/images/default.png'}" alt="${project.title} Thumbnail">
+        <h3>${project.title}</h3>
+        <p><strong>Date:</strong> ${project.date}</p>
+        <p>${(project.description || 'No description available.').substring(0, 100)}...</p>
+      `;
+      card.addEventListener('click', () => {
+        window.location.href = `projects.html#${project.id}`;
+      });
+      recentProjectsContainer.appendChild(card);
+    });
+  }
+
+  // Modal setup
+  const modal = document.getElementById('projectModal');
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+  const tabLinks = document.querySelectorAll('.tablinks');
+  const tabContents = document.querySelectorAll('.tabcontent');
+
+  if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+  if (modal) window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+  async function openModal(index) {
+    if (!modal || !projectData[index]) return;
+    const project = projectData[index];
+    modal.style.display = 'flex';
+
+    // Reset tab states
+    tabLinks.forEach(btn => {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-selected', 'false');
     });
     tabContents.forEach(tc => tc.classList.remove('active'));
+    tabLinks[0]?.classList.add('active');
+    tabLinks[0]?.setAttribute('aria-selected', 'true');
+    tabContents[0]?.classList.add('active');
 
-    btn.classList.add('active');
-    btn.setAttribute('aria-selected', 'true');
-    const tabId = btn.getAttribute('data-tab');
-    document.getElementById(tabId).classList.add('active');
-  });
-});
+    const overviewTab = document.getElementById('overviewTab');
+    if (overviewTab) {
+      overviewTab.innerHTML = `
+        <h2 style="text-align:center; text-decoration:underline; margin-bottom:1rem;">${project.title}</h2>
+        <p style="text-align:center; margin-bottom:1rem;"><strong>Date:</strong> ${project.date}</p>
+        <h3 style="text-decoration:underline; margin-top:1rem;">Description</h3>
+        <div style="margin-left:1rem;">${project.description}</div>
+        <h3 style="text-decoration:underline; margin-top:1rem;">Methodology</h3>
+        <div style="margin-left:1rem;">${project.methodology || 'N/A'}</div>
+        <h3 style="text-decoration:underline; margin-top:1rem;">Technologies</h3>
+        ${project.technologies?.length ? `<ul style="margin-left:2rem;">${project.technologies.map(t => `<li>${t}</li>`).join('')}</ul>` : '<p style="margin-left:1rem;"><em>No technologies listed</em></p>'}
+        <h3 style="text-decoration:underline; margin-top:1rem;">Story / Background</h3>
+        <div style="margin-left:1rem;">${project.overview?.story || ''}</div>
+        <h3 style="text-decoration:underline; margin-top:1rem;">Collected Data</h3>
+        <div style="margin-left:1rem;">${project.overview?.collectedData || ''}</div>
+        <h3 style="text-decoration:underline; margin-top:1rem;">Conclusions</h3>
+        <div style="margin-left:1rem;">${project.overview?.conclusions || ''}</div>
+        ${project.reportPdf ? `<p style="margin-top:1rem;"><strong>Project Report:</strong> <a href="${project.reportPdf}" target="_blank">View Report</a></p>` : '<p><strong>Project Report:</strong> None available.</p>'}
+        ${project.resources?.length ? `
+          <div style="margin-top:1rem;">
+            <h3 style="text-decoration:underline;">Additional Resources</h3>
+            <ul style="margin-left:1rem;">
+              ${project.resources.map(r => `<li><strong>${r.name}</strong> (${r.category}) – <a href="${r.file_path}" target="_blank">View / Download</a></li>`).join('')}
+            </ul>
+          </div>` : '<p style="margin-top:1rem;"><strong>Additional Resources:</strong> None</p>'}
+      `;
+    }
 
-// Optional Sorting (for projects.html, if needed)
-function sortProjects() {
-  const sortSelect = document.getElementById('sortSelect');
-  const sortValue = sortSelect.value;
-  let sorted = [...projectData];
+    const codeTab = document.getElementById('codeTab');
+    if (codeTab) {
+      codeTab.innerHTML = '';
+      if (project.codeFiles?.length) {
+        for (const fileUrl of project.codeFiles) {
+          try {
+            const res = await fetch(fileUrl);
+            const codeContent = await res.text();
+            const codeBlock = document.createElement('pre');
+            codeBlock.textContent = codeContent;
+            codeTab.appendChild(codeBlock);
+          } catch (error) {
+            codeTab.innerHTML += `<p>Error fetching code: ${error}</p>`;
+          }
+        }
+      } else {
+        codeTab.innerHTML = '<p>No code files available.</p>';
+      }
+    }
 
-  if (sortValue === 'date') {
-    sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
-  } else if (sortValue === 'title') {
-    sorted.sort((a, b) => a.title.localeCompare(b.title));
+    // Handle hash navigation from index.html
+    const hash = window.location.hash.substring(1);
+    if (hash && parseInt(hash) === project.id) {
+      modal.style.display = 'flex';
+    }
   }
-  renderProjectCards(sorted);
-}
-window.sortProjects = sortProjects;
+
+  function closeModal() {
+    if (modal) modal.style.display = 'none';
+  }
+
+  // Tab switching logic
+  tabLinks.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabLinks.forEach(link => {
+        link.classList.remove('active');
+        link.setAttribute('aria-selected', 'false');
+      });
+      tabContents.forEach(tc => tc.classList.remove('active'));
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      document.getElementById(btn.getAttribute('data-tab'))?.classList.add('active');
+    });
+  });
+
+  // Sorting function
+  function sortProjects() {
+    const sortSelect = document.getElementById('sortSelect');
+    if (!sortSelect || !projectData.length) return;
+    const sortValue = sortSelect.value;
+    let sorted = [...projectData];
+    if (sortValue === 'date') {
+      sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (sortValue === 'title') {
+      sorted.sort((a, b) => a.title.localeCompare(b.title));
+    }
+    renderProjectCards(sorted);
+  }
+  window.sortProjects = sortProjects;
+});
