@@ -379,3 +379,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   window.sortProjects = sortProjects;
 });
+
+function updateBackground(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.querySelector('.hero-section').style.backgroundImage = `url(${e.target.result})`;
+    };
+    reader.readAsDataURL(input.files[0]); // Convert image to base64 for immediate use
+  }
+}
