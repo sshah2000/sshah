@@ -56,47 +56,6 @@
       color: #0077ff;
       border-bottom: 2px solid #0077ff;
     }
-    /* Hero-like Section for Projects Page */
-    .projects-hero {
-      position: relative;
-      min-height: 50vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: url('assets/images/projects-background.png') center/cover no-repeat !important;
-      background-blend-mode: overlay;
-      padding: 2rem;
-    }
-    body.dark .projects-hero {
-      background: url('assets/images/projects-background-dark.png') center/cover no-repeat !important;
-    }
-    .projects-hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      z-index: 1;
-    }
-    .projects-hero-container {
-      position: relative;
-      z-index: 2;
-      color: #fff;
-      max-width: 800px;
-    }
-    .projects-hero-container h1 {
-      font-size: 3rem;
-      margin: 0;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-    .projects-hero-container p {
-      font-size: 1.2rem;
-      margin: 1rem 0;
-    }
     /* Projects Section */
     .page-section {
       padding: 6rem 2rem 2rem;
@@ -122,7 +81,6 @@
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      height: 100%;
     }
     body.dark .project-card {
       background-color: #2a2a2a;
@@ -289,14 +247,14 @@
   </style>
 </head>
 <body>
-  <!-- Navbar with Active Link Logic -->
+  <!-- Navbar -->
   <header class="navbar" role="banner">
     <div class="nav-content">
       <div class="logo">MyPortfolio</div>
       <nav class="menu" role="navigation">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
-        <a href="projects.html">Projects</a>
+        <a href="projects.html" class="active">Projects</a>
         <a href="contact.html">Contact</a>
       </nav>
       <div class="theme-controls">
@@ -308,14 +266,6 @@
       </div>
     </div>
   </header>
-
-  <!-- Hero-like Section for Projects Page -->
-  <section class="projects-hero">
-    <div class="projects-hero-container">
-      <h1>Explore My Projects</h1>
-      <p>Discover the data-driven solutions and insights I've developed.</p>
-    </div>
-  </section>
 
   <!-- Projects Section -->
   <section class="page-section projects-section">
@@ -362,81 +312,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       loadProjects();
-      applyTheme(); // Apply theme on load
-      setupThemeControls(); // Set up theme toggle controls
-      updateActiveLink(); // Update active link based on current page
     });
-
-    // Function to determine if it's nighttime (6 PM - 6 AM)
-    function isNightTime() {
-      const now = new Date();
-      const hour = now.getHours();
-      return hour >= 18 || hour < 6;
-    }
-
-    // Function to apply theme based on time or user preference
-    function applyTheme() {
-      let preferredTheme = localStorage.getItem('theme');
-      const isNight = isNightTime();
-
-      if (!preferredTheme || preferredTheme === 'auto') {
-        preferredTheme = isNight ? 'dark' : 'light';
-        localStorage.setItem('theme', 'auto');
-        document.getElementById('autoModeToggle').classList.add('active');
-      } else {
-        document.getElementById('autoModeToggle').classList.remove('active');
-      }
-
-      if (preferredTheme === 'dark') {
-        document.body.classList.add('dark');
-        document.getElementById('darkModeToggle').checked = true;
-      } else {
-        document.body.classList.remove('dark');
-        document.getElementById('darkModeToggle').checked = false;
-      }
-    }
-
-    // Setup theme toggle controls
-    function setupThemeControls() {
-      const darkModeToggle = document.getElementById('darkModeToggle');
-      const autoModeToggle = document.getElementById('autoModeToggle');
-
-      if (darkModeToggle) {
-        darkModeToggle.addEventListener('change', () => {
-          const isDark = darkModeToggle.checked;
-          document.body.classList.toggle('dark', isDark);
-          localStorage.setItem('theme', isDark ? 'dark' : 'light');
-          autoModeToggle.classList.remove('active');
-        });
-      }
-
-      if (autoModeToggle) {
-        autoModeToggle.addEventListener('click', () => {
-          localStorage.setItem('theme', 'auto');
-          applyTheme();
-        });
-      }
-    }
-
-    // Periodic check for auto mode updates
-    setInterval(() => {
-      if (localStorage.getItem('theme') === 'auto') {
-        applyTheme();
-      }
-    }, 3600000); // Check every hour
-
-    // Function to update active link based on current page
-    function updateActiveLink() {
-      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-      document.querySelectorAll('.menu a').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
-      });
-    }
 
     async function loadProjects() {
       try {
@@ -516,15 +392,15 @@
               ${project.resources.map(resource => `
                 <li><strong>${resource.name}</strong> (${resource.category}) – 
                   ${isImageFile(resource.file_path)
-                    ? `<a href="#" onclick="openImageViewer('${resource.file_path}'); return false;">View</a> / <a href="${resource.file_path}" download>Download</a>`
-                    : `<a href="https://github.com/yourusername/yourrepo/blob/main/${resource.file_path}" target="_blank">View</a> / <a href="${resource.file_path}" download>Download</a>`}
+                    ? `<a href="#" onclick="openImageViewer('${resource.file_path}'); return false;">View</a> / <a href="${resource.file_path}" target="_blank">Download</a>`
+                    : `<a href="${resource.file_path}" target="_blank">View / Download</a>`}
                 </li>
               `).join('')}
             </ul>
           `
           : '<p>No additional resources available.</p>'}
         ${project.reportPdf
-          ? `<h3>Project Report</h3><p><a href="https://github.com/yourusername/yourrepo/blob/main/${project.reportPdf}" target="_blank">View Report</a> / <a href="${project.reportPdf}" download>Download Report</a></p>`
+          ? `<h3>Project Report</h3><p><a href="${project.reportPdf}" target="_blank">View Report</a></p>`
           : '<p>No project report available.</p>'}
       `;
       modal.style.display = 'flex';
