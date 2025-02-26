@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="assets/style.css">
   <style>
-    /* Enhanced CSS (same as before, with minor tweaks for project cards) */
+    /* Enhanced CSS (same as before, with tweaks for smaller project cards) */
     body { margin: 0; font-family: 'Arial', sans-serif; background: #f9f9f9; }
     .hero-section {
       position: relative;
@@ -41,26 +41,32 @@
     .summary-section { padding: 4rem 2rem; text-align: center; background: #fff; }
     .summary-section h2 { font-size: 2rem; margin-bottom: 1rem; }
     .summary-section p { max-width: 700px; margin: 0 auto; line-height: 1.6; }
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 2rem auto; }
+    .projects-teaser { padding: 4rem 2rem; background: #f1f3f5; text-align: center; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; max-width: 1200px; margin: 2rem auto; }
     .project-card {
       background: #fff;
-      padding: 1.5rem;
+      padding: 1rem; /* Reduced padding for smaller size */
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       transition: transform 0.3s;
       display: flex;
       flex-direction: column;
       height: 100%;
-      cursor: pointer; /* Add cursor to indicate clickable */
+      cursor: pointer; /* Indicate clickable */
     }
     .project-card:hover { transform: translateY(-5px); }
-    .project-card h3 { margin: 0 0 0.5rem; font-size: 1.25rem; color: #333; }
-    .project-card p { margin: 0 0 1rem; color: #666; flex-grow: 1; }
-    .project-card .thumbnail {
-      max-width: 100%;
-      height: auto;
-      border-radius: 4px;
-      margin-bottom: 1rem;
+    .project-card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.2rem; /* Slightly smaller title */
+      color: #333;
+      text-align: center;
+      text-decoration: underline; /* Match projects.html style */
+    }
+    .project-card p {
+      margin: 0 0 0.5rem; /* Reduced margin for compactness */
+      color: #666;
+      flex-grow: 1;
+      font-size: 0.9rem; /* Smaller text for description */
     }
     @media (max-width: 768px) {
       .hero-container h1 { font-size: 2rem; }
@@ -108,7 +114,7 @@
     </p>
   </section>
 
-  <!-- Recent Projects Section (Renamed and Moved Up, No Button) -->
+  <!-- Recent Projects Section (Smaller Cards, No Thumbnail or Button) -->
   <section class="projects-teaser">
     <h2>Recent Projects</h2>
     <div class="projects-grid" id="recentProjects"></div>
@@ -141,9 +147,9 @@
             const card = document.createElement('div');
             card.className = 'project-card';
             card.innerHTML = `
-              <img src="${project.thumbnail || 'assets/images/default.png'}" alt="${project.title} Thumbnail" class="thumbnail">
               <h3>${project.title}</h3>
-              <p>${project.description || 'No description available.'}</p>
+              <p><strong>Date:</strong> ${project.date}</p>
+              <p>${(project.description || 'No description available.').substring(0, 100)}...</p>
             `;
             // Add click event to navigate to projects.html with project ID
             card.addEventListener('click', () => {
