@@ -3,12 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <title>Shubh Shah | Data Analytics Portfolio</title>
-  <meta name="description" content="Welcome to the Data Analytics Portfolio of Shubh Shah. Explore projects, insights, and data-driven solutions.">
+  <meta name="description" content="Welcome to Shubh Shah's Data Analytics Portfolio. Explore data-driven insights and innovative solutions.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="assets/style.css">
+  <style>
+    /* Enhanced CSS (same as before, with minor tweaks) */
+    body { margin: 0; font-family: 'Arial', sans-serif; background: #f9f9f9; }
+    .hero-section {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('assets/images/data-bg.jpg');
+      background-size: cover;
+      color: #fff;
+      padding: 2rem;
+    }
+    .hero-container { max-width: 800px; }
+    .hero-container h1 { font-size: 3rem; margin: 0; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
+    .hero-container h3 { font-size: 1.5rem; margin: 0.5rem 0; color: #e0e0e0; }
+    .hero-container p { font-size: 1.2rem; margin: 1rem 0; }
+    .hero-buttons { margin-top: 2rem; }
+    .hero-buttons button {
+      padding: 0.8rem 1.5rem;
+      margin: 0 0.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .hero-buttons button:first-child { background: #007acc; color: #fff; }
+    .hero-buttons button:last-child { background: #fff; color: #007acc; border: 2px solid #007acc; }
+    .hero-buttons button:hover { transform: scale(1.05); }
+    .summary-section { padding: 4rem 2rem; text-align: center; background: #fff; }
+    .summary-section h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .summary-section p { max-width: 700px; margin: 0 auto; line-height: 1.6; }
+    .projects-teaser { padding: 4rem 2rem; background: #f1f3f5; text-align: center; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 2rem auto; }
+    .project-card { background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.3s; }
+    .project-card:hover { transform: translateY(-5px); }
+    .project-card h3 { margin: 0 0 0.5rem; font-size: 1.25rem; }
+    .project-card p { margin: 0; color: #666; }
+    @media (max-width: 768px) {
+      .hero-container h1 { font-size: 2rem; }
+      .hero-container h3 { font-size: 1.2rem; }
+      .hero-buttons button { display: block; margin: 0.5rem auto; }
+    }
+  </style>
 </head>
 <body>
-  
   <!-- Navbar -->
   <header class="navbar">
     <div class="nav-content">
@@ -30,39 +76,62 @@
   <section class="hero-section">
     <div class="hero-container">
       <h1>Hello, I'm Shubh Shah</h1>
-      <h3>Data Analyst | Business Intelligence | Machine Learning</h3>
-      <p>Welcome to my portfolio! Explore my projects in **SQL, Python, R, Tableau, and Power BI**.</p>
+      <h3>Data Analyst | Business Intelligence Expert | Problem Solver</h3>
+      <p>Transforming data into actionable insights using SQL, Python, Tableau, Power BI, and Machine Learning.</p>
       <div class="hero-buttons">
-        <button onclick="window.location.href='projects.html'">Explore Projects</button>
+        <button onclick="window.location.href='projects.html'">Explore My Work</button>
         <button onclick="window.open('assets/files/RESUME_2025.pdf', '_blank')">Download Resume</button>
       </div>
     </div>
   </section>
 
   <!-- Executive Summary -->
-  <section class="page-section">
-    <h2>Executive Summary</h2>
+  <section class="summary-section">
+    <h2>Who I Am</h2>
     <p>
-      This portfolio showcases my work in **data analytics, visualization, predictive modeling, and business intelligence**. 
-      My projects cover **EV adoption, obesity trends, sales dashboards, time series forecasting, and more.**
-      <br><br>
-      <strong>Key Technologies:</strong> Python, SQL, Tableau, Power BI, R, Machine Learning
+      I’m a Business Analyst passionate about leveraging data to drive decisions. My portfolio highlights projects in <strong>EV adoption, sales optimization, obesity trends, and predictive modeling</strong>, built with tools like Python, SQL, Tableau, and Power BI.
     </p>
   </section>
 
-  <!-- Featured Projects -->
-  <section class="projects-section">
-    <h2>Highlighted Projects</h2>
+  <!-- Projects Teaser -->
+  <section class="projects-teaser">
+    <h2>Featured Projects</h2>
     <div class="projects-grid" id="featuredProjects"></div>
+    <button onclick="window.location.href='projects.html'">See All Projects</button>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
     <p>© 2025 Shubh Shah | <a href="https://github.com/sshah2000" target="_blank">GitHub</a> | 
     <a href="www.linkedin.com/in/shubh-shah-054463211" target="_blank">LinkedIn</a> | 
-    <a href="mailto:shubhshah2000@yahoo.com">Email</a></p>
+    <a href="/cdn-cgi/l/email-protection#c3b0abb6a1abb0aba2abf1f3f3f383baa2abacaceda0acae">Email</a></p>
   </footer>
 
+  <!-- JavaScript to Load Projects from JSON -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('assets/projects.json')
+        .then(response => response.json())
+        .then(projects => {
+          // Display the first 2 projects as a teaser
+          const featured = projects.slice(0, 2);
+          const container = document.getElementById('featuredProjects');
+          featured.forEach(project => {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.innerHTML = `
+              <h3>${project.title}</h3>
+              <p>${project.description || 'No description available.'}</p>
+            `;
+            container.appendChild(card);
+          });
+        })
+        .catch(error => {
+          console.error('Error loading projects:', error);
+          document.getElementById('featuredProjects').innerHTML = '<p>Unable to load projects at this time.</p>';
+        });
+    });
+  </script>
   <script src="assets/script.js"></script>
 </body>
 </html>
