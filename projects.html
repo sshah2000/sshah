@@ -5,7 +5,8 @@
   <title>My Dynamic Portfolio | Projects</title>
   <meta name="description" content="Explore my projects, showcasing dynamic solutions and innovative code implementations.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Inline CSS -->
+  <link rel="stylesheet" href="assets/style.css">
+  <!-- Inline Critical Styles -->
   <style>
     /* Base Styles */
     * {
@@ -158,19 +159,19 @@
       gap: 1rem;
     }
     .modal-image {
+      grid-row: span 2;
       padding: 0.5rem;
     }
     .modal-image .thumbnail {
       width: 100%;
-      max-width: 150px;
       height: auto;
       border-radius: 4px;
       object-fit: cover;
+      max-width: 150px;
     }
     .report-section {
       line-height: 1.6;
       font-size: 1rem;
-      width: 100%;
     }
     .report-section h2 {
       text-align: left;
@@ -182,13 +183,20 @@
       margin-top: 1rem;
       margin-bottom: 0.5rem;
     }
+
     .report-section p {
-      margin-left: 0;
+      margin-left: 0; }
+
+    .report-section p,
+    .report-section ul,
+    .report-section li {
+      margin-left: 1rem;
     }
     .report-section ul {
-      margin-left: 1.5rem;
       list-style-type: disc;
+      margin-left: 1.5rem;
     }
+
     .report-section img {
       max-width: 100%;
       height: auto;
@@ -238,6 +246,7 @@
       .project-cards-container {
         grid-template-columns: repeat(2, 1fr);
       }
+
     }
     @media (max-width: 480px) {
       .project-cards-container {
@@ -456,5 +465,6 @@
 
     window.sortProjects = sortProjects;
   </script>
+  <script src="assets/script.js"></script>
 </body>
 </html>
