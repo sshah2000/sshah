@@ -126,7 +126,6 @@
     }
     .modal-content {
       width: 80vw;
-      max-width: 900px;
       max-height: 80vh;
       overflow-y: auto;
       background-color: #fff;
@@ -152,107 +151,125 @@
     body.dark .close-btn {
       color: #f0f0f0;
     }
-    .modal-report {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-    .modal-image {
-      grid-row: span 2;
-      padding: 0.5rem;
-    }
-    .modal-image .thumbnail {
-      width: 100%;
-      height: auto;
-      border-radius: 4px;
-      object-fit: cover;
-      max-width: 150px;
-    }
-    .report-section {
-      line-height: 1.6;
-      font-size: 1rem;
-    }
-    .report-section h2 {
-      text-align: left;
-      text-decoration: underline;
-      margin-bottom: 1rem;
-    }
-    .report-section h3 {
-      text-decoration: underline;
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-    }
+    
+.modal-report {
+  display: grid;
+  grid-template-columns: 150px 1fr; /* Maintains the two-column layout */
+  gap: 0.5rem; /* Reduced from 1rem to decrease space between image and text */
+  align-items: start;
+}
 
-    .report-section p {
-      margin-left: 0; }
+.modal-image {
+  grid-row: span 2;
+  padding: 0.25rem; /* Reduced from 0.5rem for less space around the image */
+}
 
-    .report-section p,
-    .report-section ul,
-    .report-section li {
-      margin-left: 1rem;
-    }
-    .report-section ul {
-      list-style-type: disc;
-      margin-left: 1.5rem;
-    }
+.modal-image .thumbnail {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  object-fit: cover;
+}
 
-    .report-section img {
-      max-width: 100%;
-      height: auto;
-    }
-    .report-section a {
-      color: #0077ff;
-      text-decoration: none;
-    }
-    /* Image Viewer Overlay */
-    .overlay {
-      display: none;
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 3000;
-      justify-content: center;
-      align-items: center;
-    }
-    .overlay-content {
-      position: relative;
-      max-width: 90%;
-      max-height: 90%;
-    }
-    #viewerImage {
-      max-width: 100%;
-      max-height: 80vh;
-      object-fit: contain;
-    }
-    /* Footer */
-    .footer {
-      text-align: center;
-      padding: 1.5rem;
-      background-color: #fafafa;
-      color: #555;
-      font-size: 0.9rem;
-      border-top: 1px solid #ccc;
-    }
-    body.dark .footer {
-      background-color: #2a2a2a;
-      color: #ccc;
-    }
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      .project-cards-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
+.report-section {
+  line-height: 1.4; /* Reduced from 1.6 for a slightly tighter text layout */
+  font-size: 1rem;
+}
 
-    }
-    @media (max-width: 480px) {
-      .project-cards-container {
-        grid-template-columns: 1fr;
-      }
-    }
+.report-section h2 {
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 0.75rem; /* Reduced from 1rem for less vertical space */
+}
+
+.report-section h3 {
+  text-decoration: underline;
+  margin-top: 0.75rem; /* Reduced from 1rem for less vertical space */
+  margin-bottom: 0.25rem; /* Reduced from 0.5rem for less vertical space */
+}
+
+.report-section p,
+.report-section ul,
+.report-section li {
+  margin-left: 0.5rem; /* Reduced from 1rem for less indentation */
+}
+
+.report-section ul {
+  list-style-type: disc;
+  margin-left: 1rem; /* Reduced from 1.5rem for less list indentation */
+}
+
+.report-section img {
+  max-width: 100%;
+  height: auto;
+}
+
+.report-section a {
+  color: #0077ff;
+  text-decoration: none;
+}
+
+/* Image Viewer Overlay */
+.overlay {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 3000;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+#viewerImage {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #fafafa;
+  color: #555;
+  font-size: 0.9rem;
+  border-top: 1px solid #ccc;
+}
+
+body.dark .footer {
+  background-color: #2a2a2a;
+  color: #ccc;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .project-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .project-cards-container {
+    grid-template-columns: 1fr;
+  }
+  .modal-report {
+    grid-template-columns: 1fr; /* Stack image and text vertically on small screens */
+    gap: 0.25rem; /* Further reduce gap for compactness */
+  }
+  .modal-image {
+    grid-row: auto; /* Reset row span for stacking */
+    padding: 0.1rem; /* Minimize padding on small screens */
+  }
+}
   </style>
 </head>
 <body>
