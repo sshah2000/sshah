@@ -124,7 +124,7 @@
       // Format the report based on the rightmost image (admin_preview-like)
       report.innerHTML = `
         <h2>${project.title}</h2>
-        <p><strong>Date:</strong> ${project.date}</p>
+        <p style="text-align: center; margin-bottom: 1rem;"><strong>Date:</strong> ${project.date}</p>
         <h3>Description</h3>
         <p>${project.description || 'No description available.'}</p>
         <h3>Methodology</h3>
@@ -194,6 +194,5 @@
 
     window.sortProjects = sortProjects; // Expose for HTML onchange
   </script>
-  <script src="assets/script.js"></script>
 </body>
 </html>
