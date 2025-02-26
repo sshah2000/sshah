@@ -756,38 +756,3 @@ body.dark .project-card .card-content p {
 .project-card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-/* Improve project card visibility in dark mode */
-body.dark .project-card {
-  background-color: #2a2a2a !important; /* Adjusted background for better contrast */
-  color: #ffffff !important; /* Ensure text is readable */
-  border: 1px solid #444; /* Light border for separation */
-}
-
-/* Ensure project titles are readable in dark mode */
-body.dark .project-card .card-content h3 {
-  color: #ffffff !important; /* White text for clear visibility */
-}
-
-/* Improve project descriptions */
-body.dark .project-card .card-content p {
-  color: #cccccc !important; /* Light gray text for readability */
-}
-
-/* Ensure project images stand out */
-.project-card img {
-  border-radius: 4px;
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-/* Improve card content padding */
-.project-card .card-content {
-  padding: 1rem;
-  text-align: center;
-}
-
-/* Add a subtle shadow effect */
-.project-card {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
