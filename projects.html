@@ -138,6 +138,17 @@
       background-color: #2a2a2a;
       color: #f0f0f0;
     }
+
+      .report-section {
+      margin: 0;
+      padding: 1rem;
+      font-size: 1rem;
+      color: inherit; /* Ensure text color inherits from parent */
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+      max-width: 100%;
+    }
     .close-btn {
       position: absolute;
       top: 1rem;
@@ -153,15 +164,15 @@
     }
     
 .modal-report {
-  display: grid;
-  grid-template-columns: 150px 1fr; /* Maintains the two-column layout */
-  gap: 0.5rem; /* Reduced from 1rem to decrease space between image and text */
+  display: flex; /* Switch to flexbox for more flexibility */
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  gap: 0.5rem; /* Maintain reduced gap */
   align-items: start;
 }
 
 .modal-image {
-  grid-row: span 2;
-  padding: 0.25rem; /* Reduced from 0.5rem for less space around the image */
+  flex: 0 0 150px; /* Fixed width for the image */
+  padding: 0.25rem;
 }
 
 .modal-image .thumbnail {
@@ -172,10 +183,16 @@
 }
 
 .report-section {
-  margin: 1rem;
+  flex-grow: 1; /* Allow text to take remaining space */
+  min-width: 300px; /* Ensure text has enough space on smaller screens */
+  max-width: 100%; /* Prevent overflow */
+  margin: 0; /* Adjust margin to avoid extra spacing */
   padding: 1rem;
   font-size: 1rem;
   color: inherit;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 .report-section h2 {
   text-align: left;
@@ -251,24 +268,33 @@ body.dark .footer {
   color: #ccc;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 768px) {
-  .project-cards-container {
-    grid-template-columns: repeat(2, 1fr);
+  .modal-report {
+    flex-direction: column; /* Stack image and text vertically */
+    gap: 0.5rem;
+  }
+
+  .modal-image {
+    flex: 0 0 auto; /* Remove fixed width */
+    width: 100%; /* Allow image to take full width */
+    max-width: 200px; /* Cap the image width for better proportions */
+    margin: 0 auto; /* Center the image */
+    padding: 0.1rem;
+  }
+
+  .report-section {
+    min-width: 100%; /* Ensure text takes full width */
   }
 }
 
 @media (max-width: 480px) {
-  .project-cards-container {
-    grid-template-columns: 1fr;
-  }
   .modal-report {
-    grid-template-columns: 1fr; /* Stack image and text vertically on small screens */
-    gap: 0.25rem; /* Further reduce gap for compactness */
+    flex-direction: column; /* Ensure stacking */
+    gap: 0.25rem;
   }
+
   .modal-image {
-    grid-row: auto; /* Reset row span for stacking */
-    padding: 0.1rem; /* Minimize padding on small screens */
+    max-width: 150px; /* Further reduce image size on very small screens */
   }
 }
   </style>
