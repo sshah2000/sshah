@@ -8,176 +8,8 @@
       content="Explore my projects, showcasing dynamic solutions and innovative code implementations."
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Link to your external stylesheet -->
     <link rel="stylesheet" href="assets/style.css" />
-    <!-- Inline Critical Styles -->
-    <style>
-      /* Base Styles */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          sans-serif;
-        background-color: #fafafa;
-        color: #333;
-        transition: background-color 0.3s, color 0.3s;
-      }
-      body.dark {
-        background-color: #1e1e1e;
-        color: #f0f0f0;
-      }
-      /* Navbar */
-      .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background-color: rgba(255, 255, 255, 0.5);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-        z-index: 999;
-      }
-      body.dark .navbar {
-        background-color: rgba(30, 30, 30, 0.5);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      }
-      .nav-content {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 1rem 2rem;
-      }
-      .logo {
-        font-weight: bold;
-        font-size: 1.2rem;
-      }
-      .menu a {
-        margin-left: 1rem;
-        text-decoration: none;
-        color: inherit;
-      }
-      .menu a.active {
-        color: #0077ff;
-        border-bottom: 2px solid #0077ff;
-      }
-      /* Projects Section */
-      .page-section {
-        padding: 6rem 2rem 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-      }
-      .projects-section h2 {
-        text-align: center;
-        margin-bottom: 2rem;
-        font-size: 1.8rem;
-      }
-      .project-cards-container {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
-        max-width: 900px;
-        margin: 0 auto;
-      }
-      .project-card {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-      }
-      body.dark .project-card {
-        background-color: #2a2a2a;
-        color: #f0f0f0;
-        border: 1px solid #444;
-      }
-      .project-card img {
-        width: 100%;
-        height: 160px;
-        object-fit: cover;
-        border-radius: 4px;
-      }
-      .card-content {
-        padding: 1rem;
-        text-align: center;
-      }
-      .card-content h3 {
-        margin-bottom: 0.5rem;
-        font-size: 1.2rem;
-        text-decoration: underline;
-      }
-      .card-content p {
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
-        color: #555;
-      }
-      body.dark .card-content p {
-        color: #ccc;
-      }
-      /* Modal Styles */
-      .modal {
-        display: none;
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.6);
-        z-index: 2000;
-        justify-content: center;
-        align-items: center;
-      }
-      .modal-content {
-        width: 800px;
-        max-height: 90vh;
-        overflow-y: auto;
-        background-color: #fff;
-        color: #333;
-        border: 1px solid #dcdcdc;
-        border-radius: 8px;
-        padding: 2rem;
-        position: relative;
-      }
-      body.dark .modal-content {
-        background-color: #2a2a2a;
-        color: #f0f0f0;
-      }
-      .close-btn {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        font-size: 1.5rem;
-        cursor: pointer;
-        background: none;
-        border: none;
-        color: #333;
-      }
-      body.dark .close-btn {
-        color: #f0f0f0;
-      }
-      /* Detailed Modal View */
-      .detailed-view {
-        display: block;
-      }
-      .detailed-view h3 {
-        margin: 1rem 0 0.5rem;
-        font-size: 1.25rem;
-        font-weight: bold;
-        text-decoration: underline;
-      }
-      .detailed-view p {
-        line-height: 1.5;
-        margin-bottom: 1rem;
-      }
-      .detailed-view ul {
-        margin-left: 1.5rem;
-        margin-bottom: 1rem;
-      }
-      .detailed-view li {
-        margin-bottom: 0.5rem;
-      }
-    </style>
   </head>
   <body>
     <!-- Navbar -->
@@ -216,7 +48,7 @@
         </select>
       </div>
       <div id="projectCardsContainer" class="project-cards-container">
-        <!-- Cards loaded dynamically -->
+        <!-- Project cards get loaded here dynamically -->
       </div>
     </section>
 
@@ -225,30 +57,44 @@
       <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
     </footer>
 
-    <!-- Modal for Project Details (Detailed View Only) -->
+    <!-- Modal for Project Details -->
     <div id="projectModal" class="modal">
       <div class="modal-content">
         <button class="close-btn" id="modalCloseBtn">×</button>
         <div class="detailed-view">
           <h3>Introduction</h3>
           <p id="modalIntroduction"></p>
+
           <h3>Methodology</h3>
           <div id="modalMethodology"></div>
+
           <h3>Technologies</h3>
           <ul id="modalTechnologies"></ul>
+
           <h3>Study Background</h3>
           <p id="modalStory"></p>
+
           <h3>Collected Data</h3>
           <p id="modalCollectedData"></p>
+
           <h3>Conclusion</h3>
           <p id="modalConclusions"></p>
+
           <h3>Additional Resources</h3>
           <ul id="modalResources"></ul>
         </div>
       </div>
     </div>
 
-    <!-- Inline JavaScript -->
+    <!-- Image Viewer Overlay (optional) -->
+    <div id="imageViewer" class="overlay">
+      <div class="overlay-content">
+        <button class="close-btn" id="imageViewerCloseBtn">×</button>
+        <img id="viewerImage" src="" alt="Resource Image" />
+      </div>
+    </div>
+
+    <!-- Inline JavaScript for Project Loading & Sorting -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         loadProjects();
@@ -259,12 +105,28 @@
           const response = await fetch("assets/projects.json");
           if (!response.ok) throw new Error("Network response was not ok");
           const projects = await response.json();
+
+          // Filter to ensure unique projects (in case of duplicates by ID)
           const uniqueProjects = projects.filter(
-            (p, i, self) => i === self.findIndex((t) => t.id === p.id)
+            (p, i, arr) => i === arr.findIndex((t) => t.id === p.id)
           );
+
+          // Sort by date descending by default
           uniqueProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+          // Render the project cards
           renderProjectCards(uniqueProjects);
+
+          // Store globally for sorting
           window.projectData = uniqueProjects;
+
+          // If a hash is present (e.g., #5), auto-open that project
+          const hash = window.location.hash.substring(1);
+          if (hash) {
+            const projectId = parseInt(hash, 10);
+            const target = uniqueProjects.find((p) => p.id === projectId);
+            if (target) openModal(target);
+          }
         } catch (error) {
           console.error("Error loading projects:", error);
           document.getElementById("projectCardsContainer").innerHTML =
@@ -276,52 +138,38 @@
         const container = document.getElementById("projectCardsContainer");
         if (!container) return;
         container.innerHTML = "";
+
         projects.forEach((project) => {
           const card = document.createElement("div");
           card.className = "project-card";
           card.id = `project-${project.id}`;
+
+          // Truncate description to ~100 chars
+          const shortDesc = (project.description || "No description available.")
+            .replace(/(<([^>]+)>)/gi, "") // Remove HTML tags for safe substring
+            .substring(0, 100);
+
           card.innerHTML = `
-            <img src="${
-              project.thumbnail || "assets/images/default.png"
-            }" alt="${project.title} Thumbnail" class="thumbnail">
-            <div class="card-content">
-              <h3>${project.title}</h3>
-              <p><strong>Date:</strong> ${project.date}</p>
-              <p>${(
-                project.description || "No description available."
-              ).substring(0, 100)}...</p>
-            </div>
-          `;
+          <img
+            src="${project.thumbnail || "assets/images/default.png"}"
+            alt="${project.title} Thumbnail"
+            class="thumbnail"
+          />
+          <div class="card-content">
+            <h3>${project.title}</h3>
+            <p><strong>Date:</strong> ${project.date}</p>
+            <p>${shortDesc}...</p>
+          </div>
+        `;
+
+          // When clicked, open the modal
           card.addEventListener("click", () => openModal(project));
           container.appendChild(card);
         });
-        const hash = window.location.hash.substring(1);
-        if (hash) {
-          const projectId = parseInt(hash, 10);
-          const targetProject = projects.find((p) => p.id === projectId);
-          if (targetProject) openModal(targetProject);
-        }
-      }
-
-      function isImageFile(filePath) {
-        const imageExtensions = [
-          ".png",
-          ".jpg",
-          ".jpeg",
-          ".gif",
-          ".bmp",
-          ".svg",
-        ];
-        const ext = filePath
-          .toLowerCase()
-          .slice(((filePath.lastIndexOf(".") - 1) >>> 0) + 2);
-        return imageExtensions.includes("." + ext);
       }
 
       function openModal(project) {
-        const modal = document.getElementById("projectModal");
-        if (!modal) return;
-        // Populate Detailed View Sections directly
+        // Populate modal fields
         document.getElementById(
           "modalIntroduction"
         ).innerHTML = `This project, "${
@@ -329,6 +177,7 @@
         }", utilizes ${project.technologies.join(", ")}.`;
         document.getElementById("modalMethodology").innerHTML =
           project.methodology || "No methodology provided.";
+
         if (project.technologies && project.technologies.length) {
           document.getElementById("modalTechnologies").innerHTML =
             project.technologies.map((tech) => `<li>${tech}</li>`).join("");
@@ -336,12 +185,15 @@
           document.getElementById("modalTechnologies").innerHTML =
             "<li>No technologies listed</li>";
         }
+
         document.getElementById("modalStory").innerHTML =
           project.overview?.story || "No background provided.";
         document.getElementById("modalCollectedData").innerHTML =
           project.overview?.collectedData || "No data collected.";
         document.getElementById("modalConclusions").innerHTML =
           project.overview?.conclusions || "No conclusions provided.";
+
+        // Additional resources
         if (project.resources && project.resources.length) {
           document.getElementById("modalResources").innerHTML =
             project.resources
@@ -349,8 +201,7 @@
                 (resource) => `
     <li>
         <strong>${resource.name}</strong> (${resource.category}) – 
-        <a href="https://raw.githubusercontent.com/sshah2000/sshah/main/assets/files/obesity_1740525911.csv" target="_blank">View</a>
- / 
+        <a href="https://raw.githubusercontent.com/yourusername/yourrepo/main/${resource.file_path}" target="_blank">View</a> / 
         <a href="${resource.file_path}" download>Download</a>
     </li>
 `
@@ -360,13 +211,13 @@
           document.getElementById("modalResources").innerHTML =
             "<li>No additional resources available.</li>";
         }
-        // Directly display the detailed modal
-        modal.style.display = "flex";
+
+        // Show the modal
+        document.getElementById("projectModal").style.display = "flex";
       }
 
       function closeModal() {
-        const modal = document.getElementById("projectModal");
-        if (modal) modal.style.display = "none";
+        document.getElementById("projectModal").style.display = "none";
       }
 
       document
@@ -378,46 +229,51 @@
       });
 
       function openImageViewer(imageUrl) {
-        const viewer = document.getElementById("imageViewer");
+        const overlay = document.getElementById("imageViewer");
         const viewerImage = document.getElementById("viewerImage");
-        if (viewer && viewerImage) {
+        if (overlay && viewerImage) {
           viewerImage.src = imageUrl;
-          viewer.style.display = "flex";
+          overlay.style.display = "flex";
         }
       }
 
       function closeImageViewer() {
-        const viewer = document.getElementById("imageViewer");
-        if (viewer) viewer.style.display = "none";
+        const overlay = document.getElementById("imageViewer");
+        if (overlay) overlay.style.display = "none";
       }
 
       document
         .getElementById("imageViewerCloseBtn")
         ?.addEventListener("click", closeImageViewer);
       window.addEventListener("click", (e) => {
-        const viewer = document.getElementById("imageViewer");
-        if (e.target === viewer) closeImageViewer();
+        const overlay = document.getElementById("imageViewer");
+        if (e.target === overlay) closeImageViewer();
       });
 
       function sortProjects() {
         const sortSelect = document.getElementById("sortSelect");
         const sortValue = sortSelect.value;
-        let sortedProjects = [...window.projectData];
-        if (!sortedProjects || sortedProjects.length === 0) {
-          console.warn("No project data available for sorting. Reloading...");
-          loadProjects();
+        let sortedProjects = [...(window.projectData || [])];
+
+        if (sortedProjects.length === 0) {
+          console.warn("No project data to sort.");
           return;
         }
+
         if (sortValue === "date") {
           sortedProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
         } else if (sortValue === "title") {
           sortedProjects.sort((a, b) => a.title.localeCompare(b.title));
         }
+
         renderProjectCards(sortedProjects);
       }
 
+      // Expose for inline usage in HTML
       window.sortProjects = sortProjects;
     </script>
+
+    <!-- External Dark Mode & Auto Mode Logic -->
     <script src="assets/script.js"></script>
   </body>
 </html>

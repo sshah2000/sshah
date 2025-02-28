@@ -1,67 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>My Dynamic Portfolio | About Me</title>
-    <meta
-      name="description"
-      content="Learn more about [Your Name], a passionate developer specializing in dynamic, user-friendly web experiences."
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="assets/style.css" />
-  </head>
-  <body>
-    <!-- Navbar (Updated with Auto Mode Button) -->
-    <header class="navbar" role="banner">
-      <div class="nav-content">
-        <div class="logo">MyPortfolio</div>
-        <nav class="menu" role="navigation">
-          <a href="index.html">Home</a>
-          <a href="about.html" class="active">About</a>
-          <a href="projects.html">Projects</a>
-          <a href="contact.html">Contact</a>
-        </nav>
+<head>
+  <meta charset="UTF-8">
+  <title>My Dynamic Portfolio | About Me</title>
+  <meta name="description" content="Learn more about [Your Name], a passionate developer specializing in dynamic, user-friendly web experiences.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<!-- Navbar (Updated with Auto Mode Button) -->
+<header class="navbar" role="banner">
+  <div class="nav-content">
+    <div class="logo">MyPortfolio</div>
+    <nav class="menu" role="navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html" class="active">About</a>
+      <a href="projects.html" >Projects</a>
+      <a href="contact.html">Contact</a>
+    </nav>
 
-        <!-- Dark Mode Toggle and Auto Mode Button -->
-        <div class="theme-controls">
-          <label class="switch">
-            <input
-              type="checkbox"
-              id="darkModeToggle"
-              aria-label="Toggle dark mode"
-            />
-            <span class="slider round"></span>
-          </label>
-          <button id="autoModeToggle" class="auto-switch">Auto</button>
-        </div>
-      </div>
-    </header>
+    <!-- Dark Mode Toggle and Auto Mode Button -->
+    <div class="theme-controls">
+      <label class="switch">
+        <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
+        <span class="slider round"></span>
+      </label>
+      <button id="autoModeToggle" class="auto-switch">Auto</button>
+    </div>
+  </div>
+</header>
 
-    <!-- About Section -->
-    <section class="page-section about-section">
-      <h2>About Me</h2>
-      <div class="about-content">
-        <!-- Updated image source to use an available image file; added lazy loading -->
-        <img
-          src="assets/images/IMG_0599.png"
-          alt="[Your Name] Photo"
-          class="about-photo"
-          loading="lazy"
-        />
-        <p>
-          Hello! my name is Shubh, a passionate developer dedicated to creating
-          dynamic, user-friendly web experiences. Skilled in both front-end and
-          back-end technologies, I strive to build elegant, maintainable
-          solutions.
-          <br /><br />
-          <strong>Key Skills:</strong> JavaScript, React, Node.js, Python, CSS,
-          and more. <br /><br />
-          Check out <a href="projects.html">Projects</a> to see some of my
-          innovative work.
-        </p>
-      </div>
-    </section>
+  <!-- About Section -->
+  <section class="page-section about-section">
+    <h2>About Me</h2>
+    <div class="about-content">
+      <!-- Updated image source to use an available image file; added lazy loading -->
+      <img src="assets/images/IMG_0599.png" alt="[Your Name] Photo" class="about-photo" loading="lazy">
+      <p>
+        Hello! my name is Shubh, a passionate developer dedicated to creating dynamic, user-friendly web experiences. Skilled in both front-end and back-end technologies, I strive to build elegant, maintainable solutions.
+        <br><br>
+        <strong>Key Skills:</strong> JavaScript, React, Node.js, Python, CSS, and more.
+        <br><br>
+        Check out my <a href="resume.pdf" target="_blank">Resume</a> for a comprehensive overview, or explore my <a href="projects.html">Projects</a> to see some of my innovative work.
+      </p>
+    </div>
+  </section>
 
-    <script src="assets/script.js"></script>
-  </body>
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <p>© 2025 MyDynamicPortfolio. All Rights Reserved.</p>
+  </footer>
+
+  <script src="assets/script.js"></script>
+</body>
 </html>

@@ -172,21 +172,24 @@ body.dark .auto-switch.active {
   justify-content: center;
   text-align: center;
   padding-top: 4rem;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* Blur overlay */
-              url("assets/images/image01.png") center/cover no-repeat; /* Default image */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    /* Blur overlay */ url("assets/images/image01.png") center/cover no-repeat; /* Default image */
   background-blend-mode: overlay;
   backdrop-filter: blur(10px); /* Blur effect for the background */
   animation: none; /* Remove slideshow animation, as it’s not in the screenshot */
 }
 
 .hero-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)); /* Dark overlay for text readability */
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.7)
+  ); /* Dark overlay for text readability */
   z-index: 1;
   backdrop-filter: blur(5px); /* Blur effect for text layer */
 }
@@ -240,8 +243,7 @@ body.dark .auto-switch.active {
 
 /* Dark Mode Adjustments for Hero Section */
 body.dark .hero-section {
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url("assets/images/image02.png") center/cover no-repeat;
   background-blend-mode: overlay;
   color: var(--dark-text);
@@ -267,8 +269,7 @@ body.dark .hero-buttons button:last-child {
 
 /* Light Mode Adjustments for Hero Section */
 body:not(.dark) .hero-section {
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+  background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
     url("assets/images/image01.png") center/cover no-repeat;
   color: var(--light-text);
 }
@@ -293,8 +294,7 @@ body:not(.dark) .hero-buttons button:last-child {
 
 /* Light Mode Adjustments for Hero Section */
 body:not(.dark) .hero-section {
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+  background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
     url("assets/images/image02.png") center/cover no-repeat;
   color: var(--light-text);
 }
@@ -602,7 +602,10 @@ body.dark .tablinks {
   line-height: 1.6;
   font-size: 1rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Desktop: 3 columns for thumbnail, title/date, description */
+  grid-template-columns: repeat(
+    3,
+    1fr
+  ); /* Desktop: 3 columns for thumbnail, title/date, description */
   gap: 1rem;
 }
 
@@ -741,7 +744,8 @@ body.dark .footer {
   }
 }
 
-@media (max-width: 900px) { /* Tablet */
+@media (max-width: 900px) {
+  /* Tablet */
   .modal-content {
     width: 90vw;
   }
@@ -757,7 +761,8 @@ body.dark .footer {
   }
 }
 
-@media (max-width: 480px) { /* Mobile */
+@media (max-width: 480px) {
+  /* Mobile */
   .modal-content {
     width: 95vw;
     padding: 1rem;
@@ -800,7 +805,6 @@ body.dark .featured-project-card img {
 .report-section a {
   transition: all 0.3s ease;
 }
-
 
 /* Enhanced Project Grid and Cards (Optional) */
 .enhanced-grid {
@@ -927,4 +931,29 @@ body.dark .enhanced-card {
   margin-left: 2.5rem;
   list-style-type: disc;
   margin-bottom: 1rem;
+}
+
+.detailed-view {
+  display: block; /* or none, if you’re toggling it */
+}
+
+.detailed-view h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.detailed-view p {
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.detailed-view ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.detailed-view li {
+  margin-bottom: 0.5rem;
 }
