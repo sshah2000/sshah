@@ -1,57 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>MyPortfolio | Contact</title>
-  <meta name="description" content="Get in touch with [Your Name] via the contact form.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
-<!-- Navbar (Updated with Auto Mode Button) -->
-<header class="navbar" role="banner">
-  <div class="nav-content">
-    <div class="logo">MyPortfolio</div>
-    <nav class="menu" role="navigation">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="projects.html">Projects</a>
-      <a href="contact.html"class="active">Contact</a>
-    </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <title>MyPortfolio | Contact</title>
+    <meta
+      name="description"
+      content="Get in touch with [Your Name] via the contact form."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <!-- Navbar (Updated with Auto Mode Button) -->
+    <header class="navbar" role="banner">
+      <div class="nav-content">
+        <div class="logo">MyPortfolio</div>
+        <nav class="menu" role="navigation">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="projects.html">Projects</a>
+          <a href="contact.html" class="active">Contact</a>
+        </nav>
 
-    <!-- Dark Mode Toggle and Auto Mode Button -->
-    <div class="theme-controls">
-      <label class="switch">
-        <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
-        <span class="slider round"></span>
-      </label>
-      <button id="autoModeToggle" class="auto-switch">Auto</button>
-    </div>
-  </div>
-</header>
+        <!-- Dark Mode Toggle and Auto Mode Button -->
+        <div class="theme-controls">
+          <label class="switch">
+            <input
+              type="checkbox"
+              id="darkModeToggle"
+              aria-label="Toggle dark mode"
+            />
+            <span class="slider round"></span>
+          </label>
+          <button id="autoModeToggle" class="auto-switch">Auto</button>
+        </div>
+      </div>
+    </header>
 
-  <!-- Contact Section -->
-  <section class="page-section contact-section">
-    <h2>Contact Me</h2>
-    <form class="contact-form" action="https://formspree.io/f/yourFormId" method="POST" novalidate>
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" required placeholder="Your Name">
+    <!-- Contact Section -->
+    <section class="page-section contact-section">
+      <h2>Contact Me</h2>
+      <form
+        class="contact-form"
+        action="https://formspree.io/f/yourFormId"
+        method="POST"
+        novalidate
+      >
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          placeholder="Your Name"
+        />
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="_replyto" required placeholder="Your Email">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="_replyto"
+          required
+          placeholder="Your Email"
+        />
 
-      <label for="message">Message</label>
-      <textarea id="message" name="message" rows="5" required placeholder="Your Message"></textarea>
+        <label for="message">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="5"
+          required
+          placeholder="Your Message"
+        ></textarea>
 
-      <button type="submit">Send</button>
-    </form>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer" role="contentinfo">
-    <p>© 2025 MyPortfolio. All Rights Reserved.</p>
-  </footer>
-
-  <script src="assets/script.js"></script>
-</body>
+        <button type="submit">Send</button>
+      </form>
+    </section>
+    <script src="assets/script.js"></script>
+  </body>
 </html>
