@@ -23,11 +23,9 @@
     openModal: function (project) {
       if (!modal) return;
       // Populate the detailed view elements
-      document.getElementById(
-        "modalIntroduction"
-      ).innerHTML = `This project, "${
-        project.title
-      }", utilizes ${project.technologies.join(", ")}.`;
+      document.getElementById("modalIntroduction").innerHTML = `<p>${
+        project.description || "No detailed description available."
+      }</p>`;
       document.getElementById("modalMethodology").innerHTML =
         project.methodology || "No methodology provided.";
       if (project.technologies && project.technologies.length) {

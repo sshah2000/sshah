@@ -1,4 +1,5 @@
 # .gitignore
+modal.html
 migrate.py
 app.py
 templates/

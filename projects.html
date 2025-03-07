@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>My Dynamic Portfolio | Projects</title>
+    <title>MyPortfolio | Projects</title>
     <meta
       name="description"
       content="Explore my projects, showcasing dynamic solutions and innovative code implementations."
@@ -186,9 +186,8 @@
         <div class="logo">MyPortfolio</div>
         <nav class="menu" role="navigation">
           <a href="index.html">Home</a>
-          <a href="about.html">About</a>
+          <a href="about.html">About Me (Contact)</a>
           <a href="projects.html" class="active">Projects</a>
-          <a href="contact.html">Contact</a>
         </nav>
         <div class="theme-controls">
           <label class="switch">
@@ -218,6 +217,10 @@
         <!-- Cards loaded dynamically -->
       </div>
     </section>
+
+    <footer class="footer" role="contentinfo">
+      <p>© 2025 Shubh Shah. All Rights Reserved.</p>
+    </footer>
 
     <!-- Modal for Project Details (Detailed View Only) -->
     <div id="projectModal" class="modal">
@@ -281,9 +284,9 @@
             <div class="card-content">
               <h3>${project.title}</h3>
               <p><strong>Date:</strong> ${project.date}</p>
-              <p>${(
-                project.description || "No description available."
-              ).substring(0, 100)}...</p>
+              <p>This project, "${
+                project.title
+              }", utilizes ${project.technologies.join(", ")}.</p>
             </div>
           `;
           card.addEventListener("click", () => openModal(project));
@@ -316,11 +319,9 @@
         const modal = document.getElementById("projectModal");
         if (!modal) return;
         // Populate Detailed View Sections directly
-        document.getElementById(
-          "modalIntroduction"
-        ).innerHTML = `This project, "${
-          project.title
-        }", utilizes ${project.technologies.join(", ")}.`;
+        document.getElementById("modalIntroduction").innerHTML = `<p>${
+          project.description || "No detailed description available."
+        }</p>`;
         document.getElementById("modalMethodology").innerHTML =
           project.methodology || "No methodology provided.";
         if (project.technologies && project.technologies.length) {
