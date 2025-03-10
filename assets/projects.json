@@ -112,5 +112,36 @@
         "file_type": "application/octet-stream"
       }
     ]
+  },
+  {
+    "id": 6,
+    "title": "Healthcare Clinic Simulation Analysis Utilizing Simio",
+    "date": "2024-12-15",
+    "description": "<p>This project involved simulating a healthcare clinic using Simio to analyze system capacity under varying patient arrival rates. The goal was to evaluate the clinic's performance with increased patient load and the impact of introducing a new patient type with a specific treatment pathway.</p>",
+    "methodology": "<ul>\r\n<li data-start=\"528\" data-end=\"859\">\r\n<p data-start=\"531\" data-end=\"560\"><strong data-start=\"531\" data-end=\"560\">Base Model Configuration:</strong></p>\r\n<ul data-start=\"564\" data-end=\"859\">\r\n<li data-start=\"564\" data-end=\"746\">Simulated the healthcare clinic's operations with predefined service times and capacities for each process (e.g., Registration, Triage, XRay, MRI, Treatment, Lab, EKG, Accounting).</li>\r\n<li data-start=\"750\" data-end=\"859\">Used random triangular distributions to model service times, reflecting variability in processing patients.</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"861\" data-end=\"1208\">\r\n<p data-start=\"864\" data-end=\"886\"><strong data-start=\"864\" data-end=\"886\">Scenario Analysis:</strong></p>\r\n<ul data-start=\"890\" data-end=\"1208\">\r\n<li data-start=\"890\" data-end=\"988\">Evaluated the clinic's ability to handle increased patient arrival rates of +5%, +10%, and +15%.</li>\r\n<li data-start=\"992\" data-end=\"1110\">Analyzed system performance metrics, including average time in the system and waiting times at each service station.</li>\r\n<li data-start=\"1114\" data-end=\"1208\">Conducted 100 replications per scenario, each running for 12 hours without a warm-up period.</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"1210\" data-end=\"1489\">\r\n<p data-start=\"1213\" data-end=\"1246\"><strong data-start=\"1213\" data-end=\"1246\">New Patient Type Integration:</strong></p>\r\n<ul data-start=\"1250\" data-end=\"1489\">\r\n<li data-start=\"1250\" data-end=\"1383\">Introduced \"LabAndTreatmentPatients\" with a specific routing schedule: Registration, Lab, Treatment, and Accounting before exiting.</li>\r\n<li data-start=\"1387\" data-end=\"1489\">Assessed system capacity with the new patient type under all four scenarios (Base, +5%, +10%, +15%).</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"1491\" data-end=\"1647\">\r\n<p data-start=\"1494\" data-end=\"1518\"><strong data-start=\"1494\" data-end=\"1518\">Performance Metrics:</strong></p>\r\n<ul data-start=\"1522\" data-end=\"1647\">\r\n<li data-start=\"1522\" data-end=\"1567\">Average time in the system by patient type.</li>\r\n<li data-start=\"1571\" data-end=\"1603\">Waiting times at each station.</li>\r\n<li data-start=\"1607\" data-end=\"1647\">Capacity utilization for each process.</li>\r\n</ul>\r\n</li>\r\n</ul>",
+    "thumbnail": "assets/images/Screenshot_2025-03-10_162746_1741649294.png",
+    "liveDemo": "",
+    "repoUrl": "",
+    "reportPdf": "",
+    "technologies": [
+      "Simio",
+      "Simulation Modeling",
+      "System Capacity Analysis",
+      "Statistical Performance Evaluation"
+    ],
+    "overview": {
+      "story": "<p>The healthcare clinic aimed to improve patient flow and reduce waiting times while preparing for potential increases in patient arrivals. The simulation provided insights into the clinic's current capacity and the potential impact of adding new patient types. By evaluating different arrival rate scenarios, the study helped identify bottlenecks and guide staffing or process adjustments to maintain service quality.</p>",
+      "collectedData": "<ul>\r\n<li data-start=\"2226\" data-end=\"2571\">\r\n<p data-start=\"2228\" data-end=\"2259\"><strong data-start=\"2228\" data-end=\"2259\">Service Time Distributions:</strong></p>\r\n<ul data-start=\"2262\" data-end=\"2571\">\r\n<li data-start=\"2262\" data-end=\"2302\">Registration: Random.Triangular(1,2,3)</li>\r\n<li data-start=\"2305\" data-end=\"2339\">Triage: Random.Triangular(3,5,7)</li>\r\n<li data-start=\"2342\" data-end=\"2376\">XRay: Random.Triangular(8,10,12)</li>\r\n<li data-start=\"2379\" data-end=\"2413\">MRI: Random.Triangular(14,18,22)</li>\r\n<li data-start=\"2416\" data-end=\"2457\">Treatment: Random.Triangular(7,10.5,14)</li>\r\n<li data-start=\"2460\" data-end=\"2493\">Lab: Random.Triangular(6,10,14)</li>\r\n<li data-start=\"2496\" data-end=\"2530\">EKG: Random.Triangular(20,25,30)</li>\r\n<li data-start=\"2533\" data-end=\"2571\">Accounting: Random.Triangular(2,5,8)</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"2573\" data-end=\"2792\">\r\n<p data-start=\"2575\" data-end=\"2601\"><strong data-start=\"2575\" data-end=\"2601\">Patient Arrival Rates:</strong></p>\r\n<ul data-start=\"2604\" data-end=\"2792\">\r\n<li data-start=\"2604\" data-end=\"2698\">Base Case: Mean inter-arrival times ranging from 3 to 30 minutes, depending on patient type.</li>\r\n<li data-start=\"2701\" data-end=\"2792\">Increased patient arrival rates reduced the average time between arrivals proportionally.</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"2794\" data-end=\"3019\">\r\n<p data-start=\"2796\" data-end=\"2819\"><strong data-start=\"2796\" data-end=\"2819\">System Performance:</strong></p>\r\n<ul data-start=\"2822\" data-end=\"3019\">\r\n<li data-start=\"2822\" data-end=\"2905\">Analyzed the system's ability to handle increased loads without excessive delays.</li>\r\n<li data-start=\"2908\" data-end=\"3019\">Identified potential process improvements, especially for high-traffic areas like Registration and Treatment.</li>\r\n</ul>\r\n</li>\r\n</ul>",
+      "conclusions": "<ul>\r\n<li data-start=\"3049\" data-end=\"3147\">The system could handle a +5% increase in patient arrivals with minimal impact on waiting times.</li>\r\n<li data-start=\"3148\" data-end=\"3268\">At +10% and +15% increases, significant delays occurred, particularly in high-demand processes like Treatment and Lab.</li>\r\n<li data-start=\"3269\" data-end=\"3394\">The introduction of \"LabAndTreatmentPatients\" required additional capacity, particularly in the Lab and Treatment stations.</li>\r\n<li data-start=\"3395\" data-end=\"3498\">Recommended adding capacity or optimizing patient routing to maintain performance under higher loads.</li>\r\n</ul>"
+    },
+    "codeFiles": [],
+    "resources": [
+      {
+        "name": "healthcare",
+        "category": "",
+        "file_path": "assets/files/Assignment8.1_1741649294.spfx",
+        "file_type": "application/octet-stream"
+      }
+    ]
   }
 ]
