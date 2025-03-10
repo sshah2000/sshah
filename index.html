@@ -10,11 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="assets/style.css" />
     <style>
-      /* Enhanced CSS (same as before, with tweaks for boxed project cards) */
+      /* Enhanced CSS with Modal and Dark Mode Fixes */
       body {
         margin: 0;
         font-family: "Arial", sans-serif;
         background: #f9f9f9;
+        transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
       }
 
       /* Hero Section Background for Light Mode */
@@ -170,38 +171,90 @@
         }
       }
 
-      /* Dark Mode Adjustments for Home Page */
+      /* Modal Styles (Copied from projects.html) */
+      .modal {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 2000;
+        justify-content: center;
+        align-items: center;
+      }
+      .modal-content {
+        width: 800px;
+        max-height: 90vh;
+        overflow-y: auto;
+        background-color: #fff;
+        color: #333;
+        border: 1px solid #dcdcdc;
+        border-radius: 8px;
+        padding: 2rem;
+        position: relative;
+      }
+      .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: #333;
+      }
+      .detailed-view {
+        display: block;
+      }
+      .detailed-view h3 {
+        margin: 1rem 0 0.5rem;
+        font-size: 1.25rem;
+        font-weight: bold;
+        text-decoration: underline;
+      }
+      .detailed-view p {
+        line-height: 1.5;
+        margin-bottom: 1rem;
+      }
+      .detailed-view ul {
+        margin-left: 1.5rem;
+        margin-bottom: 1rem;
+      }
+      .detailed-view li {
+        margin-bottom: 0.5rem;
+      }
+
+      /* Dark Mode Adjustments (Explicit Values Matching projects.html) */
       body.dark {
-        background-color: var(--dark-bg);
+        background-color: #1e1e1e;
+        color: #f0f0f0;
       }
       body.dark .summary-section {
-        background-color: var(--dark-bg);
-        color: var(--dark-text);
+        background-color: #1e1e1e;
+        color: #f0f0f0;
       }
       body.dark .summary-section p {
-        color: var(--dark-text);
+        color: #f0f0f0;
       }
       body.dark .projects-teaser {
-        background-color: var(--dark-bg);
-        color: var(--dark-text);
+        background-color: #1e1e1e;
+        color: #f0f0f0;
       }
       body.dark .projects-grid .project-card {
-        background-color: var(--modal-bg-dark);
-        color: var(--dark-text);
+        background-color: #2a2a2a; /* Matches projects.html */
+        color: #f0f0f0;
+        border: 1px solid #444; /* Matches projects.html */
       }
       body.dark .projects-grid .project-card h3 {
-        color: var(--dark-text);
+        color: #f0f0f0; /* Matches projects.html */
       }
       body.dark .projects-grid .project-card p {
-        color: var(--gray-light);
+        color: #ccc; /* Matches projects.html */
       }
       body.dark .hero-section::before {
-        background: rgba(
-          0,
-          0,
-          0,
-          0.1
-        ); /* Darker glassmorphism overlay for dark mode */
+        background: rgba(0, 0, 0, 0.1); /* Darker glassmorphism overlay */
       }
       body.dark .hero-buttons button {
         color: #fff;
@@ -212,10 +265,18 @@
         color: #007acc;
         border: 2px solid #007acc;
       }
+      body.dark .modal-content {
+        background-color: #2a2a2a; /* Matches projects.html */
+        color: #f0f0f0;
+        border: 1px solid #444; /* Matches projects.html */
+      }
+      body.dark .close-btn {
+        color: #f0f0f0; /* Matches projects.html */
+      }
     </style>
   </head>
   <body>
-    <!-- Navbar (Updated with Auto Mode Button) -->
+    <!-- Navbar -->
     <header class="navbar" role="banner">
       <div class="nav-content">
         <div class="logo">MyPortfolio</div>
@@ -224,8 +285,6 @@
           <a href="about.html">About Me (Contact)</a>
           <a href="projects.html">Projects</a>
         </nav>
-
-        <!-- Dark Mode Toggle and Auto Mode Button -->
         <div class="theme-controls">
           <label class="switch">
             <input
@@ -239,6 +298,7 @@
         </div>
       </div>
     </header>
+
     <!-- Hero Section -->
     <section class="hero-section">
       <div class="hero-container">
@@ -272,59 +332,164 @@
       </p>
     </section>
 
-    <!-- Recent Projects Section (Boxed, Compact Cards with Thumbnail) -->
+    <!-- Recent Projects Section -->
     <section class="projects-teaser">
       <h2>Recent Projects</h2>
       <div class="projects-grid" id="recentProjects"></div>
     </section>
 
-    <!-- JavaScript to Load Top 3 Unique Recent Projects from JSON -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        fetch("assets/projects.json")
-          .then((response) => response.json())
-          .then((projects) => {
-            // Filter to ensure unique projects by ID
-            const uniqueProjects = projects.filter(
-              (project, index, self) =>
-                index === self.findIndex((p) => p.id === project.id)
-            );
-            // Sort unique projects by date (assuming date is in 'YYYY-MM-DD' format) in descending order
-            uniqueProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
-            // Take the top 3 most recent unique projects
-            const recent = uniqueProjects.slice(0, 3);
-            const container = document.getElementById("recentProjects");
-            container.innerHTML = ""; // Clear any existing content
-            recent.forEach((project) => {
-              const card = document.createElement("div");
-              card.className = "project-card";
-              card.innerHTML = `
-              <img src="${
-                project.thumbnail || "assets/images/default.png"
-              }" alt="${project.title} Thumbnail">
-              <h3>${project.title}</h3>
-              <p><strong>Date:</strong> ${project.date}</p>
-              <p>${(
-                project.description || "No description available."
-              ).substring(0, 100)}...</p>
-            `;
-              // Add click event to navigate to projects.html with project ID
-              card.addEventListener("click", () => {
-                window.location.href = `projects.html#${project.id}`;
-              });
-              container.appendChild(card);
-            });
-          })
-          .catch((error) => {
-            console.error("Error loading projects:", error);
-            document.getElementById("recentProjects").innerHTML =
-              "<p>Unable to load recent projects at this time.</p>";
-          });
-      });
-    </script>
-    <script src="assets/script.js"></script>
+    <!-- Modal for Project Details -->
+    <div id="projectModal" class="modal">
+      <div class="modal-content">
+        <button class="close-btn" id="modalCloseBtn">×</button>
+        <div class="detailed-view">
+          <h3>Introduction</h3>
+          <p id="modalIntroduction"></p>
+          <h3>Methodology</h3>
+          <div id="modalMethodology"></div>
+          <h3>Technologies</h3>
+          <ul id="modalTechnologies"></ul>
+          <h3>Study Background</h3>
+          <p id="modalStory"></p>
+          <h3>Collected Data</h3>
+          <p id="modalCollectedData"></p>
+          <h3>Conclusion</h3>
+          <p id="modalConclusions"></p>
+          <h3>Additional Resources</h3>
+          <ul id="modalResources"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
     <footer class="footer" role="contentinfo">
       <p>© 2025 Shubh Shah. All Rights Reserved.</p>
     </footer>
+
+    <!-- JavaScript to Load Top 3 Recent Projects and Open Modals -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        loadRecentProjects();
+      });
+
+      async function loadRecentProjects() {
+        try {
+          // Cache-busting to ensure fresh data
+          const response = await fetch(
+            `assets/projects.json?t=${new Date().getTime()}`
+          );
+          if (!response.ok)
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          const projects = await response.json();
+          console.log("Fetched projects:", projects); // Debug: Check data
+
+          // Filter unique projects by ID
+          const uniqueProjects = projects.filter(
+            (p, i, self) => i === self.findIndex((t) => t.id === p.id)
+          );
+          // Sort by date descending
+          uniqueProjects.sort((a, b) => new Date(b.date) - new Date(a.date));
+          console.log("Sorted projects:", uniqueProjects); // Debug: Check sorting
+          // Take top 3
+          const recentProjects = uniqueProjects.slice(0, 3);
+          console.log("Top 3 recent projects:", recentProjects); // Debug: Verify top 3
+
+          if (recentProjects.length === 0)
+            throw new Error("No projects found.");
+          renderRecentProjects(recentProjects);
+        } catch (error) {
+          console.error("Error loading recent projects:", error);
+          document.getElementById(
+            "recentProjects"
+          ).innerHTML = `<p>Failed to load projects: ${error.message}</p>`;
+        }
+      }
+
+      function renderRecentProjects(projects) {
+        const container = document.getElementById("recentProjects");
+        if (!container) {
+          console.error("Container #recentProjects not found.");
+          return;
+        }
+        container.innerHTML = ""; // Clear previous content
+        projects.forEach((project) => {
+          const card = document.createElement("div");
+          card.className = "project-card";
+          card.innerHTML = `
+            <img src="${
+              project.thumbnail || "assets/images/default.png"
+            }" alt="${project.title} Thumbnail">
+            <h3>${project.title || "Untitled Project"}</h3>
+            <p><strong>Date:</strong> ${project.date || "N/A"}</p>
+            <p>${(project.description || "No description available.").substring(
+              0,
+              100
+            )}...</p>
+          `;
+          card.addEventListener("click", () => openModal(project));
+          container.appendChild(card);
+        });
+      }
+
+      function openModal(project) {
+        const modal = document.getElementById("projectModal");
+        if (!modal) {
+          console.error("Modal #projectModal not found.");
+          return;
+        }
+
+        // Populate modal content
+        document.getElementById("modalIntroduction").innerHTML =
+          project.description || "No detailed description available.";
+        document.getElementById("modalMethodology").innerHTML =
+          project.methodology || "No methodology provided.";
+        document.getElementById("modalTechnologies").innerHTML =
+          project.technologies && project.technologies.length
+            ? project.technologies.map((tech) => `<li>${tech}</li>`).join("")
+            : "<li>No technologies listed</li>";
+        document.getElementById("modalStory").innerHTML =
+          project.overview?.story || "No background provided.";
+        document.getElementById("modalCollectedData").innerHTML =
+          project.overview?.collectedData || "No data collected.";
+        document.getElementById("modalConclusions").innerHTML =
+          project.overview?.conclusions || "No conclusions provided.";
+        document.getElementById("modalResources").innerHTML =
+          project.resources && project.resources.length
+            ? project.resources
+                .map(
+                  (resource) => `
+                    <li>
+                      <strong>${resource.name || "Resource"}</strong> (${
+                    resource.category || "N/A"
+                  }) – 
+                      <a href="${
+                        resource.file_path || "#"
+                      }" target="_blank">View</a> / 
+                      <a href="${
+                        resource.file_path || "#"
+                      }" download>Download</a>
+                    </li>`
+                )
+                .join("")
+            : "<li>No additional resources available.</li>";
+
+        modal.style.display = "flex"; // Show the modal
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("projectModal");
+        if (modal) modal.style.display = "none";
+      }
+
+      // Event listeners for closing the modal
+      document
+        .getElementById("modalCloseBtn")
+        ?.addEventListener("click", closeModal);
+      window.addEventListener("click", (e) => {
+        const modal = document.getElementById("projectModal");
+        if (e.target === modal) closeModal();
+      });
+    </script>
+    <script src="assets/script.js"></script>
   </body>
 </html>

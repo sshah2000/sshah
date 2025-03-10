@@ -253,9 +253,14 @@
 
       async function loadProjects() {
         try {
-          const response = await fetch("assets/projects.json");
-          if (!response.ok) throw new Error("Network response was not ok");
+          // Add cache-busting query parameter
+          const response = await fetch(
+            `assets/projects.json?t=${new Date().getTime()}`
+          );
+          if (!response.ok)
+            throw new Error("Network response was not ok " + response.status);
           const projects = await response.json();
+          console.log("Fetched projects:", projects); // Debug log
           const uniqueProjects = projects.filter(
             (p, i, self) => i === self.findIndex((t) => t.id === p.id)
           );
@@ -265,7 +270,9 @@
         } catch (error) {
           console.error("Error loading projects:", error);
           document.getElementById("projectCardsContainer").innerHTML =
-            "<p>Unable to load projects at this time.</p>";
+            "<p>Unable to load projects at this time. Error: " +
+            error.message +
+            "</p>";
         }
       }
 
@@ -284,9 +291,9 @@
             <div class="card-content">
               <h3>${project.title}</h3>
               <p><strong>Date:</strong> ${project.date}</p>
-              <p>This project, "${
-                project.title
-              }", utilizes ${project.technologies.join(", ")}.</p>
+              <p>This project, "${project.title}", utilizes ${
+            project.technologies.join(", ") || "various technologies"
+          }.</p>
             </div>
           `;
           card.addEventListener("click", () => openModal(project));
@@ -412,6 +419,8 @@
       }
 
       window.sortProjects = sortProjects;
+      // Poll for updates every 10 seconds
+      setInterval(loadProjects, 10000);
     </script>
     <script src="assets/script.js"></script>
   </body>
