@@ -143,5 +143,43 @@
         "file_type": "application/octet-stream"
       }
     ]
+  },
+  {
+    "id": 7,
+    "title": "Clustering Analysis and Market Basket Analysis Using R",
+    "date": "2024-11-19",
+    "description": "<p>This project utilized the Iris dataset for clustering analysis using K-means and hierarchical methods and performed market basket analysis on grocery transaction data using association rule mining. The goal was to uncover patterns in customer purchasing behavior and identify meaningful clusters within the Iris dataset.</p>",
+    "methodology": "<h4 data-start=\"575\" data-end=\"603\">1. Clustering Analysis:</h4>\r\n<ul data-start=\"604\" data-end=\"1179\">\r\n<li data-start=\"604\" data-end=\"679\"><strong data-start=\"606\" data-end=\"618\">Dataset:</strong> The Iris dataset with a random sample of 90% of data points.</li>\r\n<li data-start=\"680\" data-end=\"869\"><strong data-start=\"682\" data-end=\"705\">K-means Clustering:</strong>\r\n<ul data-start=\"708\" data-end=\"869\">\r\n<li data-start=\"708\" data-end=\"763\">Applied K-means clustering with a 5-cluster solution.</li>\r\n<li data-start=\"766\" data-end=\"869\">Visualized cluster centers and distribution using <code data-start=\"818\" data-end=\"831\">plotcluster</code> and analyzed cluster characteristics.</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"870\" data-end=\"1179\"><strong data-start=\"872\" data-end=\"900\">Hierarchical Clustering:</strong>\r\n<ul data-start=\"903\" data-end=\"1179\">\r\n<li data-start=\"903\" data-end=\"986\">Utilized Ward's method to calculate Euclidean distances and produce a dendrogram.</li>\r\n<li data-start=\"989\" data-end=\"1082\">Analyzed clustering behavior with 2 and 3 cuts to understand how the data groups naturally.</li>\r\n<li data-start=\"1085\" data-end=\"1179\">Found that clustering by size produced groups representing large, medium, and small flowers.</li>\r\n</ul>\r\n</li>\r\n</ul>\r\n<h4 data-start=\"1181\" data-end=\"1212\">2. Market Basket Analysis:</h4>\r\n<ul data-start=\"1213\" data-end=\"1887\">\r\n<li data-start=\"1213\" data-end=\"1287\"><strong data-start=\"1215\" data-end=\"1227\">Dataset:</strong> Groceries data containing 9,835 transactions and 169 items.</li>\r\n<li data-start=\"1288\" data-end=\"1486\"><strong data-start=\"1290\" data-end=\"1311\">Data Exploration:</strong>\r\n<ul data-start=\"1314\" data-end=\"1486\">\r\n<li data-start=\"1314\" data-end=\"1405\">Found \"whole milk\" as the most frequently purchased item, present in 25% of transactions.</li>\r\n<li data-start=\"1408\" data-end=\"1486\">The average transaction included 4.4 items, with the maximum being 32 items.</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"1487\" data-end=\"1887\"><strong data-start=\"1489\" data-end=\"1517\">Association Rule Mining:</strong>\r\n<ul data-start=\"1520\" data-end=\"1887\">\r\n<li data-start=\"1520\" data-end=\"1621\">Generated association rules with Apriori algorithm under varying support and confidence thresholds.</li>\r\n<li data-start=\"1624\" data-end=\"1703\">Initial settings (0.1% support, 1% confidence) resulted in over 40,000 rules.</li>\r\n<li data-start=\"1706\" data-end=\"1796\">Adjusted parameters to 2.5% support and 10% confidence, reducing to 75 meaningful rules.</li>\r\n<li data-start=\"1799\" data-end=\"1887\">Evaluated rules based on lift and confidence to identify strong purchase correlations.</li>\r\n</ul>\r\n</li>\r\n</ul>",
+    "thumbnail": "assets/images/Screenshot_2025-03-10_165243_1741650781.png",
+    "liveDemo": "",
+    "repoUrl": "",
+    "reportPdf": "",
+    "technologies": [
+      "R",
+      "K-means Clustering",
+      "Hierarchical Clustering",
+      "Association Rule Mining",
+      "Data Visualization"
+    ],
+    "overview": {
+      "story": "<p>The project aimed to demonstrate clustering techniques on the Iris dataset and discover patterns in grocery shopping behavior through association rule mining. The clustering analysis helped visualize how flower species could be grouped based on physical attributes, while the market basket analysis identified frequent product pairings to enhance marketing strategies.</p>",
+      "collectedData": "<ul>\r\n<li data-start=\"2421\" data-end=\"2686\">\r\n<p data-start=\"2423\" data-end=\"2447\"><strong data-start=\"2423\" data-end=\"2447\">Clustering Findings:</strong></p>\r\n<ul data-start=\"2450\" data-end=\"2686\">\r\n<li data-start=\"2450\" data-end=\"2534\">K-means analysis produced 5 distinct clusters with specific species distributions.</li>\r\n<li data-start=\"2537\" data-end=\"2686\">Hierarchical clustering revealed how the dataset could be split into larger or smaller groups, showing flexibility in interpreting cluster results.</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"2688\" data-end=\"2964\">\r\n<p data-start=\"2690\" data-end=\"2717\"><strong data-start=\"2690\" data-end=\"2717\">Market Basket Analysis:</strong></p>\r\n<ul data-start=\"2720\" data-end=\"2964\">\r\n<li data-start=\"2720\" data-end=\"2836\">The strongest association rule found was between \"root vegetables\" and \"other vegetables,\" showing a lift of 2.25.</li>\r\n<li data-start=\"2839\" data-end=\"2964\">Rules indicated that buying specific items, like \"curd,\" increases the likelihood of purchasing \"whole milk\" by 1.92 times.</li>\r\n</ul>\r\n</li>\r\n</ul>",
+      "conclusions": "<ul>\r\n<li data-start=\"2994\" data-end=\"3122\">Clustering analysis showed the Iris dataset could be effectively segmented by size, with clear groupings between flower types.</li>\r\n<li data-start=\"3123\" data-end=\"3287\">Market basket analysis revealed valuable insights for grocery retail, highlighting strong product affinities that could inform promotions or store layout designs.</li>\r\n<li data-start=\"3288\" data-end=\"3423\">The project demonstrated the effectiveness of clustering and association rule techniques in extracting actionable insights from data.</li>\r\n</ul>"
+    },
+    "codeFiles": [],
+    "resources": [
+      {
+        "name": "case5",
+        "category": "Code Samples",
+        "file_path": "assets/files/Case5_1741650781.R",
+        "file_type": "application/octet-stream"
+      },
+      {
+        "name": "case5_report",
+        "category": "Reports",
+        "file_path": "assets/files/CaseStudy5_1741650781.docx",
+        "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      }
+    ]
   }
 ]
