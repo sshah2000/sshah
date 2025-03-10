@@ -81,5 +81,36 @@
         "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       }
     ]
+  },
+  {
+    "id": 5,
+    "title": "Simulation Analysis of Driver\u2019s License Facility Using Simio",
+    "date": "2024-12-01",
+    "description": "<p>This project involved simulating a driver's license facility using Simio to analyze server utilization, system performance, and the impact of proposed modifications on exam processing times. The goal was to optimize the facility's operations by evaluating different exam scheduling scenarios and routing strategies.</p>",
+    "methodology": "<ul>\r\n<li data-start=\"566\" data-end=\"860\">\r\n<ul>\r\n<li data-start=\"566\" data-end=\"860\">\r\n<p data-start=\"569\" data-end=\"595\"><strong data-start=\"569\" data-end=\"595\">Current Configuration:</strong></p>\r\n<ul data-start=\"599\" data-end=\"860\">\r\n<li data-start=\"599\" data-end=\"749\">Simulated the facility's current operations with server utilization metrics for check-in, manual exams, computerized exams, and check-out processes.</li>\r\n<li data-start=\"753\" data-end=\"860\">Collected baseline data over 25 replications, each running for 1000 hours with a 500-hour warm-up period.</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"862\" data-end=\"1299\">\r\n<p data-start=\"865\" data-end=\"892\">Simio, Simulation Modeling, Statistical Analysis, Optimization<strong data-start=\"865\" data-end=\"892\">Proposed Modifications:</strong></p>\r\n<ul data-start=\"896\" data-end=\"1299\">\r\n<li data-start=\"896\" data-end=\"988\"><strong data-start=\"898\" data-end=\"913\">Proposed A:</strong> Applied exponentially distributed exam times with Random.Exponential(8.8).</li>\r\n<li data-start=\"992\" data-end=\"1174\"><strong data-start=\"994\" data-end=\"1009\">Proposed B:</strong> Implemented reduced variance using triangular and uniform distributions:\r\n<ul data-start=\"1088\" data-end=\"1174\">\r\n<li data-start=\"1088\" data-end=\"1129\">Manual: Random.Triangular(6, 8.8, 11.6)</li>\r\n<li data-start=\"1135\" data-end=\"1174\">Computerized: Random.Uniform(6, 11.6)</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"1178\" data-end=\"1299\"><strong data-start=\"1180\" data-end=\"1195\">Proposed C:</strong> Combined reduced variance with a 70% allocation to the computerized exam kiosk using Selection Weights.</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"1301\" data-end=\"1509\">\r\n<p data-start=\"1304\" data-end=\"1328\"><strong data-start=\"1304\" data-end=\"1328\">Performance Metrics:</strong></p>\r\n<ul data-start=\"1332\" data-end=\"1509\">\r\n<li data-start=\"1332\" data-end=\"1385\">Server utilization rates for each processing stage.</li>\r\n<li data-start=\"1389\" data-end=\"1433\">Average number of customers in the system.</li>\r\n<li data-start=\"1437\" data-end=\"1509\">Average time spent in the system with confidence interval half-widths.</li>\r\n</ul>\r\n</li>\r\n</ul>\r\n</li>\r\n</ul>",
+    "thumbnail": "assets/images/Screenshot_2025-03-10_160633_1741648256.png",
+    "liveDemo": "",
+    "repoUrl": "",
+    "reportPdf": "",
+    "technologies": [
+      "Simio",
+      "Simulation Modeling",
+      "Statistical Analysis",
+      "Optimization"
+    ],
+    "overview": {
+      "story": "<p>The driver's license facility faced challenges with balancing manual and computerized exam processing times. The project aimed to enhance customer flow and reduce waiting times through advanced simulation techniques. By testing different configurations in Simio, the study provided insights into how distribution changes and optimized routing could improve operational efficiency.</p>",
+      "collectedData": "<ul>\r\n<li data-start=\"2026\" data-end=\"2111\"><strong data-start=\"2028\" data-end=\"2054\">Simulation Parameters:</strong> 25 replications, 1000-hour runs with a 500-hour warm-up.</li>\r\n<li data-start=\"2112\" data-end=\"2303\"><strong data-start=\"2114\" data-end=\"2138\">Distribution Models:</strong>\r\n<ul data-start=\"2141\" data-end=\"2303\">\r\n<li data-start=\"2141\" data-end=\"2209\">Exponential, Triangular, and Uniform distributions for exam times.</li>\r\n<li data-start=\"2212\" data-end=\"2303\">Selection Weights applied to route 70% of customers to computerized kiosks in Proposed C.</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"2304\" data-end=\"2606\"><strong data-start=\"2306\" data-end=\"2330\">Performance Metrics:</strong>\r\n<ul data-start=\"2333\" data-end=\"2606\">\r\n<li data-start=\"2333\" data-end=\"2494\">Server Utilization:\r\n<ul data-start=\"2359\" data-end=\"2494\">\r\n<li data-start=\"2359\" data-end=\"2375\">Check-In: ~83%</li>\r\n<li data-start=\"2380\" data-end=\"2399\">Manual Exam: ~73%</li>\r\n<li data-start=\"2404\" data-end=\"2472\">Computerized Exam: N/A in current, optimized in proposed scenarios</li>\r\n<li data-start=\"2477\" data-end=\"2494\">Check-Out: ~75%</li>\r\n</ul>\r\n</li>\r\n<li data-start=\"2497\" data-end=\"2606\">System Performance:\r\n<ul data-start=\"2523\" data-end=\"2606\">\r\n<li data-start=\"2523\" data-end=\"2546\">Number in System: ~11</li>\r\n<li data-start=\"2551\" data-end=\"2606\">Time in System: ~69 minutes (varied across scenarios)</li>\r\n</ul>\r\n</li>\r\n</ul>\r\n</li>\r\n</ul>",
+      "conclusions": "<ul>\r\n<li data-start=\"2636\" data-end=\"2728\"><strong data-start=\"2638\" data-end=\"2653\">Proposed A:</strong> Showed marginal improvement but increased variability in processing times.</li>\r\n<li data-start=\"2729\" data-end=\"2834\"><strong data-start=\"2731\" data-end=\"2746\">Proposed B:</strong> Reduced variability effectively, enhancing the stability of server utilization metrics.</li>\r\n<li data-start=\"2835\" data-end=\"2950\"><strong data-start=\"2837\" data-end=\"2852\">Proposed C:</strong> The best performing scenario, achieving balanced load distribution and improved processing times.</li>\r\n<li data-start=\"2951\" data-end=\"3122\">The use of a 70% routing strategy to the computerized exam kiosks significantly reduced manual exam bottlenecks, demonstrating the value of targeted operational changes.</li>\r\n</ul>"
+    },
+    "codeFiles": [],
+    "resources": [
+      {
+        "name": "assignment_6_dl",
+        "category": "Reference Materials",
+        "file_path": "assets/files/Assignment6_1741648256.spfx",
+        "file_type": "application/octet-stream"
+      }
+    ]
   }
 ]
