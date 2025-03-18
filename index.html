@@ -34,6 +34,7 @@
       body.dark .hero-section {
         background: url("assets/images/nighttime.jpg") center/cover no-repeat !important;
       }
+
       .hero-section::before {
         content: "";
         position: absolute;
@@ -41,14 +42,14 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0);
         backdrop-filter: blur(10px);
         z-index: 1;
       }
       .hero-container {
         position: relative;
         z-index: 2;
-        color: #333;
+        color: #000;
         max-width: 800px;
       }
       .hero-container h1 {
@@ -59,7 +60,7 @@
       .hero-container h3 {
         font-size: 1.5rem;
         margin: 0.5rem 0;
-        color: #e0e0e0;
+        color: #000;
       }
       .hero-container p {
         font-size: 1.2rem;
@@ -272,6 +273,22 @@
       }
       body.dark .close-btn {
         color: #f0f0f0; /* Matches projects.html */
+      }
+
+      body:not(.dark) .hero-section {
+        /* Retain your background image settings */
+        background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+          url("assets/images/image01.png") center/cover no-repeat;
+        color: var(--light-text);
+      }
+
+      /* Force hero container text to be black in light mode */
+      body:not(.dark) .hero-container,
+      body:not(.dark) .hero-container h1,
+      body:not(.dark) .hero-container h3,
+      body:not(.dark) .hero-container p {
+        color: #000 !important; /* Black text for light mode */
+        text-shadow: none; /* Remove any text shadow */
       }
     </style>
   </head>
