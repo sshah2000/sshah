@@ -347,16 +347,21 @@
         if (project.resources && project.resources.length) {
           document.getElementById("modalResources").innerHTML =
             project.resources
-              .map(
-                (resource) => `
+              .map((resource) => {
+                // Construct GitHub view URL for the file
+                const viewUrl = `https://github.com/sshah2000/sshah/blob/main/${resource.file_path}`;
+                // Construct raw URL for downloading
+                const rawUrl = `https://raw.githubusercontent.com/sshah2000/sshah/main/${resource.file_path}`;
+
+                return `
     <li>
         <strong>${resource.name}</strong> (${resource.category}) – 
-        <a href="https://raw.githubusercontent.com/sshah2000/sshah/main/assets/files/obesity_1740525911.csv" target="_blank">View</a>
+        <a href="${viewUrl}" target="_blank">View</a>
  / 
-        <a href="${resource.file_path}" download>Download</a>
+        <a href="${rawUrl}" download>Download</a>
     </li>
-`
-              )
+`;
+              })
               .join("");
         } else {
           document.getElementById("modalResources").innerHTML =
